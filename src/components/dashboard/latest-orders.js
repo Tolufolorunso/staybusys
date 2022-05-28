@@ -250,6 +250,7 @@ export const LatestOrders = (props) => {
     rowsPerPage - Math.min(rowsPerPage, orders.length - page * rowsPerPage);
 
   return (
+    <>
 <Card style={{borderRadius:"22px",boxShadow: '-5px 5px 20px rgba(51, 60, 193, 0.16)'}} {...props}>
     <CardHeader title="Your Earnings" />
     <PerfectScrollbar>
@@ -308,7 +309,9 @@ export const LatestOrders = (props) => {
         </Table>
       </Box>
     </PerfectScrollbar>
-    <Box
+   
+  </Card>
+  <Box
       sx={{
         display: 'flex',
         justifyContent: 'flex-end',
@@ -329,7 +332,7 @@ export const LatestOrders = (props) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Box>
-  </Card>
+  </>
   );
 }
   

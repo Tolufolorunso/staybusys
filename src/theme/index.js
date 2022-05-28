@@ -63,6 +63,7 @@ export const theme = createTheme({
           margin:"0px !important",
           borderRadius:"0px",
           border: '1px solid #E8E9EC',
+          backgroundColor:"#fff",
 
           "&.Mui-selected":{
             backgroundColor:"#FF6685 !important",
