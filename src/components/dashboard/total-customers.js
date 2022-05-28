@@ -8,58 +8,29 @@ export const TotalCustomers = (props) => (
       <Grid
         container
         spacing={3}
-        sx={{ justifyContent: 'space-between' }}
+      
       >
+        <Grid item>
+          <img src="../../task1.svg" />
+        </Grid>
         <Grid item>
           <Typography
             color="textSecondary"
             gutterBottom
             variant="overline"
           >
-            TOTAL CUSTOMERS
+            Tasks Completed
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            1,6k
+            238
           </Typography>
         </Grid>
-        <Grid item>
-          <Avatar
-            sx={{
-              backgroundColor: 'success.main',
-              height: 56,
-              width: 56
-            }}
-          >
-            <PeopleIcon />
-          </Avatar>
-        </Grid>
+        
       </Grid>
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          pt: 2
-        }}
-      >
-        <ArrowUpwardIcon color="success" />
-        <Typography
-          variant="body2"
-          sx={{
-            mr: 1
-          }}
-        >
-          16%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography>
-      </Box>
+     
     </CardContent>
   </Card>
 );

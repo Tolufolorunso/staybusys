@@ -56,6 +56,31 @@ export const theme = createTheme({
         }
       }
     },
+    
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          margin:"0px !important",
+          borderRadius:"0px",
+          border: '1px solid #E8E9EC',
+
+          "&.Mui-selected":{
+            backgroundColor:"#FF6685 !important",
+            color:'white'
+          },
+          
+        },
+        ellipsis: {
+          height:"32px !important",
+        },
+        previousNext: {
+            borderRadius:"4px !important"
+        }
+       
+      }
+    },
+
+    
     MuiCardHeader: {
       defaultProps: {
         titleTypographyProps: {
@@ -67,7 +92,8 @@ export const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          padding: '32px 24px'
+          padding: '32px 24px',
+          paddingLeft:"50px"
         }
       }
     },
@@ -113,18 +139,46 @@ export const theme = createTheme({
     MuiTableHead: {
       styleOverrides: {
         root: {
-          backgroundColor: '#F3F4F6',
+          backgroundColor: 'white',
           '.MuiTableCell-root': {
-            color: '#374151'
+            color: '#374151',
+            textTransform:"none"
+            
           },
-          borderBottom: 'none',
+          borderBottom:"1px solid rgba(223, 224, 235, 1)",
           '& .MuiTableCell-root': {
             borderBottom: 'none',
-            fontSize: '12px',
-            fontWeight: 600,
+            fontSize: '18px',
+            fontWeight: 900,
+            paddingLeft:"50px !important",
             lineHeight: 1,
             letterSpacing: 0.5,
-            textTransform: 'uppercase'
+            textTransform: 'none'
+          },
+          '& .MuiTableCell-paddingCheckbox': {
+            paddingTop: 4,
+            paddingBottom: 4
+          }
+        }
+      }
+    },
+    MuiTableBody: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'white',
+          '.MuiTableCell-root': {
+            color: '#374151',
+            borderBottom:"1px solid rgba(223, 224, 235, 1)",
+          },
+          borderBottom:"1px solid rgba(223, 224, 235, 1)",
+          '& .MuiTableCell-root': {
+            borderBottom:"1px solid rgba(223, 224, 235, 1)",
+            fontSize: '16px',
+            fontWeight: 300,
+            paddingLeft:"50px !important",
+            lineHeight: 1,
+            letterSpacing: 0.5,
+            textTransform: 'none'
           },
           '& .MuiTableCell-paddingCheckbox': {
             paddingTop: 4,
@@ -133,6 +187,7 @@ export const theme = createTheme({
         }
       }
     }
+    
   },
   palette: {
     neutral: {
@@ -154,6 +209,7 @@ export const theme = createTheme({
       disabledBackground: 'rgba(55, 65, 81, 0.12)',
       disabled: 'rgba(55, 65, 81, 0.26)'
     },
+    
     background: {
       default: '#F9FAFC',
       paper: '#FFFFFF'
@@ -173,7 +229,7 @@ export const theme = createTheme({
       contrastText: '#FFFFFF'
     },
     success: {
-      main: '#14B8A6',
+      main: '#D0FE8B',
       light: '#43C6B7',
       dark: '#0E8074',
       contrastText: '#FFFFFF'
