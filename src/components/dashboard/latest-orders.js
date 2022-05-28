@@ -251,7 +251,7 @@ export const LatestOrders = (props) => {
 
   return (
     <>
-<Card style={{borderRadius:"22px",boxShadow: '-5px 5px 20px rgba(51, 60, 193, 0.16)'}} {...props}>
+<Card style={{borderRadius:"22px",boxShadow: '-5px 5px 20px rgba(51, 60, 193, 0.16),',paddingBottom:"50px"}} {...props}>
     <CardHeader title="Your Earnings" />
     <PerfectScrollbar>
       <Box sx={{ minWidth: 800 }}>

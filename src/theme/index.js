@@ -205,7 +205,7 @@ export const theme = createTheme({
     action: {
       active: '#6B7280',
       focus: 'rgba(55, 65, 81, 0.12)',
-      hover: 'rgba(55, 65, 81, 0.04)',
+      hover: '#F7F8FF',
       selected: 'rgba(55, 65, 81, 0.08)',
       disabledBackground: 'rgba(55, 65, 81, 0.12)',
       disabled: 'rgba(55, 65, 81, 0.26)'
