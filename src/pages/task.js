@@ -2,8 +2,7 @@ import * as React from "react";
 
 import Head from "next/head";
 import { Box, Container } from "@mui/material";
-import { CustomerListResults } from "../components/customer/customer-list-results";
-import { CustomerListToolbar } from "../components/customer/customer-list-toolbar";
+
 import { DashboardLayout } from "../components/dashboard-layout";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -12,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
 import BackupOutlinedIcon from "@mui/icons-material/BackupOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
