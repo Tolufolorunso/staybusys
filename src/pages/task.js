@@ -19,10 +19,11 @@ import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutl
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 // import Box from "@mui/material/Box";
 import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
+import { completedTasks } from "src/__mocks__/completedTasks";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
-    right: 0,
+    right: -10,
     top: 0,
     border: `none`,
     background: `rgba(255, 204, 0, 0.15)`,
@@ -107,6 +108,7 @@ export default function Task() {
                 }
                 iconPosition="end"
                 label="Ongoing"
+                style={{width:'200px'}}
                 {...a11yProps(0)}
               ></Tab>{" "}
               <Tab
@@ -116,7 +118,7 @@ export default function Task() {
                   </IconButton>
                 }
                 iconPosition="end"
-                style={{ marginLeft: "2rem" }}
+                style={{width:'200px'}}
                 label="Completed"
                 {...a11yProps(1)}
               ></Tab>{" "}
@@ -173,9 +175,11 @@ export default function Task() {
             </div>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <div className="completed">
+            { completedTasks.map(completed =>
+
+             <div className="completed">
               <div className="end">
-                <span>Completed</span>
+                <span>{completed.status}</span>
               </div>
               <p>Auditing information architechture</p>
 
@@ -200,8 +204,8 @@ export default function Task() {
                       className="file_icon"
                     />
                     <div className="file_details">
-                      <small>Information Architechture Audit 01.pdf</small>
-                      <span>24-May-2022</span>
+                      <small>{completed.uploadedFile}</small>
+                      <span>{completed.date}</span>
                     </div>
                   </div>
 
@@ -215,92 +219,8 @@ export default function Task() {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="completed">
-              <div className="end">
-                <span>Completed</span>
-              </div>
-              <p>Auditing information architechture</p>
-
-              <div className="details">
-                <small>
-                  Listing out all of the findings from current or existing Informature architechture
-                  (IA).
-                </small>
-
-                <span>24-May-2022</span>
-              </div>
-
-              <hr />
-
-              <div className="below_hr">
-                <div className="submit">Submission</div>
-                <div className="hold_file">
-                  <div className="file_hold">
-                    <UploadFileOutlinedIcon
-                      style={{ color: "#FF6685", fontSize:'5rem', borderRadius: '10px',  background: '#f7f4ef', padding:'10px', width:'50px', height:'50px' }}
-                      className="file_icon"
-                    />
-                    <div className="file_details">
-                      <small>Information Architechture Audit 01.pdf</small>
-                      <span>24-May-2022</span>
-                    </div>
-                  </div>
-
-                  <div className="delete">
-                    <button>
-                      <DeleteOutlineOutlinedIcon style={{ color: "#DCDCDC", fontSize:'2rem'  }} />
-                    </button>
-                    <button>
-                      <BackupOutlinedIcon style={{ color: "#DCDCDC", fontSize:'2rem'  }} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="completed">
-              <div className="end">
-                <span>Completed</span>
-              </div>
-              <p>Auditing information architechture</p>
-
-              <div className="details">
-                <small>
-                  Listing out all of the findings from current or existing Informature architechture
-                  (IA).
-                </small>
-
-                <span>24-May-2022</span>
-              </div>
-
-              <hr />
-
-              <div className="below_hr">
-                <div className="submit">Submission</div>
-
-                <div className="hold_file">
-                  <div className="file_hold">
-                    <UploadFileOutlinedIcon 
-                      style={{ color: "#FF6685", fontSize:'5rem', borderRadius: '10px',  background: '#f7f4ef', padding:'10px', width:'50px', height:'50px' }}
-                      className="file_icon"
-                    />
-                    <div className="file_details">
-                      <small>Information Architechture Audit 01.pdf</small>
-                      <span>24-May-2022</span>
-                    </div>
-                  </div>
-
-                  <div className="delete">
-                    <button>
-                      <DeleteOutlineOutlinedIcon style={{ color: "#DCDCDC", fontSize:'2rem'  }} />
-                    </button>
-                    <button>
-                      <BackupOutlinedIcon style={{ color: "#DCDCDC",fontSize:'2rem'  }} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </div>)}
+            
           </TabPanel>
         </Box>
       </div>
@@ -308,18 +228,6 @@ export default function Task() {
   );
 }
 
-// const Task = () => (
-//   <>
-//     <Head>
-//       <title>
-//         Task | Material Kit
-//       </title>
-//     </Head>
-//     <h1 className='header_text' style={{marginTop:"20px"}}>
-//       Task page
-//     </h1>
-//   </>
-// );
+
 Task.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-// export default Task;

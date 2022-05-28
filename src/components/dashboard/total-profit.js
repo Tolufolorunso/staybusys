@@ -3,38 +3,31 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 export const TotalProfit = (props) => (
   <Card {...props}>
-    <CardContent>
+    <CardContent >
       <Grid
         container
         spacing={3}
-        sx={{ justifyContent: 'space-between' }}
+        
       >
+         <Grid item>
+         <img src='../../task3.svg' />
+        </Grid>
         <Grid item>
           <Typography
             color="textSecondary"
             gutterBottom
             variant="overline"
           >
-            TOTAL PROFIT
+            Amount Earned
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            $23k
+            13,786.98
           </Typography>
         </Grid>
-        <Grid item>
-          <Avatar
-            sx={{
-              backgroundColor: 'primary.main',
-              height: 56,
-              width: 56
-            }}
-          >
-            <AttachMoneyIcon />
-          </Avatar>
-        </Grid>
+       
       </Grid>
     </CardContent>
   </Card>

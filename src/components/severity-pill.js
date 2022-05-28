@@ -9,7 +9,7 @@ const SeverityPillRoot = styled('span')(({ theme, ownerState }) => {
     alignItems: 'center',
     backgroundColor,
     borderRadius: 12,
-    color,
+    color:"black",
     cursor: 'default',
     display: 'inline-flex',
     flexGrow: 0,
@@ -21,9 +21,9 @@ const SeverityPillRoot = styled('span')(({ theme, ownerState }) => {
     justifyContent: 'center',
     letterSpacing: 0.5,
     minWidth: 20,
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    textTransform: 'uppercase',
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    textTransform: 'none',
     whiteSpace: 'nowrap'
   };
 });
