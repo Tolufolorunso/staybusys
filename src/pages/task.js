@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { useState } from "react";
 import Head from "next/head";
 import { Box, Container } from "@mui/material";
 import { CustomerListResults } from "../components/customer/customer-list-results";
@@ -16,7 +16,9 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import BackupOutlinedIcon from "@mui/icons-material/BackupOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 // import Box from "@mui/material/Box";
+import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -28,10 +30,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     padding: `10px 20px`,
     width: `41px`,
     height: `51px`,
-    marginLeft:'7.5rem',
+    marginLeft: "7.5rem",
     color: "black",
-    
-  
   },
 }));
 function TabPanel(props) {
@@ -69,7 +69,13 @@ function a11yProps(index) {
 
 export default function Task() {
   const [value, setValue] = React.useState(0);
+  const [selectValue, setSelectValue] = useState('Upload a file');
 
+  function handleSelectChange(e) {
+    let { value } = e.target;
+    setSelectValue(value);
+    console.log(value);
+  }
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -129,14 +135,14 @@ export default function Task() {
             </div>
             <div className="submission">
               <div className="submit">Submission</div>
-              <p>Preferred Method</p>
-
-              <select>
-                <option value="grapefruit">Upload a file</option>
-                <option value="lime">Add a link</option>
+              <label>Preferred Method</label> <br />
+              <select onChange={handleSelectChange}>
+                <option value="Upload a file">Upload a file</option>
+                <option value="Add a link">Add a link</option>
               </select>
 
               <div className="display_inputs">
+                { selectValue === 'Upload a file' ?
                 <div class="file-upload">
                   <input type="file" />
                   <div className="items">
@@ -144,12 +150,15 @@ export default function Task() {
                     <p>Upload a file</p>
                   </div>
                 </div>
+                :''}
 
+                { selectValue === 'Add a link' ?
                 <div className="input_link">
                   <label htmlFor="link">Enter submission link</label> <br />
                   <input type="text" />
-                </div>
-              </div>
+                </div> : ''}
+              </div> 
+                
 
               <div className="btnn">
                 <button className="sub_btn">Save Submission</button>
@@ -184,11 +193,67 @@ export default function Task() {
               <div className="below_hr">
                 <div className="submit">Submission</div>
 
-                <div className="file_hold">
-                  <InsertDriveFileOutlinedIcon style={{ color: "#FF6685" }} className="file_icon" />
-                  <div className="file_details">
-                    <small>Information Architechture Audit 01.pdf</small>
-                    <span>24-May-2022</span>
+                <div className="hold_file">
+                  <div className="file_hold">
+                    <UploadFileOutlinedIcon
+                      style={{ color: "#FF6685", fontSize:'5rem', borderRadius: '10px',  background: '#f7f4ef', padding:'10px', width:'50px', height:'50px' }}
+                      className="file_icon"
+                    />
+                    <div className="file_details">
+                      <small>Information Architechture Audit 01.pdf</small>
+                      <span>24-May-2022</span>
+                    </div>
+                  </div>
+
+                  <div className="delete">
+                    <button>
+                      <DeleteOutlineOutlinedIcon style={{ color: "#DCDCDC", fontSize:'2rem' }} />
+                    </button>
+                    <button>
+                      <BackupOutlinedIcon style={{ color: "#DCDCDC",fontSize:'2rem'  }} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="completed">
+              <div className="end">
+                <span>Completed</span>
+              </div>
+              <p>Auditing information architechture</p>
+
+              <div className="details">
+                <small>
+                  Listing out all of the findings from current or existing Informature architechture
+                  (IA).
+                </small>
+
+                <span>24-May-2022</span>
+              </div>
+
+              <hr />
+
+              <div className="below_hr">
+                <div className="submit">Submission</div>
+                <div className="hold_file">
+                  <div className="file_hold">
+                    <UploadFileOutlinedIcon
+                      style={{ color: "#FF6685", fontSize:'5rem', borderRadius: '10px',  background: '#f7f4ef', padding:'10px', width:'50px', height:'50px' }}
+                      className="file_icon"
+                    />
+                    <div className="file_details">
+                      <small>Information Architechture Audit 01.pdf</small>
+                      <span>24-May-2022</span>
+                    </div>
+                  </div>
+
+                  <div className="delete">
+                    <button>
+                      <DeleteOutlineOutlinedIcon style={{ color: "#DCDCDC", fontSize:'2rem'  }} />
+                    </button>
+                    <button>
+                      <BackupOutlinedIcon style={{ color: "#DCDCDC", fontSize:'2rem'  }} />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -213,40 +278,25 @@ export default function Task() {
               <div className="below_hr">
                 <div className="submit">Submission</div>
 
-                <div className="file_hold">
-                  <InsertDriveFileOutlinedIcon style={{ color: "#FF6685" }} className="file_icon" />
-                  <div className="file_details">
-                    <small>Information Architechture Audit 01.pdf</small>
-                    <span>24-May-2022</span>
+                <div className="hold_file">
+                  <div className="file_hold">
+                    <UploadFileOutlinedIcon 
+                      style={{ color: "#FF6685", fontSize:'5rem', borderRadius: '10px',  background: '#f7f4ef', padding:'10px', width:'50px', height:'50px' }}
+                      className="file_icon"
+                    />
+                    <div className="file_details">
+                      <small>Information Architechture Audit 01.pdf</small>
+                      <span>24-May-2022</span>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className="completed">
-              <div className="end">
-                <span>Completed</span>
-              </div>
-              <p>Auditing information architechture</p>
 
-              <div className="details">
-                <small>
-                  Listing out all of the findings from current or existing Informature architechture
-                  (IA).
-                </small>
-
-                <span>24-May-2022</span>
-              </div>
-
-              <hr />
-
-              <div className="below_hr">
-                <div className="submit">Submission</div>
-
-                <div className="file_hold">
-                  <InsertDriveFileOutlinedIcon style={{ color: "#FF6685" }} className="file_icon" />
-                  <div className="file_details">
-                    <small>Information Architechture Audit 01.pdf</small>
-                    <span>24-May-2022</span>
+                  <div className="delete">
+                    <button>
+                      <DeleteOutlineOutlinedIcon style={{ color: "#DCDCDC", fontSize:'2rem'  }} />
+                    </button>
+                    <button>
+                      <BackupOutlinedIcon style={{ color: "#DCDCDC",fontSize:'2rem'  }} />
+                    </button>
                   </div>
                 </div>
               </div>
