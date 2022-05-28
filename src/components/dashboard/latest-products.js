@@ -4,102 +4,62 @@ import {
   Box,
   Button,
   Card,
-  CardHeader,
-  Divider,
   IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText
+  Typography,
+ 
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-
-const products = [
-  {
-    id: uuid(),
-    name: 'Dropbox',
-    imageUrl: '/static/images/products/product_1.png',
-    updatedAt: subHours(Date.now(), 2)
-  },
-  {
-    id: uuid(),
-    name: 'Medium Corporation',
-    imageUrl: '/static/images/products/product_2.png',
-    updatedAt: subHours(Date.now(), 2)
-  },
-  {
-    id: uuid(),
-    name: 'Slack',
-    imageUrl: '/static/images/products/product_3.png',
-    updatedAt: subHours(Date.now(), 3)
-  },
-  {
-    id: uuid(),
-    name: 'Lyft',
-    imageUrl: '/static/images/products/product_4.png',
-    updatedAt: subHours(Date.now(), 5)
-  },
-  {
-    id: uuid(),
-    name: 'GitHub',
-    imageUrl: '/static/images/products/product_5.png',
-    updatedAt: subHours(Date.now(), 9)
+import HoverImage from "react-hover-image";
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+const Linked = styled('div')(({ theme }) => ({
+  backgroundColor:"#fff",
+  '&:hover':{
+    backgroundColor:"#000",
+    color:"#fff !important"
   }
-];
+}));
 
 export const LatestProducts = (props) => (
-  <Card {...props}>
-    <CardHeader
-      subtitle={`${products.length} in total`}
-      title="Latest Products"
-    />
-    <Divider />
-    <List>
-      {products.map((product, i) => (
-        <ListItem
-          divider={i < products.length - 1}
-          key={product.id}
-        >
-          <ListItemAvatar>
-            <img
-              alt={product.name}
-              src={product.imageUrl}
-              style={{
-                height: 48,
-                width: 48
-              }}
-            />
-          </ListItemAvatar>
-          <ListItemText
-            primary={product.name}
-            secondary={`Updated ${formatDistanceToNow(product.updatedAt)}`}
-          />
-          <IconButton
-            edge="end"
-            size="small"
-          >
-            <MoreVertIcon />
-          </IconButton>
-        </ListItem>
-      ))}
-    </List>
-    <Divider />
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon />}
-        size="small"
-        variant="text"
-      >
-        View all
-      </Button>
-    </Box>
-  </Card>
+  <Button
+  component="a"
+  
+  disableRipple
+  style={{paddingTop:"25px",paddingBottom:"25px"}}
+  sx={{
+    backgroundColor:'#fff',
+    borderRadius: "10px",
+    color:'#2F2E40',
+    fontWeight: 'fontWeightBold',
+    justifyContent: 'flex-start',
+    px: 3,
+    border:"1px solid #2F2E40",
+    textAlign: 'center',
+    textTransform: 'none',
+    width: '100%',
+    marginTop:"30px",
+    marginBottom:"30px",
+    '& .MuiButton-startIcon': {
+      color: '#2F2E40',
+      fontSize:"25px !important",
+     
+    },
+    
+    
+    '&:hover': {
+      backgroundColor: '#2F2E40 !important',
+      color:"#fff",
+      '& .MuiButton-startIcon': {
+        color:  '#fff'
+      },
+    },
+   
+  }}
+>
+  <Box sx={{ flexGrow: 1 }} style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+  <LocalAtmIcon style={{marginRight:"15px"}}/>
+  <Typography>Withdraw your earnings</Typography>
+  </Box>
+</Button>
 );

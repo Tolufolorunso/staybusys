@@ -10,41 +10,29 @@ export const TasksProgress = (props) => (
       <Grid
         container
         spacing={3}
-        sx={{ justifyContent: 'space-between' }}
+       
       >
+        <Grid item>
+          <img src='../../task2.svg' />
+        </Grid>
         <Grid item>
           <Typography
             color="textSecondary"
             gutterBottom
             variant="overline"
           >
-            TASKS PROGRESS
+          Tasks Rejected
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            75.5%
+           169
           </Typography>
         </Grid>
-        <Grid item>
-          <Avatar
-            sx={{
-              backgroundColor: 'warning.main',
-              height: 56,
-              width: 56
-            }}
-          >
-            <InsertChartIcon />
-          </Avatar>
-        </Grid>
+        
       </Grid>
-      <Box sx={{ pt: 3 }}>
-        <LinearProgress
-          value={75.5}
-          variant="determinate"
-        />
-      </Box>
+     
     </CardContent>
   </Card>
 );

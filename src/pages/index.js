@@ -44,7 +44,7 @@ const Dashboard = () => (
             sm={6}
             xs={12}
           >
-            <TotalCustomers />
+            <TotalCustomers style={{border: "1px solid rgba(255, 204, 0, 0.2)",boxShadow:" 0px 7px 20px rgba(145, 156, 212, 0.15)"}}/>
           </Grid>
           <Grid
             item
@@ -53,7 +53,7 @@ const Dashboard = () => (
             sm={6}
             xs={12}
           >
-            <TasksProgress />
+            <TasksProgress style={{border: "1px solid rgba(255, 204, 0, 0.2)",boxShadow:" 0px 7px 20px rgba(145, 156, 212, 0.15)"}}/>
           </Grid>
           <Grid
             item
@@ -62,9 +62,17 @@ const Dashboard = () => (
             sm={6}
             xs={12}
           >
-            <TotalProfit sx={{ height: '100%' }} />
+            <TotalProfit style={{border: "1px solid rgba(255, 204, 0, 0.2)",boxShadow:" 0px 7px 20px rgba(145, 156, 212, 0.15)"}} />
           </Grid>
-          
+          <Grid
+            item
+            lg={12}
+            md={12}
+            xl={9}
+            xs={12}
+          >
+            <LatestProducts style={{border: "1px solid #2F2E40",boxShadow:" 0px 7px 20px rgba(145, 156, 212, 0.15)"}}/>
+          </Grid>
          
           <Grid
             item
