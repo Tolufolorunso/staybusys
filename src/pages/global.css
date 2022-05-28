@@ -1,3 +1,9 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .tasks_page {
   width: 95%;
   max-width: 1440px;
@@ -337,4 +343,128 @@ label {
 .delete button {
   background: none;
   border: none;
+}
+
+/* Settings page */
+.profile {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.profile .left {
+  flex: 0.8;
+}
+.profile .right {
+  flex: 2;
+}
+
+.profile .left p {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 130%;
+
+  color: #1c1c1c;
+}
+.profile .left small {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: 0.03em;
+  color: #585757;
+}
+
+.profile .right .top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.profile .right .top img {
+  background: #ffffff;
+  border: 1px solid rgba(255, 204, 0, 0.2);
+  box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15);
+  border-radius: 7px;
+  padding: 0.55rem;
+}
+.actn_btn {
+  padding: 15px 55px;
+  /* width: 184px;
+  height: 56px; */
+  background: #ff6685;
+  border-radius: 10px;
+  border: none;
+  color: #ffffff;
+  margin-top: 0.65rem;
+}
+.profile .right .input_wrap .inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  margin-top: 1rem;
+}
+.profile .right .input_wrap .input {
+  margin: 2rem 0;
+}
+.profile .right .input_wrap label {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: 0.03em;
+  color: #585757;
+}
+
+.profile .right .input_wrap input {
+  padding: 10px 16px;
+  position: absolute;
+  width: 393px;
+  height: 48px;
+  margin-top: 0.5rem;
+  background: transparent;
+  border: 1px solid #969696;
+  border-radius: 7px;
+}
+
+hr.divide {
+  margin: 3rem 0;
+  border: 1px solid #e5e5e5;
+}
+
+.profile .input_wrap .buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.profile .input_wrap .buttons button {
+  border: none;
+  background: #ffffff;
+  border: 1px solid rgba(255, 204, 0, 0.2);
+  box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15);
+  border-radius: 7px;
+  height: 57.41566848754883px;
+  width: 159.2613525390625px;
+}
+
+.remove_margin {
+  margin: 0rem 0 5rem !important;
+}
+.remove_marginB {
+  margin-bottom: 0rem !important;
+}
+
+.currency select {
+  padding: 10px 16px;
+  width: 393px;
+  height: 48px;
+  border: 1px solid #969696;
+  border-radius: 7px;
+  background: transparent;
+  margin-top: 0.55rem;
+}
+
+.payment .top_details {
+  margin-top: 2rem;
 }
