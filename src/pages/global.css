@@ -92,6 +92,7 @@ select {
   border-radius: 1000px;
   width: 93.23px;
   padding: 0.55rem;
+  margin-bottom: 0.75rem;
 }
 .submission {
   background: #ffffff;
@@ -251,6 +252,8 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   /* padding-bottom: 1.5rem; */
 }
 
@@ -288,6 +291,9 @@ label {
   align-items: center;
   gap: 1rem;
   margin-top: 1rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+
   /* margin-top: 1rem; */
 }
 
@@ -324,6 +330,8 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .delete button {

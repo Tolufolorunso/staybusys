@@ -30,7 +30,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     borderRadius: `10px`,
     padding: `10px 20px`,
     width: `41px`,
-    height: `51px`,
+    height: `41px`,
     marginLeft: "7.5rem",
     color: "black",
   },
@@ -108,7 +108,7 @@ export default function Task() {
                 }
                 iconPosition="end"
                 label="Ongoing"
-                style={{width:'200px'}}
+                style={{width:'200px', fontWeight:'700', color:'#2F2E40', fontSize: '20px', lineHeight: '130%'}}
                 {...a11yProps(0)}
               ></Tab>{" "}
               <Tab
@@ -118,7 +118,7 @@ export default function Task() {
                   </IconButton>
                 }
                 iconPosition="end"
-                style={{width:'200px'}}
+                style={{width:'200px', fontWeight:'700', color:'#2F2E40', fontSize: '20px', lineHeight: '130%'}}
                 label="Completed"
                 {...a11yProps(1)}
               ></Tab>{" "}
