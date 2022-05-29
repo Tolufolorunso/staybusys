@@ -3,8 +3,7 @@ import * as React from "react";
 
 import Head from "next/head";
 import { Box, Container } from "@mui/material";
-import { CustomerListResults } from "../components/customer/customer-list-results";
-import { CustomerListToolbar } from "../components/customer/customer-list-toolbar";
+
 import { DashboardLayout } from "../components/dashboard-layout";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";

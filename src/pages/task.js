@@ -143,11 +143,8 @@ export default function Task() {
               </select>
 
               <div className="display_inputs">
-
                 { selectValue === 'Upload a file' ?
- 
                 <div className="file-upload">
-
                   <input type="file" />
                   <div className="items">
                     <BackupOutlinedIcon style={{ fontSize: "45px", color: "#2F2E40" }} />
@@ -211,16 +208,6 @@ export default function Task() {
                     </div>
                   </div>
 
-                </div>
-              </div>
-            </div>
-            <div className="completed">
-              <div className="end">
-                <span>Completed </span>
-              </div>
-              <p>Auditing information architechture</p>
-
-
                   <div className="delete">
                     <button>
                       <DeleteOutlineOutlinedIcon style={{ color: "#DCDCDC", fontSize:'2rem' }} />
@@ -242,4 +229,3 @@ export default function Task() {
 
 
 Task.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
-

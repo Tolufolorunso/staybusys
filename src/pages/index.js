@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Image from 'next/image'
+
 import Layout from '../components/Layout'
 import Section1 from '../components/Home/section1'
 import Section2 from '../components/Home/section2'
