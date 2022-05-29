@@ -84,7 +84,7 @@ export default function Task() {
     <>
       <div className="tasks_page">
         <Head>
-          <title>Task | Material Kit</title>
+          <title>Task | Stay busy</title>
         </Head>
         <h1 className="header_text" style={{ marginTop: "20px", marginLeft: "30px" }}>
           My Tasks

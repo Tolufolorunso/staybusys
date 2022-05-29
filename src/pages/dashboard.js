@@ -12,7 +12,7 @@ const Dashboard = () => (
   <>
     <Head>
       <title>
-        Dashboard | Material Kit
+        Dashboard | Stay busy
       </title>
     </Head>
     <Box

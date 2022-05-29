@@ -11,7 +11,7 @@ import { DashboardLayout } from "../components/dashboard-layout";
 const Task = () => (
   <>
     <Head>
-      <title>Task | Material Kit</title>
+      <title>Task | Stay busy</title>
     </Head>
     {/* <h1 style={{marginTop:"20px"}}>
       My task page
