@@ -430,14 +430,23 @@ label {
 .profile .right .input_wrap input {
   padding: 10px 16px;
   position: absolute;
-  width: 393px;
   height: 48px;
+  width: 25%;
   margin-top: 0.5rem;
   background: transparent;
   border: 1px solid #969696;
   border-radius: 7px;
 }
-
+@media (max-width: 1000px) {
+  .profile .right .input_wrap input {
+width: 58%;
+  }
+}
+@media (max-width: 600px) {
+  .profile .right .input_wrap input {
+width: 85%;
+  }
+}
 hr.divide {
   margin: 3rem 0;
   border: 1px solid #e5e5e5;

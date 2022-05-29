@@ -2,7 +2,7 @@
 import * as React from "react";
 
 import Head from "next/head";
-import { Box, Container } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 
 import { DashboardLayout } from "../components/dashboard-layout";
 import PropTypes from "prop-types";
@@ -125,28 +125,45 @@ export default function Task() {
                     <button className="actn_btn">Change</button>
                   </div>
                 </div>
+               
                 <div className="input_wrap">
+
                   <div className="inputs ">
+                  <Grid container spacing={4}>
+
+              <Grid item xs={12} sm={6}>
                     <div className="input">
                       <label htmlFor="First name:">First name:</label> <br />
                       <input type="text" placeholder="Seyi" />
                     </div>
+                    </Grid>
+
+              <Grid item xs={12} md={6}>
                     <div className="input">
                       <label htmlFor="First name:">Last name:</label> <br />
                       <input type="text" placeholder="Makinde" />
                     </div>
+                    </Grid>
+
+              <Grid item xs={12} md={6}>
                     <div className="input">
                       <label htmlFor="First name:">Email Address:</label> <br />
                       <input type="text" placeholder="Seyi@example.com" />
                     </div>
+                    </Grid>
+
+              <Grid item xs={12} md={6}>
                     <div className="input">
                       <label htmlFor="First name:">Phone number:</label> <br />
                       <input type="text" placeholder="08104038050" />
                     </div>
+                    </Grid>
+                    </Grid>
                   </div>
 
                   <button className="actn_btn">Update</button>
                 </div>
+                
               </div>
             </div>
 
