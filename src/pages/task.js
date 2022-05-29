@@ -136,7 +136,7 @@ export default function Task() {
               </select>
 
               <div className="display_inputs">
-                <div class="file-upload">
+                <div className="file-upload">
                   <input type="file" />
                   <div className="items">
                     <BackupOutlinedIcon style={{ fontSize: "45px", color: "#2F2E40" }} />
