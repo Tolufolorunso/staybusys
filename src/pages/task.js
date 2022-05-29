@@ -223,7 +223,7 @@ export default function Task() {
             </div>
             <div className="completed">
               <div className="end">
-                <span>Completed</span>
+                <span>Completed </span>
               </div>
               <p>Auditing information architechture</p>
 
