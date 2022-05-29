@@ -224,7 +224,7 @@ export const theme = createTheme({
     },
     
     secondary: {
-      main: '#10B981',
+      main: '#1DA1F2',
       light: '#3FC79A',
       dark: '#0B815A',
       contrastText: '#FFFFFF'
@@ -322,7 +322,7 @@ export const theme = createTheme({
       textTransform: 'uppercase'
     },
     caption: {
-      fontSize: '0.75rem',
+      fontSize: '0.9rem',
       fontWeight: 400,
       lineHeight: 1.66
     },
@@ -355,6 +355,11 @@ export const theme = createTheme({
       fontWeight: 600,
       fontSize: '1.125rem',
       lineHeight: 1.375
+    },
+    p: {
+      fontWeight: 400,
+      fontSize: '14px',
+      lineHeight: 1.15
     }
   }
   
