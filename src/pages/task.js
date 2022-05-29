@@ -176,7 +176,7 @@ export default function Task() {
           <TabPanel value={value} index={1}>
             { completedTasks.map(completed =>
 
-             <div className="completed">
+             <div className="completed" key={completed}>
               <div className="end">
                 <span>{completed.status}</span>
               </div>
