@@ -17,7 +17,7 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 // import Box from "@mui/material/Box";
-import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
+import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import { completedTasks } from "src/__mocks__/completedTasks";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -69,7 +69,7 @@ function a11yProps(index) {
 
 export default function Task() {
   const [value, setValue] = React.useState(0);
-  const [selectValue, setSelectValue] = useState('Upload a file');
+  const [selectValue, setSelectValue] = useState("Upload a file");
 
   function handleSelectChange(e) {
     let { value } = e.target;
@@ -86,139 +86,176 @@ export default function Task() {
         <Head>
           <title>Task | Material Kit</title>
         </Head>
-        <h1 className="header_text" style={{ marginTop: "20px", marginLeft: "30px" }}>
-          My Tasks
-        </h1>
+        <div className="container">
+          <h1
+            className="header_text font-face-gm"
+            style={{ marginTop: "20px", marginLeft: "30px" }}
+          >
+            My Tasks
+          </h1>
 
-        <Box sx={{ width: "100%" }}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <Tabs
-              className="tabs"
-              style={{ marginLeft: "30px" }}
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-            >
-              <Tab
-                icon={
-                  <IconButton aria-label="cart">
-                    <StyledBadge badgeContent={4} color="secondary"></StyledBadge>
-                  </IconButton>
-                }
-                iconPosition="end"
-                label="Ongoing"
-                style={{width:'200px', fontWeight:'700', color:'#2F2E40', fontSize: '20px', lineHeight: '130%'}}
-                {...a11yProps(0)}
-              ></Tab>{" "}
-              <Tab
-                icon={
-                  <IconButton aria-label="cart">
-                    <StyledBadge badgeContent={4} color="secondary"></StyledBadge>
-                  </IconButton>
-                }
-                iconPosition="end"
-                style={{width:'200px', fontWeight:'700', color:'#2F2E40', fontSize: '20px', lineHeight: '130%'}}
-                label="Completed"
-                {...a11yProps(1)}
-              ></Tab>{" "}
-            </Tabs>
-          </Box>
-          <TabPanel value={value} index={0}>
-            <div className="ongoing">
-              <div className="end">
-                <span>Ongoing</span>
-              </div>
-              <p>Auditing information architechture</p>
-              <small>
-                Listing out all of the findings from current or existing Informature architechture
-                (IA).
-              </small>
-            </div>
-            <div className="submission">
-              <div className="submit">Submission</div>
-              <label>Preferred Method</label> <br />
-              <select onChange={handleSelectChange}>
-                <option value="Upload a file">Upload a file</option>
-                <option value="Add a link">Add a link</option>
-              </select>
-
-              <div className="display_inputs">
-
-                { selectValue === 'Upload a file' ?
- 
-                <div className="file-upload">
-
-                  <input type="file" />
-                  <div className="items">
-                    <BackupOutlinedIcon style={{ fontSize: "45px", color: "#2F2E40" }} />
-                    <p>Upload a file</p>
-                  </div>
+          <Box sx={{ width: "100%" }}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <Tabs
+                className="tabs"
+                style={{ marginLeft: "30px" }}
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+              >
+                <Tab
+                  icon={
+                    <IconButton aria-label="cart">
+                      <StyledBadge badgeContent={4} color="secondary"></StyledBadge>
+                    </IconButton>
+                  }
+                  iconPosition="end"
+                  label="Ongoing"
+                  style={{
+                    width: "200px",
+                    fontWeight: "700",
+                    color: "#2F2E40",
+                    fontSize: "16px",
+                    fontFamily: "Almarena",
+                    lineHeight: "130%",
+                  }}
+                  {...a11yProps(0)}
+                ></Tab>{" "}
+                <Tab
+                  icon={
+                    <IconButton aria-label="cart">
+                      <StyledBadge badgeContent={4} color="secondary"></StyledBadge>
+                    </IconButton>
+                  }
+                  iconPosition="end"
+                  style={{
+                    width: "200px",
+                    fontWeight: "700",
+                    color: "#2F2E40",
+                    fontSize: "16px",
+                    lineHeight: "130%",
+                    fontFamily: "Almarena",
+                  }}
+                  label="Completed"
+                  {...a11yProps(1)}
+                ></Tab>{" "}
+              </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+              <div className="ongoing">
+                <div className="end">
+                  <span>Ongoing</span>
                 </div>
-                :''}
-
-                { selectValue === 'Add a link' ?
-                <div className="input_link">
-                  <label htmlFor="link">Enter submission link</label> <br />
-                  <input type="text" />
-                </div> : ''}
-              </div> 
-                
-
-              <div className="btnn">
-                <button className="sub_btn">Save Submission</button>
-              </div>
-            </div>
-
-            <div className="add_btnn">
-              <button className="add_btn">
-                {" "}
-                <AddOutlinedIcon /> Add Submission
-              </button>
-            </div>
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            { completedTasks.map(completed =>
-
-             <div className="completed">
-              <div className="end">
-                <span>{completed.status}</span>
-              </div>
-              <p>Auditing information architechture</p>
-
-              <div className="details">
-                <small>
+                <p className="font-face-gm">Auditing information architechture</p>
+                <small className=" font-face-text-big">
                   Listing out all of the findings from current or existing Informature architechture
                   (IA).
                 </small>
+              </div>
+              <div className="submission">
+                <div className="submit font-face-gm">Submission</div>
+                <label className="font-face-text-big">Preferred Method</label> <br />
+                <select onChange={handleSelectChange}>
+                  <option value="Upload a file">Upload a file</option>
+                  <option value="Add a link">Add a link</option>
+                </select>
+                <div className="display_inputs">
+                  {selectValue === "Upload a file" ? (
+                    <div className="file-upload">
+                      <input type="file" />
+                      <div className="items">
+                        <BackupOutlinedIcon style={{ fontSize: "45px", color: "#2F2E40" }} />
+                        <p>Upload a file</p>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
 
-                <span>24-May-2022</span>
+                  {selectValue === "Add a link" ? (
+                    <div className="input_link">
+                      <label htmlFor="link" className="font-face-text-big">
+                        Enter submission link
+                      </label>{" "}
+                      <br />
+                      <input type="text" />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="btnn">
+                  <button className="sub_btn font-face-text-big">Save Submission</button>
+                </div>
               </div>
 
-              <hr />
+              <div className="add_btnn">
+                <button className="add_btn">
+                  {" "}
+                  <AddOutlinedIcon /> Add Submission
+                </button>
+              </div>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              {completedTasks.map((completed) => (
+                <div className="completed">
+                  <div className="end">
+                    <span>{completed.status}</span>
+                  </div>
+                  <p className="font-face-gm">Auditing information architechture</p>
 
-              <div className="below_hr">
-                <div className="submit">Submission</div>
+                  <div className="details">
+                    <small className="font-face-text-big">
+                      Listing out all of the findings from current or existing Informature
+                      architechture (IA).
+                    </small>
 
-                <div className="hold_file">
-                  <div className="file_hold">
-                    <UploadFileOutlinedIcon
-                      style={{ color: "#FF6685", fontSize:'5rem', borderRadius: '10px',  background: '#f7f4ef', padding:'10px', width:'50px', height:'50px' }}
-                      className="file_icon"
-                    />
-                    <div className="file_details">
-                      <small>{completed.uploadedFile}</small>
-                      <span>{completed.date}</span>
+                    <span>24-May-2022</span>
+                  </div>
+
+                  <hr />
+
+                  <div className="below_hr">
+                    <div className="submit">Submission</div>
+
+                    <div className="hold_file">
+                      <div className="file_hold">
+                        <UploadFileOutlinedIcon
+                          style={{
+                            color: "#FF6685",
+                            fontSize: "5rem",
+                            borderRadius: "10px",
+                            background: "#f7f4ef",
+                            padding: "10px",
+                            width: "50px",
+                            height: "50px",
+                            fontFamily: "Almarena",
+                          }}
+                          className="file_icon"
+                        />
+                        <div className="file_details">
+                          <small>{completed.uploadedFile}</small>
+                          <span>{completed.date}</span>
+                        </div>
+                      </div>
+                      <div className="delete">
+                        <button>
+                          <DeleteOutlineOutlinedIcon
+                            style={{ color: "#DCDCDC", fontSize: "2rem" }}
+                          />
+                        </button>
+                        <button>
+                          <BackupOutlinedIcon style={{ color: "#DCDCDC", fontSize: "2rem" }} />
+                        </button>
+                      </div>
                     </div>
                   </div>
 
-                </div>
-              </div>
-            </div>
-            <div className="completed">
-              <div className="end">
-                <span>Completed </span>
-              </div>
-              <p>Auditing information architechture</p>
+                  {/* <div className="completed">
+                  <div className="end">
+                    <span>Completed </span>
+                  </div>
+                  <p>Auditing information architechture</p>
 
 
                   <div className="delete">
@@ -229,17 +266,15 @@ export default function Task() {
                       <BackupOutlinedIcon style={{ color: "#DCDCDC",fontSize:'2rem'  }} />
                     </button>
                   </div>
+                </div> */}
                 </div>
-              </div>
-            </div>)}
-            
-          </TabPanel>
-        </Box>
+              ))}
+            </TabPanel>
+          </Box>
+        </div>
       </div>
     </>
   );
 }
 
-
 Task.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
-
