@@ -1047,11 +1047,23 @@ button.read_more {
   font-family: "Almarena" !important;
   font-style: normal !important;
   font-weight: 700 !important;
-  font-size: 20px !important;
+  font-size: 30px !important;
   line-height: 130% !important;
   /* identical to box height, or 39px */
 
   color: #2f2e40 !important;
+}
+@media (max-width: 600px){
+  .row-title-text {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    line-height: 130% !important;
+    /* identical to box height, or 39px */
+
+    color: #2f2e40 !important;
+  }
 }
 .icon-wrapper {
   top: 23px !important;
@@ -1086,10 +1098,16 @@ button.read_more {
   margin: auto !important;
   margin-top: 100px !important;
 }
-@media (max-width : 600px){
-.root{
-  margin-top: 40px !important;
+
+@media (max-width: 1000px){
+  .root{
+    margin-top: 200px !important;
+  }
 }
+@media (max-width: 899px){
+  .root{
+    margin-top: 60px !important;
+  }
 }
 .roots {
   max-width: 1440px !important;
@@ -1215,7 +1233,7 @@ button.read_more {
 }
 
 .logo {
-  height: 1em !important;
+
   margin-left: 0.5rem !important;
 }
 
@@ -1544,7 +1562,7 @@ button.read_more {
     color: #2f2e40 !important;
   }
 }
-@media (max-width: 899px) {
+@media (max-width: 1000px) {
   .section1Box {
     display: flex !important;
     flex-direction: column-reverse !important;
@@ -1688,16 +1706,7 @@ button.read_more {
   border: 1px solid rgba(255, 204, 0, 0.2) !important;
   border-radius: 0px 10px 10px 0px !important;
 }
-.row-title-text {
-  font-family: "Almarena" !important;
-  font-style: normal !important;
-  font-weight: 700 !important;
-  font-size: 30px !important;
-  line-height: 130% !important;
-  /* identical to box height, or 39px */
 
-  color: #2f2e40 !important;
-}
 
 .faqTitle {
   display: flex !important;
@@ -1808,7 +1817,7 @@ button.read_more {
 }
 
 .footer-text {
-  font-family: Graphik !important;
+  font-family: 'Euclid Circular A' !important;
   font-style: normal !important;
   font-weight: 400 !important;
   font-size: 16px !important;
@@ -1821,11 +1830,13 @@ button.read_more {
 }
 @media screen and (max-width: 600px) {
   .footer-text {
-    font-family: Graphik !important;
+    font-family: 'Euclid Circular A' !important;
     font-style: normal !important;
     font-weight: 400 !important;
     font-size: 16px !important;
     line-height: 140% !important;
+    padding-bottom: 20px !important;
+    padding-top: 10px !important;
     /* or 25px */
     text-align: center !important;
 
@@ -1838,6 +1849,7 @@ button.read_more {
   display: flex !important;
   justify-content: space-between !important;
   flex-direction: row !important;
+  align-items: center !important;
 }
 @media screen and (max-width: 600px) {
   .footerBoxmain {

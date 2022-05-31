@@ -9,14 +9,14 @@ function Footer() {
   const mobile2 =  useMediaQuery('(min-width:600px)')
   return (
     <div className='roots'>
-      
-      <Box className='footerBoxmain' display={"flex"} justifyContent={"space-between"} style={{paddingTop:"20px"}}> 
+
+      <Box className='footerBoxmain' display={"flex"} justifyContent={"space-between"} style={{paddingTop:"20px"}}>
       <div className="logo">
-          
-            <img src="./logo.svg" alt=""  /> 
+
+            <img src="./logo.svg" alt=""  />
           </div>
-           
-           
+
+
            <div  className='footerFoot' style={{display:"flex"}}> <Link
                   className="footer-text"
                   style={{ textDecoration: "none" ,marginRight:"15px" }}
@@ -32,10 +32,10 @@ function Footer() {
                   href="wwww.twitter.com"
                   target="_blank"
                 >
-                  <p>Support</p>
+                  <p className="footer-text" >Support</p>
                 </Link>
                 </div>
-                
+
       </Box>
     </div>
   );
