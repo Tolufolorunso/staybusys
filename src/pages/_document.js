@@ -16,10 +16,30 @@ class CustomDocument extends Document {
             rel="preconnect"
             href="https://fonts.gstatic.com"
           />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+             <link
+            rel="preload"
+            href="/fonts/Euclid Circular A Light.ttf"
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
           />
+          <link
+            rel="preload"
+            href="/fonts/Almarena - Almarena Bold.otf"
+            as="font"
+            type="font/oft"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/Euclid Circular A Regular.ttf"
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
+          />
+          <link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet"/>
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700&display=optional"
