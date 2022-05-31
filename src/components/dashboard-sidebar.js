@@ -88,12 +88,12 @@ export const DashboardSidebar = (props) => {
         </Box>
         <Link href="/">
         <Box
-        style={{display:"flex",paddingLeft:"35px",marginTop:"250px",cursor:"pointer "}}
+        style={{display:"flex",paddingLeft:"35px",marginTop:"150px",cursor:"pointer "}}
 
         >
 
            <img src='../../logout.svg' style={{color:"#2F2E40",marginRight:"15px"}} />
-          <Typography style={{ fontWeight:'500'}} color='#2F2E40'>
+          <Typography style={{ fontWeight:'500',fontFamily:'Euclid Circular A'}} color='#2F2E40'>
             Logout
           </Typography>
 
