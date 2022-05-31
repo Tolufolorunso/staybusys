@@ -23,12 +23,12 @@ const items = [
   {
     href: '/task',
     icon: (<HistoryToggleOffIcon  style={{marginRight:"8px",fontSize:"25px"}} />),
-    title: 'Task'
+    title: 'MyTask'
   },
   {
     href: '/mytask',
     icon: (<AssignmentIcon  style={{marginRight:"8px",fontSize:"25px"}}  />),
-    title: 'My Task'
+    title: 'Task'
   },
  
   {

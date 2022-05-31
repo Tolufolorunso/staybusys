@@ -12,6 +12,7 @@ import { DashboardLayout } from "../components/dashboard-layout";
 export default function Task() {
   const [viewMode, setviewMode] = React.useState('');
 
+
   function changeToGridDisplay() {
     console.log("Change Display");
     const getDisplay = document.querySelector('.grids_sec')
@@ -31,8 +32,8 @@ export default function Task() {
     <>
       <div className="tasks_page">
         <Head>
-          <title>Task | Material Kit</title>
-        </Head>
+      <title>Task | Stay busy</title>
+    </Head>
         <div className="container">
           <div className="top_btns">
             <div className="top_btns_wrapper">

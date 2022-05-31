@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import Head from "next/head";
+
 import { Box, Container } from "@mui/material";
-// import { CustomerListResults } from "../components/customer/customer-list-results";
-// import { CustomerListToolbar } from "../components/customer/customer-list-toolbar";
+
 import { DashboardLayout } from "../components/dashboard-layout";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -89,12 +89,15 @@ export default function Task() {
     <>
       <div className="tasks_page">
         <Head>
-          <title>Task | Material Kit</title>
+          <title>Settings | Stay busy</title>
         </Head>
+
         <div className="container">
-          <h1 className="header_text" style={{ marginTop: "20px", marginLeft: "30px" }}>
-            My Tasks
-          </h1>
+      
+        <h1 className="header_text" style={{ marginTop: "20px", marginLeft: "30px" }}>
+          Settings
+        </h1>
+
 
           <Box sx={{ width: "100%" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -117,6 +120,7 @@ export default function Task() {
                     Update your details and other <br /> info here
                   </small>
                 </div>
+
                 <div className="right">
                   <div className="top">
                     <img src="/static/images/avatars/settings.png" alt="" />
@@ -124,7 +128,42 @@ export default function Task() {
                       <p>Edit your profile photo</p>
 
                       <button className="actn_btn">Change</button>
+
+               
+                <div className="input_wrap">
+
+                  <div className="inputs ">
+                  <Grid container spacing={4}>
+
+              <Grid item xs={12} sm={6}>
+                    <div className="input">
+                      <label htmlFor="First name:">First name:</label> <br />
+                      <input type="text" placeholder="Seyi" />
                     </div>
+                    </Grid>
+
+              <Grid item xs={12} md={6}>
+                    <div className="input">
+                      <label htmlFor="First name:">Last name:</label> <br />
+                      <input type="text" placeholder="Makinde" />
+                    </div>
+                    </Grid>
+
+              <Grid item xs={12} md={6}>
+                    <div className="input">
+                      <label htmlFor="First name:">Email Address:</label> <br />
+                      <input type="text" placeholder="Seyi@example.com" />
+                    </div>
+                    </Grid>
+
+              <Grid item xs={12} md={6}>
+                    <div className="input">
+                      <label htmlFor="First name:">Phone number:</label> <br />
+                      <input type="text" placeholder="08104038050" />
+
+                    </div>
+                    </Grid>
+                    </Grid>
                   </div>
                   <div className="input_wrap">
                     <div className="inputs ">
@@ -149,6 +188,7 @@ export default function Task() {
                     <button className="actn_btn">Update</button>
                   </div>
                 </div>
+                
               </div>
 
               <hr className="divide" />

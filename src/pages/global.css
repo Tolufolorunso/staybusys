@@ -468,14 +468,27 @@ label {
 
 .profile .right .input_wrap input {
   padding: 10px 16px;
-  width: 393px;
-  height: 40px;
+
+ 
+
+  position: absolute;
+  height: 48px;
+  width: 25%;
   margin-top: 0.5rem;
   background: transparent;
   border: 1px solid #969696;
   border-radius: 7px;
 }
-
+@media (max-width: 1000px) {
+  .profile .right .input_wrap input {
+width: 58%;
+  }
+}
+@media (max-width: 600px) {
+  .profile .right .input_wrap input {
+width: 85%;
+  }
+}
 hr.divide {
   margin: 3rem 0;
   border: 1px solid #e5e5e5;
@@ -821,6 +834,7 @@ hr.divide {
   line-height: 130%;
   color: #2f2e40;
 }
+
 .grid_sec_btns {
   display: flex;
   gap: 1rem;
@@ -828,6 +842,14 @@ hr.divide {
   justify-content: space-between;
   margin: 1rem 0;
   flex-wrap: wrap;
+
+.faqButton{
+border-radius: 10px !important;
+width: 100% !important;
+height: 50px !important;
+padding-left: 50px !important;
+padding-right: 50px !important;
+margin-bottom: 40px !important;
 }
 .grid_sec_btns .grid_sec_two_btns {
   display: flex;

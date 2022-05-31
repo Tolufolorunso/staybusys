@@ -84,8 +84,9 @@ export default function Task() {
     <>
       <div className="tasks_page">
         <Head>
-          <title>Task | Material Kit</title>
+          <title>Task | Stay busy</title>
         </Head>
+
         <div className="container">
           <h1
             className="header_text font-face-gm"
@@ -93,6 +94,100 @@ export default function Task() {
           >
             My Tasks
           </h1>
+
+    
+
+        <Box sx={{ width: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              className="tabs"
+              style={{ marginLeft: "30px" }}
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
+              <Tab
+                icon={
+                  <IconButton aria-label="cart">
+                    <StyledBadge badgeContent={4} color="secondary"></StyledBadge>
+                  </IconButton>
+                }
+                iconPosition="end"
+                label="Ongoing"
+                style={{width:'200px', fontWeight:'700', color:'#2F2E40', fontSize: '20px', lineHeight: '130%'}}
+                {...a11yProps(0)}
+              ></Tab>{" "}
+              <Tab
+                icon={
+                  <IconButton aria-label="cart">
+                    <StyledBadge badgeContent={4} color="secondary"></StyledBadge>
+                  </IconButton>
+                }
+                iconPosition="end"
+                style={{width:'200px', fontWeight:'700', color:'#2F2E40', fontSize: '20px', lineHeight: '130%'}}
+                label="Completed"
+                {...a11yProps(1)}
+              ></Tab>{" "}
+            </Tabs>
+          </Box>
+          <TabPanel value={value} index={0}>
+            <div className="ongoing">
+              <div className="end">
+                <span>Ongoing</span>
+              </div>
+              <p>Auditing information architechture</p>
+              <small>
+                Listing out all of the findings from current or existing Informature architechture
+                (IA).
+              </small>
+            </div>
+            <div className="submission">
+              <div className="submit">Submission</div>
+              <label>Preferred Method</label> <br />
+              <select onChange={handleSelectChange}>
+                <option value="Upload a file">Upload a file</option>
+                <option value="Add a link">Add a link</option>
+              </select>
+
+              <div className="display_inputs">
+                { selectValue === 'Upload a file' ?
+                <div className="file-upload">
+                  <input type="file" />
+                  <div className="items">
+                    <BackupOutlinedIcon style={{ fontSize: "45px", color: "#2F2E40" }} />
+                    <p>Upload a file</p>
+                  </div>
+                </div>
+                :''}
+
+                { selectValue === 'Add a link' ?
+                <div className="input_link">
+                  <label htmlFor="link">Enter submission link</label> <br />
+                  <input type="text" />
+                </div> : ''}
+              </div> 
+                
+
+              <div className="btnn">
+                <button className="sub_btn">Save Submission</button>
+              </div>
+            </div>
+
+            <div className="add_btnn">
+              <button className="add_btn">
+                {" "}
+                <AddOutlinedIcon /> Add Submission
+              </button>
+            </div>
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            { completedTasks.map(completed =>
+
+             <div className="completed" key={completed}>
+              <div className="end">
+                <span>{completed.status}</span>
+              </div>
+              <p>Auditing information architechture</p>
 
           <Box sx={{ width: "100%" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -250,6 +345,7 @@ export default function Task() {
                       </div>
                     </div>
                   </div>
+
 
                   {/* <div className="completed">
                   <div className="end">

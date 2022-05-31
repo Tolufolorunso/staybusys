@@ -8,7 +8,7 @@ const Support = () => (
   <>
     <Head>
       <title>
-        Support | Material Kit
+        Support | Stay busy
       </title>
     </Head>
     <Box
