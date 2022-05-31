@@ -2,7 +2,7 @@ import { Box, Button, Grid, InputBase, Typography } from "@mui/material";
 import React from "react";
 
 
-export const Section1 = () => {
+export default function Section1 () {
   return (
     <div className='root'>
       <Grid container spacing={2} display={"flex"} alignItems={"center"} className='section1Box'>
