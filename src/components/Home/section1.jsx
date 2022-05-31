@@ -2,12 +2,12 @@ import { Box, Button, Grid, InputBase, Typography } from "@mui/material";
 import React from "react";
 
 
-function Section1() {
+export const Section1 = () => {
   return (
     <div className='root'>
       <Grid container spacing={2} display={"flex"} alignItems={"center"} className='section1Box'>
         <Grid item xs={12} sm={12} md={6}>
-          <Box><img src="../../header1.png" className='section1Image' alt="" /></Box>
+          <Box><img src="../../header1.png" width='100%' className='section1Image' alt="" /></Box>
         </Grid>
         <Grid item xs={12} sm={12} md={6} className='headebox'>
           <Typography className='headDetail'>
@@ -30,6 +30,5 @@ function Section1() {
       </Grid>
     </div>
   );
-}
 
-export default Section1;
+};
