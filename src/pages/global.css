@@ -716,6 +716,7 @@ hr.divide {
   display: flex;
   align-items: center;
   gap: 0.2rem;
+  flex-wrap: wrap;
 }
 
 .top_btns_wrapper .input_wrap_top {
@@ -751,12 +752,14 @@ hr.divide {
   align-items: center;
   justify-content: space-between;
   margin-top: 2rem;
+  flex-wrap: wrap;
 }
 .sort .buttons {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+  /* flex-wrap: wrap; */
 }
 
 .sort p {
@@ -775,7 +778,94 @@ hr.divide {
   border-radius: 10px;
   background: transparent;
   padding: 1rem;
+  width: 100%;
 }
+/* list and grid view section */
+.grids_sec {
+  padding: 0 2rem;
+  transition: all 0.5s ease-in-out;
+}
+
+.grids_sec.displayGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+}
+.tasks .end {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.tasks .end span.design {
+  background: rgba(255, 204, 0, 0.46);
+  border-radius: 1000px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 140%;
+  text-align: center;
+  letter-spacing: 0.03em;
+  padding: 0.55rem;
+
+  color: #2f2e40;
+  color: #2f2e40;
+}
+.tasks .end span.price {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 130%;
+  color: #2f2e40;
+}
+.grid_sec_btns {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+.grid_sec_btns .grid_sec_two_btns {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.grid_sec_two_btns .accept {
+  background: #ff6685;
+  border-radius: 5px;
+  border: none;
+  padding: 0.35rem 0.75rem;
+  color: #fff;
+}
+.grid_sec_two_btns .decline {
+  /* border: 1px solid #2f2e40;
+  border-radius: 5px; */
+  color: #2f2e40;
+  padding: 0.35rem 0.75rem;
+  background: rgba(255, 102, 133, 0.29);
+  border: 1px solid #ff6685;
+  border-radius: 5px;
+}
+
+button.read_more {
+  border: none;
+  color: #ff6685;
+  background: transparent;
+}
+.tasks {
+  background: #ffffff !important;
+  border: 1px solid rgba(255, 204, 0, 0.2) !important;
+  box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15) !important;
+  border-radius: 10px !important;
+  padding: 2rem !important;
+  margin: 0.75rem 0 !important;
+  width: 100% !important;
+}
+
 .faqButton {
   border-radius: 10px !important;
   width: 100% !important;
@@ -836,9 +926,6 @@ hr.divide {
 }
 .MuiList-padding {
   padding: 10px !important;
-}
-
-.container {
 }
 .root {
   max-width: 1440px !important;
@@ -1627,5 +1714,20 @@ hr.divide {
 
   .profile .right .input_wrap .inputs {
     grid-template-columns: 1fr;
+  }
+  .sort .buttons {
+    margin-top: 0.75rem;
+  }
+  .top_btns {
+    padding: 3rem 1rem;
+  }
+  .grids_sec {
+    padding: 0 1rem;
+  }
+  .tasks {
+    padding: 1rem !important;
+  }
+  .tasks p {
+    margin: 0.75rem 0;
   }
 }
