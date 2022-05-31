@@ -97,7 +97,7 @@ export default function Task() {
 {/* {viewMode} */}
           <div className={viewMode === 'displayGrid' ? 'grids_sec container displayGrid' : 'grids_sec container'}>
             {tasksList.map((task, index) => (
-              <div className="tasks">
+              <div className="tasks" key={task}>
                 <div className="end">
                   <span className="design">{task.status}</span>
                   <span className="price">{task.price}£</span>
