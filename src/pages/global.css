@@ -1086,6 +1086,11 @@ button.read_more {
   margin: auto !important;
   margin-top: 100px !important;
 }
+@media (max-width : 600px){
+.root{
+  margin-top: 40px !important;
+}
+}
 .roots {
   max-width: 1440px !important;
   width: 88% !important;
