@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { LatestOrders } from '../components/dashboard/latest-orders';
+import { LatestOrders } from '../components/dashboard/dasboard-table';
 import { LatestProducts } from '../components/dashboard/latest-products';
 import { TasksProgress } from '../components/dashboard/tasks-progress';
 import { TotalCustomers } from '../components/dashboard/total-customers';
@@ -22,7 +22,7 @@ const Dashboard = () => (
         py: 8
       }}
     >
-       
+
       <Container maxWidth={false}>
       <Typography
             color="textPrimary"
@@ -35,7 +35,7 @@ const Dashboard = () => (
           container
           spacing={3}
         >
-          
+
           <Grid
             item
             xl={4}
@@ -72,7 +72,7 @@ const Dashboard = () => (
           >
             <LatestProducts style={{border: "1px solid #2F2E40",boxShadow:" 0px 7px 20px rgba(145, 156, 212, 0.15)"}}/>
           </Grid>
-         
+
           <Grid
             item
             lg={12}

@@ -14,7 +14,8 @@ import {
   TableHead,
   // TablePagination,
   TableRow,
- 
+  Typography,
+
 } from '@mui/material';
 
 import { SeverityPill } from '../severity-pill';
@@ -25,7 +26,7 @@ const orders = [
     earning: '1890.19',
     amount: 30.5,
     customer: {
-      name: 'Ekaterina Tankova'
+      name: 'Auditing information architechture'
     },
     createdAt: 1555016400000,
     status: 'pending'
@@ -35,7 +36,7 @@ const orders = [
     earning: '1890.19',
     amount: 30.5,
     customer: {
-      name: 'Ekaterina Tankova'
+      name: 'Auditing information architechture'
     },
     createdAt: 1555016400000,
     status: 'pending'
@@ -45,7 +46,7 @@ const orders = [
     earning: '1890.19',
     amount: 30.5,
     customer: {
-      name: 'Ekaterina Tankova'
+      name: 'Auditing information architechture'
     },
     createdAt: 1555016400000,
     status: 'pending'
@@ -55,7 +56,7 @@ const orders = [
     earning: '1286.90',
     amount: 25.1,
     customer: {
-      name: 'Cao Yu'
+      name: 'Auditing information architechture'
     },
     createdAt: 1555016400000,
     status: 'delivered'
@@ -65,7 +66,7 @@ const orders = [
     earning: '1287.19',
     amount: 10.99,
     customer: {
-      name: 'Alexa Richardson'
+      name: 'Auditing information architechture'
     },
     createdAt: 1554930000000,
     status: 'refunded'
@@ -231,10 +232,10 @@ const orders = [
     createdAt: 1554670800000,
     status: 'delivered'
   }
-  
+
 ];
 
-  
+
 export const LatestOrders = (props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -251,8 +252,10 @@ export const LatestOrders = (props) => {
 
   return (
     <>
-<Card style={{borderRadius:"22px",boxShadow: '-5px 5px 20px rgba(51, 60, 193, 0.16),',paddingBottom:"50px"}} {...props}>
-    <CardHeader title="Your Earnings" />
+<Card  style={{borderRadius:"22px",boxShadow: '-5px 5px 20px rgba(51, 60, 193, 0.16),',paddingBottom:"50px"}} {...props}>
+    <Box className="table_boxs" style={{display:"flex",justifyContent:"space-between",flexDirection:"row",alignItems:"center"}}><CardHeader variant="h3" title="Your Earnings"  />
+   <Box> <Typography  style={{border:"1px solid #FDA741",borderRadius:"10px",padding:"20px",marginRight:"46px",}} variant='overline'>Currency: Euro ($)</Typography> </Box>
+    </Box>
     <PerfectScrollbar>
       <Box sx={{ minWidth: 800 }}>
         <Table>
@@ -265,9 +268,9 @@ export const LatestOrders = (props) => {
                 Earnings
               </TableCell>
               <TableCell >
-                
+
                     Date
-                 
+
               </TableCell>
               <TableCell>
                 Status
@@ -280,11 +283,11 @@ export const LatestOrders = (props) => {
             .map((order) => (
               <TableRow
                 hover
-                
-               
+
+
                 key={order.id}
               >
-                
+
                 <TableCell>
                   {order.customer.name}
                 </TableCell>
@@ -309,7 +312,7 @@ export const LatestOrders = (props) => {
         </Table>
       </Box>
     </PerfectScrollbar>
-   
+
   </Card>
   <Box
       sx={{
@@ -319,7 +322,7 @@ export const LatestOrders = (props) => {
       }}
       style={{paddingTop:"70px"}}
     >
-      <Pagination 
+      <Pagination
         boundaryCount={2}
         component="div"
         count={orders.length}
@@ -335,5 +338,5 @@ export const LatestOrders = (props) => {
   </>
   );
 }
-  
+
 

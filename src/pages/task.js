@@ -22,7 +22,7 @@ import { completedTasks } from "src/__mocks__/completedTasks";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
-    right: -10,
+    right: -12,
     top: 0,
     border: `none`,
     background: `rgba(255, 204, 0, 0.15)`,
@@ -46,7 +46,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box  style={{padding:"24px 0px"}}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -86,15 +86,25 @@ export default function Task() {
         <Head>
           <title>Task | Stay busy</title>
         </Head>
-        <h1 className="header_text" style={{ marginTop: "20px", marginLeft: "30px" }}>
+        <Box
+      component="main"
+      sx={{
+        flexGrow: 1,
+        py: 8
+      }}
+    >
+        <Container maxWidth={false}>
+        <Typography color="textPrimary"
+            gutterBottom
+            variant="h3">
           My Tasks
-        </h1>
+        </Typography>
 
         <Box sx={{ width: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs
               className="tabs"
-              style={{ marginLeft: "30px" }}
+
               value={value}
               onChange={handleChange}
               aria-label="basic tabs example"
@@ -107,7 +117,8 @@ export default function Task() {
                 }
                 iconPosition="end"
                 label="Ongoing"
-                style={{width:'200px', fontWeight:'700', color:'#2F2E40', fontSize: '20px', lineHeight: '130%'}}
+                className="tabs_titles"
+
                 {...a11yProps(0)}
               ></Tab>{" "}
               <Tab
@@ -117,7 +128,8 @@ export default function Task() {
                   </IconButton>
                 }
                 iconPosition="end"
-                style={{width:'200px', fontWeight:'700', color:'#2F2E40', fontSize: '20px', lineHeight: '130%'}}
+                className="tabs_titles2"
+
                 label="Completed"
                 {...a11yProps(1)}
               ></Tab>{" "}
@@ -126,7 +138,7 @@ export default function Task() {
           <TabPanel value={value} index={0}>
             <div className="ongoing">
               <div className="end">
-                <span>Ongoing</span>
+                <span >Ongoing</span>
               </div>
               <p>Auditing information architechture</p>
               <small>
@@ -135,10 +147,10 @@ export default function Task() {
               </small>
             </div>
             <div className="submission">
-              <div className="submit">Submission</div>
+              <div className="submit"><div className="t2">Submission</div></div>
               <label>Preferred Method</label> <br />
               <select onChange={handleSelectChange}>
-                <option value="Upload a file">Upload a file</option>
+                <option value="Upload a file">Document upload</option>
                 <option value="Add a link">Add a link</option>
               </select>
 
@@ -147,7 +159,7 @@ export default function Task() {
                 <div className="file-upload">
                   <input type="file" />
                   <div className="items">
-                    <BackupOutlinedIcon style={{ fontSize: "45px", color: "#2F2E40" }} />
+                    <BackupOutlinedIcon style={{ fontSize: "45px", color: "lightgray" }} />
                     <p>Upload a file</p>
                   </div>
                 </div>
@@ -158,8 +170,8 @@ export default function Task() {
                   <label htmlFor="link">Enter submission link</label> <br />
                   <input type="text" />
                 </div> : ''}
-              </div> 
-                
+              </div>
+
 
               <div className="btnn">
                 <button className="sub_btn">Save Submission</button>
@@ -191,17 +203,14 @@ export default function Task() {
                 <span>24-May-2022</span>
               </div>
 
-              <hr />
+              <hr style={{border:"1px solid rgba(0, 0, 0, 0.2)"}}/>
 
               <div className="below_hr">
                 <div className="submit">Submission</div>
 
                 <div className="hold_file">
                   <div className="file_hold">
-                    <UploadFileOutlinedIcon
-                      style={{ color: "#FF6685", fontSize:'5rem', borderRadius: '10px',  background: '#f7f4ef', padding:'10px', width:'50px', height:'50px' }}
-                      className="file_icon"
-                    />
+                  <img src="./pdf.svg" width='55px' />
                     <div className="file_details">
                       <small>{completed.uploadedFile}</small>
                       <span>{completed.date}</span>
@@ -210,17 +219,19 @@ export default function Task() {
 
                   <div className="delete">
                     <button>
-                      <DeleteOutlineOutlinedIcon style={{ color: "#DCDCDC", fontSize:'2rem' }} />
+                     <img src="./delete.svg" width='40px' />
                     </button>
                     <button>
-                      <BackupOutlinedIcon style={{ color: "#DCDCDC",fontSize:'2rem'  }} />
+                     <img src="./downloads.svg" width='40px' />
                     </button>
                   </div>
                 </div>
               </div>
             </div>)}
-            
+
           </TabPanel>
+        </Box>
+        </Container>
         </Box>
       </div>
     </>

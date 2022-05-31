@@ -6,7 +6,7 @@ import {
   Card,
   IconButton,
   Typography,
- 
+
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
@@ -24,13 +24,13 @@ const Linked = styled('div')(({ theme }) => ({
 export const LatestProducts = (props) => (
   <Button
   component="a"
-  
+
   disableRipple
   style={{paddingTop:"25px",paddingBottom:"25px"}}
   sx={{
-    backgroundColor:'#fff',
+    backgroundColor:'#2F2E40',
     borderRadius: "10px",
-    color:'#2F2E40',
+    color:'#fff',
     fontWeight: 'fontWeightBold',
     justifyContent: 'flex-start',
     px: 3,
@@ -41,25 +41,25 @@ export const LatestProducts = (props) => (
     marginTop:"30px",
     marginBottom:"30px",
     '& .MuiButton-startIcon': {
-      color: '#2F2E40',
+      color: '#fff',
       fontSize:"25px !important",
-     
+
     },
-    
-    
+
+
     '&:hover': {
-      backgroundColor: '#2F2E40 !important',
-      color:"#fff",
+      backgroundColor: '#fff !important',
+      color:"#2F2E40",
       '& .MuiButton-startIcon': {
-        color:  '#fff'
+        color:  '#2F2E40'
       },
     },
-   
+
   }}
 >
   <Box sx={{ flexGrow: 1 }} style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
   <LocalAtmIcon style={{marginRight:"15px"}}/>
-  <Typography>Withdraw your earnings</Typography>
+  <Typography variant='overline2'>Withdraw your earnings</Typography>
   </Box>
 </Button>
 );

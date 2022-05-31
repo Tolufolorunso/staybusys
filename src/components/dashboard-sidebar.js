@@ -17,28 +17,28 @@ import Link from 'next/link';
 const items = [
   {
     href: '/dashboard',
-    icon: (<DashboardCustomizeOutlinedIcon   style={{marginRight:"8px",fontSize:"25px"}}/>),
+    icon: (<DashboardCustomizeOutlinedIcon   style={{marginRight:"8px",fontSize:"30px"}}/>),
     title: 'Dashboard'
   },
   {
     href: '/task',
-    icon: (<HistoryToggleOffIcon  style={{marginRight:"8px",fontSize:"25px"}} />),
-    title: 'MyTask'
+    icon: (<HistoryToggleOffIcon  style={{marginRight:"8px",fontSize:"30px"}} />),
+    title: 'My Task'
   },
   {
     href: '/mytask',
-    icon: (<AssignmentIcon  style={{marginRight:"8px",fontSize:"25px"}}  />),
+    icon: (<AssignmentIcon  style={{marginRight:"8px",fontSize:"30px"}}  />),
     title: 'Task'
   },
- 
+
   {
     href: '/settings',
-    icon: (<CogIcon  style={{marginRight:"8px",fontSize:"25px"}}  />),
+    icon: (<CogIcon  style={{marginRight:"8px",fontSize:"30px"}}  />),
     title: 'Settings'
   },
   {
     href: '/support',
-    icon: (<ForumIcon  style={{marginRight:"8px",fontSize:"25px"}} />),
+    icon: (<ForumIcon  style={{marginRight:"8px",fontSize:"30px"}} />),
     title: 'Support'
   }
 ];
@@ -71,11 +71,11 @@ export const DashboardSidebar = (props) => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-         
+
           paddingTop:'60px'
         }}
       >
-        
+
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item) => (
             <NavItem
@@ -89,17 +89,17 @@ export const DashboardSidebar = (props) => {
         <Link href="/">
         <Box
         style={{display:"flex",paddingLeft:"35px",marginTop:"250px",cursor:"pointer "}}
-         
+
         >
-        
-           <img src='../../logout.svg' style={{color:"#2F2E40",marginRight:"15px"}} /> 
+
+           <img src='../../logout.svg' style={{color:"#2F2E40",marginRight:"15px"}} />
           <Typography style={{ fontWeight:'500'}} color='#2F2E40'>
             Logout
           </Typography>
-         
-          
 
-      
+
+
+
         </Box>
         </Link>
       </Box>

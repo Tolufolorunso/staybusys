@@ -37,14 +37,14 @@ export const theme = createTheme({
         textSizeLarge: {
           padding: '12px 16px'
         },
-       
+
       }
     },
     MuiButtonBase: {
       defaultProps: {
         disableRipple: true
       },
-      
+
     },
     MuiCardContent: {
       styleOverrides: {
@@ -56,7 +56,7 @@ export const theme = createTheme({
         }
       }
     },
-    
+
     MuiPaginationItem: {
       styleOverrides: {
         root: {
@@ -69,7 +69,7 @@ export const theme = createTheme({
             backgroundColor:"#FF6685 !important",
             color:'white'
           },
-          
+
         },
         ellipsis: {
           height:"32px !important",
@@ -77,15 +77,15 @@ export const theme = createTheme({
         previousNext: {
             borderRadius:"4px !important"
         }
-       
+
       }
     },
 
-    
+
     MuiCardHeader: {
       defaultProps: {
         titleTypographyProps: {
-          variant: 'h6'
+          variant: 'h3'
         },
         subheaderTypographyProps: {
           variant: 'body2'
@@ -144,17 +144,26 @@ export const theme = createTheme({
           '.MuiTableCell-root': {
             color: '#374151',
             textTransform:"none"
-            
+
           },
           borderBottom:"1px solid rgba(223, 224, 235, 1)",
           '& .MuiTableCell-root': {
             borderBottom: 'none',
-            fontSize: '18px',
+
             fontWeight: 900,
             paddingLeft:"50px !important",
             lineHeight: 1,
             letterSpacing: 0.5,
-            textTransform: 'none'
+            textTransform: 'none',
+            fontFamily: 'Almarena',
+            fontStyle: 'normal',
+            fontWeight: 700,
+            fontSize: '25px',
+            lineHeight: '130%',
+            /* or 32px */
+
+
+            color:' #181818',
           },
           '& .MuiTableCell-paddingCheckbox': {
             paddingTop: 4,
@@ -175,11 +184,13 @@ export const theme = createTheme({
           '& .MuiTableCell-root': {
             borderBottom:"1px solid rgba(223, 224, 235, 1)",
             fontSize: '16px',
-            fontWeight: 300,
+            fontWeight: 400,
             paddingLeft:"50px !important",
             lineHeight: 1,
             letterSpacing: 0.5,
-            textTransform: 'none'
+            fontFamily:"Euclid Circular A",
+            textTransform: 'none',
+            color: '#18181',
           },
           '& .MuiTableCell-paddingCheckbox': {
             paddingTop: 4,
@@ -188,7 +199,7 @@ export const theme = createTheme({
         }
       }
     }
-    
+
   },
   palette: {
     neutral: {
@@ -210,7 +221,7 @@ export const theme = createTheme({
       disabledBackground: 'rgba(55, 65, 81, 0.12)',
       disabled: 'rgba(55, 65, 81, 0.26)'
     },
-    
+
     background: {
       default: '#F9FAFC',
       paper: '#FFFFFF'
@@ -222,7 +233,7 @@ export const theme = createTheme({
       dark: '#3832A0',
       contrastText: '#FFFFFF'
     },
-    
+
     secondary: {
       main: '#1DA1F2',
       light: '#3FC79A',
@@ -316,16 +327,58 @@ export const theme = createTheme({
     },
     overline: {
       fontSize: '0.75rem',
-      fontWeight: 600,
+
       letterSpacing: '0.5px',
       lineHeight: 2.5,
-      textTransform: 'uppercase'
-    },
-    caption: {
-      fontSize: '0.9rem',
+      textTransform: 'uppercase',
+      fontFamily: 'Euclid Circular A',
+      fontStyle: 'normal',
       fontWeight: 400,
+
+      lineHeight:' 160%',
+      /* or 25px */
+
+
+      letterSpacing: '0.03em',
+
+      color: '#2F2E40',
+    },
+    overline2: {
+      fontSize: '0.75rem',
+
+      letterSpacing: '0.5px',
+      lineHeight: 2.5,
+      textTransform: 'uppercase',
+      fontFamily: 'Euclid Circular A',
+      fontStyle: 'normal',
+      fontWeight: 400,
+
+      lineHeight:' 160%',
+      /* or 25px */
+
+
+      letterSpacing: '0.03em',
+
+
+    },
+
+    caption: {
+      fontSize: '1rem',
+      fontWeight: 400,
+      fontFamily: 'Euclid Circular A',
+      fontStyle: 'normal',
+      color:" #2f2e40",
       lineHeight: 1.66
     },
+    caption2: {
+      fontSize: '1rem',
+      fontWeight: 400,
+      fontFamily: 'Euclid Circular A',
+      fontStyle: 'normal',
+      color:" #fff",
+      lineHeight: 1.66
+    },
+
     h1: {
       fontWeight: 700,
       fontSize: '3.5rem',
@@ -339,12 +392,29 @@ export const theme = createTheme({
     h3: {
       fontWeight: 700,
       fontSize: '2.25rem',
-      lineHeight: 1.375
+      lineHeight: 1.375,
+
+      fontFamily: 'Almarena',
+      fontStyle: 'normal',
+
+      lineHeight: '130%',
+
+      color:' #2F2E40',
+
     },
     h4: {
       fontWeight: 700,
       fontSize: '2rem',
-      lineHeight: 1.375
+      lineHeight: 1.375,
+      fontFamily: 'Almarena',
+      fontStyle: 'normal',
+      fontWeight: 700,
+
+      lineHeight: '130%',
+      /* identical to box height, or 39px */
+
+
+      color:' #2F2E40;'
     },
     h5: {
       fontWeight: 600,
@@ -362,5 +432,5 @@ export const theme = createTheme({
       lineHeight: 1.15
     }
   }
-  
+
 });

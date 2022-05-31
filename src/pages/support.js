@@ -18,7 +18,7 @@ const Support = () => (
         py: 8
       }}
     >
-       
+
       <Container maxWidth={false}>
       <Typography
             color="textPrimary"
@@ -27,7 +27,7 @@ const Support = () => (
           >
            Support
           </Typography>
-          {/* <Supportlayout /> */}
+
           <Supportlayout/>
           </Container>
           </Box>

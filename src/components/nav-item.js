@@ -16,7 +16,7 @@ export const NavItem = (props) => {
         display: 'flex',
         mb: 0.5,
         py: 0,
-       
+
       }}
       {...others}
     >
@@ -32,20 +32,22 @@ export const NavItem = (props) => {
           sx={{
             backgroundColor: active && '#2F2E40',
             borderRadius: "33.5765px 0px 0px 33.5765px",
+            fontFamily:"Euclid Circular A",
             color: active ? '#fff' : '#2F2E40',
-            fontWeight: active && 'fontWeightBold',
+            fontWeight: 400 && 400,
             justifyContent: 'flex-start',
             px: 3,
             textAlign: 'left',
+            fontSize:'18px',
             textTransform: 'none',
             width: '100%',
             '& .MuiButton-startIcon': {
               color: active ? '#fff' : '#2F2E40',
               fontSize:"25px !important",
-             
+
             },
-            
-            
+
+
             '&:hover': {
               backgroundColor: '#2f2e406b !important',
               color:"#fff",
@@ -64,10 +66,10 @@ export const NavItem = (props) => {
               height: active && ' 80px',
               top:active &&  '100%',
               right:active &&  '-3%',
-             
+
               clipPath: active && 'polygon(100% 0, 100% 100%, 96% 78%, 90% 58%, 80% 41%, 63% 25%, 37% 11%, 24% 6%, 0 0)'
             },
-           
+
             '&::after':{
               background: active && ' #2f2e40',
               content: active && '" "" "',
@@ -76,10 +78,10 @@ export const NavItem = (props) => {
               height: active && ' 70px',
               /* background: red, */
               width:active &&  ' 40px',
-              height: active && ' 80px',
+              height: active && ' 91px',
               top:active &&  '-122%',
               right:active &&  '-3%',
-             
+
               clipPath: active && 'polygon(100% 0, 100% 100%, 0 100%, 20% 96%, 49% 86%, 71% 71%, 85% 53%, 95% 30%, 99% 11%)'
             }
           }}
