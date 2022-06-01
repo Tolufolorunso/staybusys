@@ -94,7 +94,7 @@ export default function Task() {
                 <input type="text" placeholder="Payment" style={{width:"100%",padding:"1rem",paddingLeft:"0"}}/>
               </div>
                 </Grid>
-                <Grid item style={{paddingLeft:"3px !important"}} xs={12} sm={12} md={1} lg={1}>
+                <Grid item style={{paddingLeft:"0px !important"}} xs={12} sm={12} md={1} lg={1}>
                 <button>Search</button>
                 </Grid>
               </Grid>
