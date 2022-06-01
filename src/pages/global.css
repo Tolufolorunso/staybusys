@@ -27,6 +27,15 @@
 
 .font-face-gm {
   font-family: "Almarena";
+
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 130%;
+/* or 32px */
+
+
+color: #2F2E40;
 }
 
 .font-face-texts {
@@ -36,7 +45,14 @@
 
 .font-face-text-big {
   font-family: "Euclid Circular A";
-  font-weight: 300;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  /* or 25px */
+  letter-spacing: 0.03em;
+margin-bottom: 10px !important;
+  color: #2F2E40;
 }
 * {
   padding: 0;
@@ -858,7 +874,7 @@ hr.divide {
 .top_btns_wrapper {
   display: flex;
   align-items: center;
-  gap: 0.2rem;
+  gap: 0.16rem;
   flex-wrap: wrap;
 }
 
@@ -867,7 +883,7 @@ hr.divide {
   align-items: center;
   gap: 0.7rem;
   background: #ffffff;
-  padding: 1rem;
+
 }
 .top_btns_wrapper .input_wrap_top:nth-child(1) {
   flex: 2;
@@ -880,16 +896,40 @@ hr.divide {
 }
 .top_btns_wrapper input {
   border: none;
+  font-family: 'Euclid Circular A';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 140%;
+/* or 25px */
+
+letter-spacing: 0.03em;
+
+color: #2F2E40;
 }
 
 .top_btns_wrapper button {
-  padding: 1.1rem 2rem;
+  padding: 0.9rem 2rem;
   color: #ffffff;
   background: #ff6685;
   border-radius: 10px;
   border: none;
-}
+  font-family: 'Euclid Circular A';
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 26px;
+/* identical to box height, or 129% */
+width: 116px !important;
+letter-spacing: 0.03em;
 
+color: #FFFFFF;
+}
+@media (max-width: 1000px) {
+  .top_btns_wrapper button{
+    width: 100% !important;
+  }
+}
 .sort {
   display: flex;
   align-items: center;
@@ -906,12 +946,21 @@ hr.divide {
 }
 
 .sort p {
+
+  font-family: 'Inter';
   font-style: normal;
+  font-weight: 200;
   font-size: 25px;
   line-height: 130%;
-  color: #2f2e40;
-}
+  /* or 45px */
 
+
+  color: #2F2E40;
+}
+.contols{
+  background-color: #0070f3 !important;
+  border-color: #0070f3 !important;
+}
 .sort span {
   font-weight: bold;
 }
@@ -936,6 +985,7 @@ hr.divide {
   align-items: center;
   transition: all 0.5s ease-in-out;
 }
+
 .tasks .end {
   display: flex;
   justify-content: space-between;
@@ -954,11 +1004,12 @@ hr.divide {
   letter-spacing: 0.03em;
   padding: 0.55rem;
 
-  color: #2f2e40;
+  font-family: 'Euclid Circular A';
   color: #2f2e40;
 }
 .tasks .end span.price {
   font-style: normal;
+  font-family: 'Almarena';
   font-weight: 700;
   font-size: 18px;
   line-height: 130%;
@@ -991,22 +1042,50 @@ margin-bottom: 40px !important;
   border-radius: 5px;
   border: none;
   padding: 0.35rem 0.75rem;
-  color: #fff;
+  font-family: 'Euclid Circular A';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  /* or 25px */
+
+  text-align: center;
+  letter-spacing: 0.03em;
+
+  color: #FFFFFF;
 }
 .grid_sec_two_btns .decline {
   /* border: 1px solid #2f2e40;
   border-radius: 5px; */
-  color: #2f2e40;
+
   padding: 0.35rem 0.75rem;
-  background: rgba(255, 102, 133, 0.29);
-  border: 1px solid #ff6685;
+  background: transparent;
+  border: 1px solid #2f2e40;
   border-radius: 5px;
+  font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* or 25px */
+font-family: 'Euclid Circular A';
+text-align: center;
+letter-spacing: 0.03em;
+
+color: #2F2E40;
 }
 
 button.read_more {
   border: none;
-  color: #ff6685;
-  background: transparent;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  /* or 25px */
+  font-family: 'Euclid Circular A';
+  background-color: transparent;
+  letter-spacing: 0.03em;
+
+  color: #FF6685;
 }
 .tasks {
   background: #ffffff !important;
