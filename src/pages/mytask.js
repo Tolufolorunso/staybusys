@@ -1,12 +1,7 @@
 import Head from "next/head";
 import * as React from "react";
-import { useState } from "react";
 import { Box, Container, Grid, Pagination } from "@mui/material";
-import SavedSearchOutlinedIcon from "@mui/icons-material/SavedSearchOutlined";
-import AddLocationAltOutlinedIcon from "@mui/icons-material/AddLocationAltOutlined";
-import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
-import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import VerticalSplitOutlinedIcon from "@mui/icons-material/VerticalSplitOutlined";
+
 import { tasksList } from "src/__mocks__/tasksList";
 import Select from "react-select";
 import { DashboardLayout } from "../components/dashboard-layout";
@@ -75,26 +70,26 @@ export default function Task() {
           <div className="top_btns">
             <div className="top_btns_wrapper">
               <Grid container spacing={1}>
-                <Grid item style={{paddingLeft:"3px !important"}} xs={12} sm={12} md={12} lg={4.7}>
+                <Grid item style={{paddingLeft:"3px "}} xs={12} sm={12} md={12} lg={4.7}>
                 <div className="input_wrap_top">
               <img src="../search.svg" style={{padding:"1rem", paddingRight:"0px"}} />
                 <input type="text" placeholder="Task type, description and keywords" style={{width:"100%",padding:"1rem",paddingLeft:"0"}} />
               </div>
                 </Grid>
-                <Grid item style={{paddingLeft:"3px !important"}} xs={12} sm={6} md={6} lg={3}>
+                <Grid item style={{paddingLeft:"3px "}} xs={12} sm={6} md={6} lg={3}>
                 <div className="input_wrap_top" >
                 <img src="../loaction.svg"  style={{padding:"1rem", paddingRight:"0px"}}  />
                 <input type="text" placeholder="Location" style={{width:"100%",padding:"1rem",paddingLeft:"0"}} />
               </div>
                 </Grid>
-                <Grid item style={{paddingLeft:"3px !important"}} xs={12} sm={6} md={6} lg={3}>
+                <Grid item style={{paddingLeft:"3px "}} xs={12} sm={6} md={6} lg={3}>
 
               <div className="input_wrap_top">
                 <img src="../dollar.svg" style={{padding:"1.1rem", paddingRight:"0px"}}/>
                 <input type="text" placeholder="Payment" style={{width:"100%",padding:"1rem",paddingLeft:"0"}}/>
               </div>
                 </Grid>
-                <Grid item style={{paddingLeft:"0px !important"}} xs={12} sm={12} md={1} lg={1}>
+                <Grid item style={{paddingLeft:"0px "}} xs={12} sm={12} md={1} lg={1}>
                 <button>Search</button>
                 </Grid>
               </Grid>
