@@ -28,14 +28,13 @@
 .font-face-gm {
   font-family: "Almarena";
 
-font-style: normal;
-font-weight: 700;
-font-size: 20px;
-line-height: 130%;
-/* or 32px */
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 130%;
+  /* or 32px */
 
-
-color: #2F2E40;
+  color: #2f2e40;
 }
 
 .font-face-texts {
@@ -51,8 +50,8 @@ color: #2F2E40;
   line-height: 150%;
   /* or 25px */
   letter-spacing: 0.03em;
-margin-bottom: 10px !important;
-  color: #2F2E40;
+  margin-bottom: 10px !important;
+  color: #2f2e40;
 }
 * {
   padding: 0;
@@ -69,10 +68,9 @@ body {
   font-display: fallback;
 }
 @media (max-width: 600px) {
-  .table_boxs{
-flex-direction: column !important;
-
-}
+  .table_boxs {
+    flex-direction: column !important;
+  }
 }
 
 .my_container {
@@ -123,13 +121,13 @@ select {
 
   box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15) !important;
   border-radius: 10px !important;
-  padding: 2rem  !important;
+  padding: 2rem !important;
   margin: 0.75rem 0 !important;
   width: 100% !important;
 }
 
 .ongoing p {
-  font-family: 'Almarena';
+  font-family: "Almarena";
   font-style: normal;
   font-weight: 700;
   font-size: 25px;
@@ -137,11 +135,10 @@ select {
   padding-bottom: 15px;
   /* identical to box height, or 39px */
 
-
-  color: #2F2E40;
+  color: #2f2e40;
 }
-.t2{
-  font-family: 'Almarena';
+.t2 {
+  font-family: "Almarena";
   font-style: normal;
   font-weight: 700;
   font-size: 25px;
@@ -149,20 +146,19 @@ select {
   padding-bottom: 15px;
   /* identical to box height, or 39px */
 
-
-  color: #2F2E40;
+  color: #2f2e40;
 }
 .ongoing small {
-  font-family: 'Euclid Circular A';
+  font-family: "Euclid Circular A";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 140%;
   /* or 25px */
-padding-bottom: 15px;
+  padding-bottom: 15px;
   letter-spacing: 0.03em;
 
-  color: #2F2E40;
+  color: #2f2e40;
 }
 .ongoing .end,
 .completed .end {
@@ -180,9 +176,8 @@ padding-bottom: 15px;
   background: rgba(255, 204, 0, 0.46) !important;
   border-radius: 1000px !important;
   width: 114.23px !important;
-  padding: 0.55rem 1.4rem!important;
-  font-family: 'Euclid Circular A';
-
+  padding: 0.55rem 1.4rem !important;
+  font-family: "Euclid Circular A";
 }
 .completed .end span {
   font-weight: 400 !important;
@@ -195,7 +190,7 @@ padding-bottom: 15px;
   border-radius: 1000px !important;
   width: 113.23px !important;
   padding: 0.55rem !important;
-  font-family: 'Euclid Circular A';
+  font-family: "Euclid Circular A";
 }
 .submission {
   background: #ffffff !important;
@@ -206,81 +201,81 @@ padding-bottom: 15px;
   padding: 2rem !important;
   margin: 2rem 0 !important;
 }
-.tabs_titles{
-  font-family: 'Almarena'!important;
-font-style: normal !important;
-font-weight: 700 !important;
-font-size: 26px !important;
-line-height: 130% !important;
-/* identical to box height, or 39px
+.tabs_titles {
+  font-family: "Almarena" !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 26px !important;
+  line-height: 130% !important;
+  /* identical to box height, or 39px
  */
- padding-right: 26px !important;
- padding-left: 0px !important;
-text-transform: none !important;
-color: #2F2E40 !important;
+  padding-right: 26px !important;
+  padding-left: 0px !important;
+  text-transform: none !important;
+  color: #2f2e40 !important;
 }
 @media (max-width: 700px) {
-  .tabs_titles{
-    font-family: 'Almarena'!important;
-  font-style: normal !important;
-  font-weight: 600 !important;
-  font-size: 20px !important;
-  line-height: 130% !important;
-  /* identical to box height, or 39px */
+  .tabs_titles {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    line-height: 130% !important;
+    /* identical to box height, or 39px */
 
-  text-transform: none !important;
-  color: #2F2E40 !important;
+    text-transform: none !important;
+    color: #2f2e40 !important;
   }
 }
 @media (max-width: 350px) {
-  .tabs_titles{
-    font-family: 'Almarena'!important;
-  font-style: normal !important;
-  font-weight: 600 !important;
-  font-size: 16px !important;
-  line-height: 130% !important;
-  /* identical to box height, or 39px */
+  .tabs_titles {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 130% !important;
+    /* identical to box height, or 39px */
 
-  text-transform: none !important;
-  color: #2F2E40 !important;
+    text-transform: none !important;
+    color: #2f2e40 !important;
   }
 }
 
-.tabs_titles2{
-  font-family: 'Almarena'!important;
-font-style: normal !important;
-font-weight: 700 !important;
-font-size: 26px !important;
-line-height: 130% !important;
-/* identical to box height, or 39px */
-padding-right: 26px !important;
-text-transform: none !important;
-color: #2F2E40 !important;
-}
-@media (max-width: 700px) {
-  .tabs_titles2{
-    font-family: 'Almarena'!important;
+.tabs_titles2 {
+  font-family: "Almarena" !important;
   font-style: normal !important;
-  font-weight: 600 !important;
-  font-size: 20px !important;
+  font-weight: 700 !important;
+  font-size: 26px !important;
   line-height: 130% !important;
   /* identical to box height, or 39px */
-
+  padding-right: 26px !important;
   text-transform: none !important;
-  color: #2F2E40 !important;
+  color: #2f2e40 !important;
+}
+@media (max-width: 700px) {
+  .tabs_titles2 {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    line-height: 130% !important;
+    /* identical to box height, or 39px */
+
+    text-transform: none !important;
+    color: #2f2e40 !important;
   }
 }
 @media (max-width: 350px) {
-  .tabs_titles2{
-    font-family: 'Almarena'!important;
-  font-style: normal !important;
-  font-weight: 600 !important;
-  font-size: 16px !important;
-  line-height: 130% !important;
-  /* identical to box height, or 39px */
+  .tabs_titles2 {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 130% !important;
+    /* identical to box height, or 39px */
 
-  text-transform: none !important;
-  color: #2F2E40 !important;
+    text-transform: none !important;
+    color: #2f2e40 !important;
   }
 }
 .submit {
@@ -308,16 +303,16 @@ color: #2F2E40 !important;
   border: 1px solid rgba(255, 204, 0, 0.3) !important;
   border-radius: 7px !important;
   margin-top: 1rem !important;
-  font-family: 'Euclid Circular A';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 140%;
-/* or 25px */
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 140%;
+  /* or 25px */
 
-letter-spacing: 0.03em;
+  letter-spacing: 0.03em;
 
-color: #585757;
+  color: #585757;
 }
 
 .submission .btnn {
@@ -360,7 +355,6 @@ color: #585757;
   gap: 1rem !important;
   align-items: center !important;
   padding: 1rem 3rem !important;
-
 }
 
 .file-upload {
@@ -455,7 +449,7 @@ label {
 
 .completed p {
   font-style: normal;
-  font-family: 'Almarena';
+  font-family: "Almarena";
   font-style: normal;
   font-weight: 700;
   font-size: 25px;
@@ -463,34 +457,31 @@ label {
   padding-bottom: 15px;
   /* identical to box height, or 39px */
 
-
-
-  color: #2F2E40;
+  color: #2f2e40;
 }
 .completed .details small {
-  font-family: 'Euclid Circular A';
+  font-family: "Euclid Circular A";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 140%;
   /* or 25px */
-padding-bottom: 15px;
+  padding-bottom: 15px;
   letter-spacing: 0.03em;
 
-  color: #2F2E40;
-
+  color: #2f2e40;
 }
 .completed .details span {
- font-family: 'Euclid Circular A';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 140%;
-/* identical to box height, or 17px */
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+  /* identical to box height, or 17px */
 
-letter-spacing: 0.03em;
+  letter-spacing: 0.03em;
 
-color: #2F2E40;
+  color: #2f2e40;
 }
 
 .file_hold {
@@ -501,8 +492,6 @@ color: #2F2E40;
   /* margin-top: 1rem !important; */
 
   border-radius: 10px !important;
-
-
 }
 
 .file_hold .file_details {
@@ -517,8 +506,8 @@ color: #2F2E40;
   font-size: 15px !important;
   line-height: 140% !important;
   letter-spacing: 0.03em !important;
-  font-family: 'Euclid Circular A';
-padding-bottom: 4px;
+  font-family: "Euclid Circular A";
+  padding-bottom: 4px;
   color: #2f2e40 !important;
 }
 .file_hold span {
@@ -624,10 +613,6 @@ padding-bottom: 4px;
 
 .profile .right .input_wrap input {
   padding: 10px 16px;
-
-
-
-  position: absolute;
   height: 48px;
   width: 335px;
   margin-top: 0.5rem;
@@ -883,7 +868,6 @@ hr.divide {
   align-items: center;
   gap: 0.7rem;
   background: #ffffff;
-
 }
 .top_btns_wrapper .input_wrap_top:nth-child(1) {
   flex: 2;
@@ -896,16 +880,16 @@ hr.divide {
 }
 .top_btns_wrapper input {
   border: none;
-  font-family: 'Euclid Circular A';
-font-style: normal;
-font-weight: 400;
-font-size: 16px;
-line-height: 140%;
-/* or 25px */
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  /* or 25px */
 
-letter-spacing: 0.03em;
+  letter-spacing: 0.03em;
 
-color: #2F2E40;
+  color: #2f2e40;
 }
 
 .top_btns_wrapper button {
@@ -914,19 +898,19 @@ color: #2F2E40;
   background: #ff6685;
   border-radius: 10px;
   border: none;
-  font-family: 'Euclid Circular A';
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 26px;
-/* identical to box height, or 129% */
-width: 116px !important;
-letter-spacing: 0.03em;
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  /* identical to box height, or 129% */
+  width: 116px !important;
+  letter-spacing: 0.03em;
 
-color: #FFFFFF;
+  color: #ffffff;
 }
 @media (max-width: 1000px) {
-  .top_btns_wrapper button{
+  .top_btns_wrapper button {
     width: 100% !important;
   }
 }
@@ -946,18 +930,16 @@ color: #FFFFFF;
 }
 
 .sort p {
-
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 200;
   font-size: 25px;
   line-height: 130%;
   /* or 45px */
 
-
-  color: #2F2E40;
+  color: #2f2e40;
 }
-.contols{
+.contols {
   background-color: #0070f3 !important;
   border-color: #0070f3 !important;
 }
@@ -1004,12 +986,12 @@ color: #FFFFFF;
   letter-spacing: 0.03em;
   padding: 0.55rem;
 
-  font-family: 'Euclid Circular A';
+  font-family: "Euclid Circular A";
   color: #2f2e40;
 }
 .tasks .end span.price {
   font-style: normal;
-  font-family: 'Almarena';
+  font-family: "Almarena";
   font-weight: 700;
   font-size: 18px;
   line-height: 130%;
@@ -1024,13 +1006,381 @@ color: #FFFFFF;
   margin: 1rem 0;
   flex-wrap: wrap;
 }
-.faqButton{
-border-radius: 10px !important;
-width: 100% !important;
-height: 50px !important;
-padding-left: 50px !important;
-padding-right: 50px !important;
-margin-bottom: 40px !important;
+/* Login Pages */
+.login_wrapper {
+  /* position: relative; */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login {
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  width: 35%;
+}
+
+@media (max-width: 1150px) {
+  .login {
+    width: 45%;
+  }
+}
+@media (max-width: 900px) {
+  .login {
+    width: 60%;
+  }
+}
+
+@media (max-width: 600px) {
+  .login {
+    width: 90%;
+  }
+}
+
+.login h4 {
+  font-family: "Almarena";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 45px;
+  line-height: 130%;
+  text-align: center;
+  color: #2f2e40;
+  margin: 3rem 0;
+}
+
+.login_inputs {
+  background: #ffffff;
+  border: 1px solid rgba(255, 204, 0, 0.2);
+  box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15);
+  border-radius: 7px;
+  padding: 1.5rem;
+  width: 100%;
+}
+.login_input {
+  margin: 1rem 0 2rem;
+}
+.login_input label {
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 140%;
+  letter-spacing: 0.03em;
+  color: #585757;
+}
+.login_input input {
+  /* padding: 10px 10px 10px 24px;
+  background: rgba(255, 204, 0, 0.03);
+  border: 1px solid rgba(255, 204, 0, 0.3);
+  border-radius: 7px;
+  width: 100%;
+  margin-top: 0.95rem;
+  padding: 1rem; */
+  border: none;
+}
+
+.login_inputs .login_btn button {
+  background: #ff6685;
+  border-radius: 10px;
+  color: #fff;
+  /* padding: 20px 20px 20px 48px; */
+  padding: 1.2rem;
+  border: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 30px;
+  text-align: center;
+
+  color: #ffffff;
+
+  border: none;
+}
+
+.forgot_pass {
+  background: transparent;
+  border: none;
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0.03em;
+  color: #2f2e40;
+  margin: 0.6rem 0;
+}
+
+.login_input .input_wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px 10px 24px;
+  background: rgba(255, 204, 0, 0.03);
+  border: 1px solid rgba(255, 204, 0, 0.3);
+  border-radius: 7px;
+  width: 100%;
+  margin-top: 0.95rem;
+  padding: 1rem;
+}
+.login_input .input_wrap input {
+  width: 100%;
+  background: transparent;
+}
+.login_input .input_wrap span {
+  cursor: pointer;
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 23px;
+  text-align: right;
+  color: #2f2e40;
+}
+.login .already p {
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 140%;
+  text-align: center;
+  letter-spacing: 0.03em;
+  color: #2f2e40;
+  margin-top: 3rem;
+}
+.login .already button {
+  border: none;
+  background: transparent;
+  color: #ff6685;
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 140%;
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+.choose {
+  /* position: relative;
+  display: flex;
+  justify-content: center; */
+  /* align-items: center; */
+  position: absolute;
+  top: 50%;
+  width: 100%;
+
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.choose .tab,
+.personal_det .tab {
+  font-family: "Almarena";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 130%;
+  text-align: center;
+  color: #ff6685;
+  background: rgba(255, 102, 133, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  border-radius: 50%;
+  right: 10%;
+  top: 2%;
+}
+
+.choose h4 {
+  font-family: "Almarena";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 130%;
+  text-align: center;
+  color: #2f2e40;
+  margin: 2rem 0 5rem;
+}
+
+.choose_tasks {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.choose .choose_task .proceed {
+  display: grid;
+  place-items: center;
+}
+.choose .choose_task .proceed button {
+  padding: 1.1rem 3rem;
+}
+.choose .choose_task .buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 2rem;
+  place-items: center;
+  max-width: 1000px;
+  margin: 0 auto 4rem;
+}
+.choose .choose_task .buttons button {
+  background: #ffffff;
+  border: 1px solid rgba(255, 204, 0, 0.2);
+  box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15);
+  border-radius: 7px;
+  /* height: 57.41566848754883px; */
+  width: 139.2613525390625px;
+  padding: 0.85rem;
+}
+.choose .choose_task .buttons button.active {
+  background: #ffcc00;
+  border: 1px solid rgba(255, 204, 0, 0.2);
+  /* contact form shadow */
+
+  box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15);
+  border-radius: 7px;
+}
+
+.personal_det {
+  width: 70%;
+}
+
+.personal_det {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.personal_det select,
+.personal_det input {
+  border: none;
+  width: 100%;
+  background: transparent;
+}
+
+.registration_modal_desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.3rem;
+}
+
+.registration_modal_desc .verification {
+  font-family: "Almarena";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 130%;
+
+  text-align: center;
+
+  color: #1c1c1c;
+  margin-bottom: 1rem;
+}
+
+.registration_modal_desc small {
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 140%;
+  /* or 25px */
+
+  text-align: center;
+  letter-spacing: 0.03em;
+
+  color: #585757;
+}
+
+.registration_modal_desc small.red {
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 140%;
+  /* or 34px */
+
+  text-align: center;
+  letter-spacing: 0.03em;
+
+  color: #ff6685;
+}
+
+@media (max-width: 1040px) {
+  .choose {
+    /* align-items: center; */
+    padding: 6rem 1.8rem 3rem;
+  }
+
+  .personal_det {
+    /* align-items: center; */
+    padding: 6rem 0 3rem;
+  }
+  .choose {
+    height: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .login_wrapper {
+    height: 100%;
+  }
+}
+@media (max-width: 800px) {
+  .choose .choose_task .buttons {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+  .choose .tab,
+  .personal_det .tab {
+    right: 5%;
+  }
+  .actn_btn {
+    padding: 10px 45px;
+    background: #ff6685;
+    border-radius: 10px;
+    border: none;
+    color: #ffffff;
+    margin-top: 2rem;
+    width: 70%;
+  }
+}
+@media (max-width: 764px) {
+  .login .personal_det {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .login.personal_det {
+    width: 90%;
+  }
+}
+@media (max-width: 350px) {
+  .choose .choose_task .buttons {
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+  }
+}
+
+.faqButton {
+  border-radius: 10px !important;
+  width: 100% !important;
+  height: 50px !important;
+  padding-left: 50px !important;
+  padding-right: 50px !important;
+  margin-bottom: 40px !important;
 }
 .grid_sec_btns .grid_sec_two_btns {
   display: flex;
@@ -1042,7 +1392,7 @@ margin-bottom: 40px !important;
   border-radius: 5px;
   border: none;
   padding: 0.35rem 0.75rem;
-  font-family: 'Euclid Circular A';
+  font-family: "Euclid Circular A";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -1052,7 +1402,7 @@ margin-bottom: 40px !important;
   text-align: center;
   letter-spacing: 0.03em;
 
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .grid_sec_two_btns .decline {
   /* border: 1px solid #2f2e40;
@@ -1063,15 +1413,15 @@ margin-bottom: 40px !important;
   border: 1px solid #2f2e40;
   border-radius: 5px;
   font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 140%;
-/* or 25px */
-font-family: 'Euclid Circular A';
-text-align: center;
-letter-spacing: 0.03em;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  /* or 25px */
+  font-family: "Euclid Circular A";
+  text-align: center;
+  letter-spacing: 0.03em;
 
-color: #2F2E40;
+  color: #2f2e40;
 }
 
 button.read_more {
@@ -1081,11 +1431,11 @@ button.read_more {
   font-size: 16px;
   line-height: 140%;
   /* or 25px */
-  font-family: 'Euclid Circular A';
+  font-family: "Euclid Circular A";
   background-color: transparent;
   letter-spacing: 0.03em;
 
-  color: #FF6685;
+  color: #ff6685;
 }
 .tasks {
   background: #ffffff !important;
@@ -1132,7 +1482,7 @@ button.read_more {
 
   color: #2f2e40 !important;
 }
-@media (max-width: 600px){
+@media (max-width: 600px) {
   .row-title-text {
     font-family: "Almarena" !important;
     font-style: normal !important;
@@ -1178,13 +1528,13 @@ button.read_more {
   margin-top: 100px !important;
 }
 
-@media (max-width: 1000px){
-  .root{
+@media (max-width: 1000px) {
+  .root {
     margin-top: 200px !important;
   }
 }
-@media (max-width: 899px){
-  .root{
+@media (max-width: 899px) {
+  .root {
     margin-top: 60px !important;
   }
 }
@@ -1312,7 +1662,6 @@ button.read_more {
 }
 
 .logo {
-
   margin-left: 0.5rem !important;
 }
 
@@ -1786,7 +2135,6 @@ button.read_more {
   border-radius: 0px 10px 10px 0px !important;
 }
 
-
 .faqTitle {
   display: flex !important;
   justify-content: center !important;
@@ -1896,7 +2244,7 @@ button.read_more {
 }
 
 .footer-text {
-  font-family: 'Euclid Circular A' !important;
+  font-family: "Euclid Circular A" !important;
   font-style: normal !important;
   font-weight: 400 !important;
   font-size: 16px !important;
@@ -1909,7 +2257,7 @@ button.read_more {
 }
 @media screen and (max-width: 600px) {
   .footer-text {
-    font-family: 'Euclid Circular A' !important;
+    font-family: "Euclid Circular A" !important;
     font-style: normal !important;
     font-weight: 400 !important;
     font-size: 16px !important;

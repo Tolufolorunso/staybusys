@@ -1,13 +1,7 @@
 import Head from "next/head";
-import { useState } from "react";
-import * as React from "react";
-
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import Modal from "@mui/material/Modal";
-
 import * as Yup from "yup";
 import {
   Box,
@@ -21,42 +15,8 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 750,
-  bgcolor: "background.paper",
-  border: "1px solid rgba(105, 110, 255, 0.2)",
-  boxShadow: '0px 7px 20px rgba(145, 156, 212, 0.15)',
-  borderRadius: '7px',
-  p: 4,
-};
-const smallerStyle = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 600,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
-const Register = () => {
-  const [passwordShown, setPasswordShown] = useState(false);
-  const togglePassword = () => {
-    setPasswordShown(!passwordShown);
-  };
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  function register(e){
-    e.preventDefault()
-    console.log('first')
-  }
+const Resetpassword = () => {
+ 
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -81,7 +41,7 @@ const Register = () => {
   return (
     <>
       <Head>
-        <title>Register | Material Kit</title>
+        <title>Reset Password | Material Kit</title>
       </Head>
 
       <div className="container ">
@@ -90,55 +50,24 @@ const Register = () => {
             <h4>Create a new account</h4>
 
             <div className="login_inputs">
-              <form onSubmit={register}>
+              <form action="">
                 <div className="login_input">
-                  <label htmlFor="student_email">Your student Email:</label> <br />
+                  <label htmlFor="student_email">Email:</label> <br />
                   <div className="input_wrap">
-                    <input type="text" />
+                  <input type="text" />
+
                   </div>
                 </div>
-                <div className="login_input">
-                  <label htmlFor="student_email">Choose a password:</label> <br />
-                  <div className="input_wrap">
-                    <input type={passwordShown ? "text" : "password"} />
-                    <span onClick={togglePassword}>Show</span>
-                  </div>
-                </div>
+                
 
                 <div className="login_btn">
-                  <button onClick={handleOpen}>Sign Up</button>
+                  <button type="submit">Reset Password</button>
                 </div>
-
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box sx={style}>
-                    <div className="registration_modal">
-                      <div className="registration_modal_desc">
-                        <div style={{ border: "2px solid groove" , background:'#FFCC00', width:'80px', height:'80px', borderRadius:'50%', display:'flex', justifyContent:'center', alignItems:'center'}} className="top">
-                         <MailOutlineIcon style={{  background:'#FFCC00', width:'40px', height:'40px', borderRadius:'50%', display:'flex', justifyContent:'center', alignItems:'center'}}/>
-                        </div>
-                        <p className="verification">
-                          Verification Link
-                        </p>
-                        <small>A verification link has been sent to:</small>
-                        <small className="red">Seyi@yahoo.com</small>
-                        <small>Please check your email </small>
-
-                      
-
-                      </div>
-                    </div>
-                  </Box>
-                </Modal>
               </form>
             </div>
             <div className="already">
               <p>
-                Already have an account? <button>Login</button>
+                Remember your password?<button>Login</button>
               </p>
             </div>
           </div>
@@ -305,4 +234,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Resetpassword;

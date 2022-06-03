@@ -1,16 +1,23 @@
-import Head from 'next/head';
+import Head from "next/head";
 import { useState } from "react";
 
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Facebook as FacebookIcon } from '../icons/facebook';
-import { Google as GoogleIcon } from '../icons/google';
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  FormHelperText,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-const Login = () => {
+const Passwordreset = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -18,66 +25,58 @@ const Login = () => {
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
+      email: "",
+      firstName: "",
+      lastName: "",
+      password: "",
+      policy: false,
     },
     validationSchema: Yup.object({
-      email: Yup
-        .string()
-        .email(
-          'Must be a valid email')
-        .max(255)
-        .required(
-          'Email is required'),
-      password: Yup
-        .string()
-        .max(255)
-        .required(
-          'Password is required')
+      email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
+      firstName: Yup.string().max(255).required("First name is required"),
+      lastName: Yup.string().max(255).required("Last name is required"),
+      password: Yup.string().max(255).required("Password is required"),
+      policy: Yup.boolean().oneOf([true], "This field must be checked"),
     }),
     onSubmit: () => {
-      router.push('/');
-    }
+      router.push("/");
+    },
   });
 
   return (
     <>
       <Head>
-        <title>Login | Material Kit</title>
+        <title>Password Reset | Material Kit</title>
       </Head>
+
       <div className="container ">
         <div className="login_wrapper">
           <div className="login">
-            <h4>Login</h4>
+            <h4>Password Reset</h4>
 
             <div className="login_inputs">
               <form action="">
                 <div className="login_input">
-                  <label htmlFor="student_email">Your student Email:</label> <br />
-                  <div className="input_wrap">
-                  <input type="text" />
-
-                  </div>
-                </div>
-                <div className="login_input">
-                  <label htmlFor="student_email">Choose a password:</label> <br />
+                  <label htmlFor="student_email">Password</label> <br />
                   <div className="input_wrap">
                     <input type={passwordShown ? "text" : "password"} />
                     <span onClick={togglePassword}>Show</span>
                   </div>
-                  <button className='forgot_pass'>Forgot your password?</button>
+                </div>
+                <div className="login_input">
+                  <label htmlFor="student_email">Confirm Password</label> <br />
+                  <div className="input_wrap">
+                    <input type={passwordShown ? "text" : "password"} />
+                    <span onClick={togglePassword}>Show</span>
+                  </div>
                 </div>
 
                 <div className="login_btn">
-                  <button type="submit">Sign Up</button>
-                </div> 
+                  <button type="submit">Reset Password</button>
+                </div>
               </form>
             </div>
-            <div className="already">
-              <p>
-                Don't have an account? <button>Sign In</button>
-              </p>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -108,67 +107,40 @@ const Login = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                Sign in
+                Create a new account
               </Typography>
               <Typography
                 color="textSecondary"
                 gutterBottom
                 variant="body2"
               >
-                Sign in on the internal platform
+                Use your email to create a new account
               </Typography>
             </Box>
-            <Grid
-              container
-              spacing={3}
-            >
-              <Grid
-                item
-                xs={12}
-                md={6}
-              >
-                <Button
-                  color="info"
-                  fullWidth
-                  startIcon={<FacebookIcon />}
-                  onClick={formik.handleSubmit}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Facebook
-                </Button>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                md={6}
-              >
-                <Button
-                  fullWidth
-                  color="error"
-                  startIcon={<GoogleIcon />}
-                  onClick={formik.handleSubmit}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Google
-                </Button>
-              </Grid>
-            </Grid>
-            <Box
-              sx={{
-                pb: 1,
-                pt: 3
-              }}
-            >
-              <Typography
-                align="center"
-                color="textSecondary"
-                variant="body1"
-              >
-                or login with email address
-              </Typography>
-            </Box>
+            <TextField
+              error={Boolean(formik.touched.firstName && formik.errors.firstName)}
+              fullWidth
+              helperText={formik.touched.firstName && formik.errors.firstName}
+              label="First Name"
+              margin="normal"
+              name="firstName"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.firstName}
+              variant="outlined"
+            />
+            <TextField
+              error={Boolean(formik.touched.lastName && formik.errors.lastName)}
+              fullWidth
+              helperText={formik.touched.lastName && formik.errors.lastName}
+              label="Last Name"
+              margin="normal"
+              name="lastName"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.lastName}
+              variant="outlined"
+            />
             <TextField
               error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
@@ -195,6 +167,43 @@ const Login = () => {
               value={formik.values.password}
               variant="outlined"
             />
+            <Box
+              sx={{
+                alignItems: 'center',
+                display: 'flex',
+                ml: -1
+              }}
+            >
+              <Checkbox
+                checked={formik.values.policy}
+                name="policy"
+                onChange={formik.handleChange}
+              />
+              <Typography
+                color="textSecondary"
+                variant="body2"
+              >
+                I have read the
+                {' '}
+                <NextLink
+                  href="#"
+                  passHref
+                >
+                  <Link
+                    color="primary"
+                    underline="always"
+                    variant="subtitle2"
+                  >
+                    Terms and Conditions
+                  </Link>
+                </NextLink>
+              </Typography>
+            </Box>
+            {Boolean(formik.touched.policy && formik.errors.policy) && (
+              <FormHelperText error>
+                {formik.errors.policy}
+              </FormHelperText>
+            )}
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
@@ -204,27 +213,24 @@ const Login = () => {
                 type="submit"
                 variant="contained"
               >
-                Sign In Now
+                Sign Up Now
               </Button>
             </Box>
             <Typography
               color="textSecondary"
               variant="body2"
             >
-              Don&apos;t have an account?
+              Have an account?
               {' '}
               <NextLink
-                href="/register"
+                href="/login"
+                passHref
               >
                 <Link
-                  to="/register"
                   variant="subtitle2"
                   underline="hover"
-                  sx={{
-                    cursor: 'pointer'
-                  }}
                 >
-                  Sign Up
+                  Sign In
                 </Link>
               </NextLink>
             </Typography>
@@ -235,4 +241,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Passwordreset;

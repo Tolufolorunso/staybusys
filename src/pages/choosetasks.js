@@ -1,82 +1,127 @@
-import Head from 'next/head';
+import Head from "next/head";
 import { useState } from "react";
 
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Facebook as FacebookIcon } from '../icons/facebook';
-import { Google as GoogleIcon } from '../icons/google';
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Box, Button, Container, Grid, Link, TextField, Typography } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Facebook as FacebookIcon } from "../icons/facebook";
+import { Google as GoogleIcon } from "../icons/google";
+import { number } from "yup";
 
-const Login = () => {
-  const [passwordShown, setPasswordShown] = useState(false);
-  const togglePassword = () => {
-    setPasswordShown(!passwordShown);
-  };
+const Choosetasks = () => {
+  //   const [selectedBtns, setSelectedBtns] = useState([]);
+
+  const selectedBtns = [];
+
+  function proceed() {
+    console.log("Proceed");
+
+    // setSelectedBtns(document.querySelectorAll(".active"))
+  }
+  function chooseTask(btnNumber) {
+    const allTasks = document.querySelectorAll(".choose_btn");
+    allTasks.forEach((btn, index) => {
+      if (btnNumber === index) {
+        // btn.classList.remove("active");
+
+        btn.classList.toggle("active");
+        if (btn.classList.contains("active")) {
+          selectedBtns.push(btn);
+          console.log(selectedBtns);
+        }
+        selectedBtns.forEach((arrBtn) => {
+          if (!arrBtn.classList.contains("active")) {
+            selectedBtns.pop(arrBtn);
+          }
+        });
+      }
+    });
+  }
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
+      email: "demo@devias.io",
+      password: "Password123",
     },
     validationSchema: Yup.object({
-      email: Yup
-        .string()
-        .email(
-          'Must be a valid email')
-        .max(255)
-        .required(
-          'Email is required'),
-      password: Yup
-        .string()
-        .max(255)
-        .required(
-          'Password is required')
+      email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
+      password: Yup.string().max(255).required("Password is required"),
     }),
     onSubmit: () => {
-      router.push('/');
-    }
+      router.push("/");
+    },
   });
 
   return (
     <>
       <Head>
-        <title>Login | Material Kit</title>
+        <title>Choose Tasks | Material Kit</title>
       </Head>
-      <div className="container ">
-        <div className="login_wrapper">
-          <div className="login">
-            <h4>Login</h4>
-
-            <div className="login_inputs">
-              <form action="">
-                <div className="login_input">
-                  <label htmlFor="student_email">Your student Email:</label> <br />
-                  <div className="input_wrap">
-                  <input type="text" />
-
-                  </div>
+      <div className="my_container ">
+        <div className="choose_tasks">
+          <div className="choose">
+            <h4>
+              Choose the types of tasks You’re <br /> comfortable with from the list below
+            </h4>
+            <span className="tab">3/3</span>
+            <div className="">
+              <div className="choose_task">
+                <div className="buttons">
+                  <button onClick={() => chooseTask(0)} className="choose_btn 0">
+                    Tag 1
+                  </button>
+                  <button onClick={() => chooseTask(1)} className="choose_btn 1">
+                    Tag 2
+                  </button>
+                  <button onClick={() => chooseTask(2)} className="choose_btn 2">
+                    Tag 3
+                  </button>
+                  <button onClick={() => chooseTask(3)} className="choose_btn 3">
+                    Tag 4
+                  </button>
+                  <button onClick={() => chooseTask(4)} className="choose_btn 4">
+                    Tag 5
+                  </button>
+                  <button onClick={() => chooseTask(5)} className="choose_btn 5">
+                    Tag 6
+                  </button>
+                  <button onClick={() => chooseTask(6)} className="choose_btn 6">
+                    Tag 7
+                  </button>
+                  <button onClick={() => chooseTask(7)} className="choose_btn 7">
+                    Tag 8
+                  </button>
+                  <button onClick={() => chooseTask(8)} className="choose_btn 8">
+                    Tag 9
+                  </button>
+                  <button onClick={() => chooseTask(9)} className="choose_btn 9">
+                    Tag 10
+                  </button>
+                  <button onClick={() => chooseTask(10)} className="choose_btn 10">
+                    Tag 11
+                  </button>
+                  <button onClick={() => chooseTask(11)} className="choose_btn 11">
+                    Tag 12
+                  </button>
+                  <button onClick={() => chooseTask(12)} className="choose_btn 12">
+                    Tag 13
+                  </button>
+                  <button onClick={() => chooseTask(13)} className="choose_btn 13">
+                    Tag 14
+                  </button>
+                  <button onClick={() => chooseTask(14)} className="choose_btn 14">
+                    Tag 15
+                  </button>
                 </div>
-                <div className="login_input">
-                  <label htmlFor="student_email">Choose a password:</label> <br />
-                  <div className="input_wrap">
-                    <input type={passwordShown ? "text" : "password"} />
-                    <span onClick={togglePassword}>Show</span>
-                  </div>
-                  <button className='forgot_pass'>Forgot your password?</button>
+                <div className="proceed">
+                  <button onClick={proceed} className="actn_btn">
+                    Proceed
+                  </button>
                 </div>
-
-                <div className="login_btn">
-                  <button type="submit">Sign Up</button>
-                </div> 
-              </form>
-            </div>
-            <div className="already">
-              <p>
-                Don't have an account? <button>Sign In</button>
-              </p>
+              </div>
             </div>
           </div>
         </div>
@@ -235,4 +280,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Choosetasks;
