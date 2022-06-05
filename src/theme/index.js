@@ -417,9 +417,14 @@ export const theme = createTheme({
       color:' #2F2E40;'
     },
     h5: {
-      fontWeight: 600,
+
       fontSize: '1.5rem',
-      lineHeight: 1.375
+      lineHeight: 1.375,
+      fontFamily: 'Almarena',
+      fontStyle: 'normal',
+      fontWeight: 700,
+
+      color:' #2F2E40;'
     },
     h6: {
       fontWeight: 600,

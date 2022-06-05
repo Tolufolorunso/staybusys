@@ -14,9 +14,10 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Layout from "src/components/Layout";
 
 const Resetpassword = () => {
- 
+
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -43,11 +44,11 @@ const Resetpassword = () => {
       <Head>
         <title>Reset Password | Material Kit</title>
       </Head>
-
+<Layout>
       <div className="container ">
         <div className="login_wrapper">
           <div className="login">
-            <h4>Create a new account</h4>
+            <h4>Reset Password</h4>
 
             <div className="login_inputs">
               <form action="">
@@ -58,7 +59,7 @@ const Resetpassword = () => {
 
                   </div>
                 </div>
-                
+
 
                 <div className="login_btn">
                   <button type="submit">Reset Password</button>
@@ -67,12 +68,13 @@ const Resetpassword = () => {
             </div>
             <div className="already">
               <p>
-                Remember your password?<button>Login</button>
+                Remember your password? <Button className="logins" href="/login"> Login</Button>
               </p>
             </div>
           </div>
         </div>
       </div>
+      </Layout>
       {/* <Box
         component="main"
         sx={{

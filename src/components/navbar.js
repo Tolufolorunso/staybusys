@@ -12,7 +12,7 @@ import {
   Slide,
   Menu,
   MenuItem,
-  
+
   Divider
 } from "@mui/material";
 import CallMadeIcon from '@mui/icons-material/CallMade';
@@ -84,10 +84,10 @@ function Navbar() {
             {isMobile ? (
               <>
                 <Box style={{ display: "flex", justifyContent: 'space-between', width: '100%' }}>
-                  
+
                 <Button disableRipple href="/" style={{border:"none",backgroundColor:"none",background:"transparent"}}><img src="./logo.svg" alt="" width="100px" />
                 </Button>
-                  
+
 
                   <IconButton
                     style={{ color: "#1C1C1C" }}
@@ -124,33 +124,33 @@ function Navbar() {
                               aria-labelledby="composition-button"
                               onKeyDown={handleListKeyDown}
                             >
-                              
+
                                <Link href='/faq' style={{textDecoration:"none"}}>
                                <MenuItem style={{ textTransform: "none !important", fontFamily: "Euclid Circular A",color:"#1C1C1C",fontSize:"16px"  }} onClick={handleClose}>FAQs</MenuItem>
                                </Link>
                                <Link href='www.twitter.com' target='_blank' style={{textDecoration:"none"}}>
                                <MenuItem style={{ textTransform: "none !important", fontFamily: "Euclid Circular A",color:"#1C1C1C",fontSize:"16px"  }} href='/'onClick={handleClose}>Support</MenuItem>
                                </Link>
-                              
+
                                <Link href='/login' style={{textDecoration:"none"}}>
                                <MenuItem style={{ textTransform: "none !important", fontFamily: "Euclid Circular A",color:"#1C1C1C",fontSize:"16px"  }} onClick={handleClose}>Login</MenuItem>
                                </Link>
-                               <Button className='button_enroll1' variant="contained">Sign Up</Button>
-                            
+                               <Button className='button_enroll1' href="/register" variant="contained">Sign Up</Button>
+
                             </MenuList>
                           </ClickAwayListener>
                         </Paper>
                       </Grow>
                     )}
                   </Popper>
-                 
+
                 </Box>
               </>
             ) : (
               <div style={{ marginRight: "2rem", color: '#fff', display: 'flex', width: "100%", justifyContent: "space-between", margin:"20px 0" }}>
                 <Button disableRipple href="/"  style={{border:"none",backgroundColor:"none",background:"transparent"}}><img src="./logo.svg" alt="" width="130px" />
                 </Button>
-                  
+
                 <Box style={{ float: 'center', display: 'flex' }}>
                 <Button
                     variant="text"
@@ -182,16 +182,16 @@ function Navbar() {
                     {/* */}
                     Login
                   </Button>
-               
-                  <Button className='button_enroll1' variant="contained">Sign Up</Button>
+
+                  <Button className='button_enroll1' href="/register"  variant="contained">Sign Up</Button>
                 </Box>
-                
-               
+
+
               </div>
             )}
           </Toolbar>
         </div>
-       
+
       </AppBar>
       {/* <Divider /> */}
 
