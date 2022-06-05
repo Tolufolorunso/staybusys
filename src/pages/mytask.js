@@ -21,7 +21,7 @@ const style = {
   // alignItems:'center',
   // margin:'0 auto',
   width: "50%",
-  
+
   maxWidth: "900px",
   bgcolor: "background.paper",
   borderRadius: "10px",
