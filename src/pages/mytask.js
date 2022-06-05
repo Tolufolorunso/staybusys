@@ -221,7 +221,7 @@ export default function Task() {
 
           <Modal
             open={open}
-            
+
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
@@ -311,7 +311,7 @@ export default function Task() {
                     <div className="filter_btns">
                       <button className="clear">Clear all filters</button>
                       <div className="dbl_btns">
-                        <button className="cancel">Cancel</button>
+                        <button onClick={handleClose} className="cancel">Cancel</button>
                         <button onClick={handleopenSecondModal} className="apply">Apply Filter</button>
                       </div>
                     </div>
