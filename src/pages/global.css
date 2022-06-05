@@ -1144,7 +1144,8 @@ hr.divide {
   /* padding: 20px 20px 20px 48px; */
   padding: 1.2rem;
   border: none;
-  width: 100%;
+  width: 30%;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1465,6 +1466,7 @@ hr.divide {
   width: 100%;
   justify-content: space-between;
 }
+
 .modal_secions .section_two input {
   border: none;
   background: transparent;
@@ -1665,6 +1667,10 @@ hr.modal_secions_hr {
   .css-7eg4vx {
     width: 80% !important;
   }
+
+  .modal_box {
+    width: 80% !important;
+  }
 }
 @media (max-width: 800px) {
   .choose .choose_task .buttons {
@@ -1711,10 +1717,6 @@ hr.modal_secions_hr {
   .modal_secions .section_two {
     flex-wrap: wrap;
   }
-
-  .css-6korx4 {
-    width: 80% !important;
-  }
 }
 @media (max-width: 764px) {
   .login .personal_det {
@@ -1726,18 +1728,9 @@ hr.modal_secions_hr {
   .modal_btn {
     width: 70%;
   }
-  .css-3gqysi {
-    width: 90% !important;
-  }
+
   .modal_secions .section_one {
     flex-wrap: wrap;
-  }
-
-  .css-flfpgx {
-    width: 90% !important;
-  }
-  .css-7eg4vx {
-    width: 90% !important;
   }
 }
 @media (max-width: 600px) {
@@ -1762,6 +1755,23 @@ hr.modal_secions_hr {
 @media (max-width: 400px) {
   .actn_btn {
     width: 90%;
+  }
+  .modal_box {
+    width: 90% !important;
+    padding: 22px !important;
+  }
+}
+@media (max-width: 500px) {
+  .modal_sections_hold_btn .buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  }
+
+  .modal_secions .filter_btns .dbl_btns {
+    justify-content: center;
+  }
+  .modal_secions .filter_btns {
+    justify-content: center;
   }
 }
 
