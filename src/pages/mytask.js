@@ -221,11 +221,12 @@ export default function Task() {
 
           <Modal
             open={open}
+            
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={style}>
+            <Box className="modal_box" sx={style}>
               <div className="filter_modal">
                 <div className="filter_modal_desc">
                   <div className="modal_secions">
