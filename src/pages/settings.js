@@ -11,27 +11,26 @@ import Typography from "@mui/material/Typography";
 
 import Modal from "@mui/material/Modal";
 import Select from "react-select";
+
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: '80%',
+
   bgcolor: "background.paper",
- borderRadius:'10px',
+  border: "1px solid rgba(105, 110, 255, 0.2)",
   boxShadow: 24,
-  p: 4,
 };
 const smallerStyle = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: '70%',
+
   bgcolor: "background.paper",
-  
+  border: "1px solid rgba(105, 110, 255, 0.2)",
   boxShadow: 24,
-  p: 4,
 };
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -83,7 +82,7 @@ export default function Task() {
       border: "1px solid #969696",
       display: "flex",
       borderRadius: "8px",
-      marginTop:"10px",
+      marginTop: "10px",
       height: "50px",
       paddingRight: "12px",
       paddingLeft: "12px",
@@ -93,7 +92,7 @@ export default function Task() {
       fontSize: "16px",
       lineHeight: "140%",
       /* or 25px */
-width:"300px",
+      width: "300px",
       letterSpacing: " 0.03em",
 
       color: "#2F2E40 ",
@@ -119,6 +118,10 @@ width:"300px",
   const handlecloseSecondModal = () => setopenSecondModal(false);
   function closeModals() {
     setopenSecondModal(false);
+    setOpen(false);
+  }
+  function closeModals1() {
+    setopenSecondModal(true);
     setOpen(false);
   }
   return (
@@ -327,10 +330,7 @@ width:"300px",
                 <div className="profile">
                   <div className="left">
                     <p>Account Information</p>
-                    <small>
-                      Update your details and other
-                      info here
-                    </small>
+                    <small>Update your details and other info here</small>
                   </div>
                   <div className="right">
                     <div className="top payment">
@@ -377,40 +377,42 @@ width:"300px",
                             aria-labelledby="modal-modal-title"
                             aria-describedby="modal-modal-description"
                           >
-                            <Box sx={style}>
-                              {/* <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Text in a modal
-                          </Typography>
-                          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                          </Typography> */}
+                            <Box sx={style} className="acct_names">
                               <div className="add_acc_modal">
-                                <div className="add">
-                                  <p>Add a new bank account</p>
-                                  <span>X</span>
+                                <div style={{ padding: "20px" }} className="add">
+                                  <Typography variant="h5" className="">
+                                    Add a new bank account
+                                  </Typography>
+                                  <img
+                                    src="./cancel.svg"
+                                    alt="cancel"
+                                    style={{ cursor: "pointer" }}
+                                    width="38px"
+                                    onClick={handleClose}
+                                  />
                                 </div>
 
-                                <hr />
+                                <hr className="hr_with" />
 
-                                <div className="add_inputs">
+                                <div className="add_inputs" style={{ padding: "2.2rem" }}>
                                   <div className="add_input ">
-                                    <label htmlFor="Old password">Country</label> <br />
-                                    <input type="password" placeholder="Nigeria" />
+                                    <label htmlFor="Country">Country</label> <br />
+                                    <input type="text" />
                                   </div>
                                   <div className="add_input ">
-                                    <label htmlFor="Old password">Bank Name</label> <br />
-                                    <input type="password" placeholder="UBA" />
+                                    <label htmlFor="Bank">Bank Name</label> <br />
+                                    <input type="text" />
                                   </div>
                                   <div className="add_input ">
-                                    <label htmlFor="Old password">Account Number</label> <br />
-                                    <input type="password" placeholder="2086 078 162" />
+                                    <label htmlFor="AccountNumber">Account Number</label> <br />
+                                    <input type="number" />
                                   </div>
                                   <div className="add_input ">
-                                    <label htmlFor="Old password">Account Name</label> <br />
-                                    <input type="password" placeholder="Jasmine McDougal" />
+                                    <label htmlFor="withdraw">Account Name</label> <br />
+                                    <input type="text" />
                                   </div>
 
-                                  <button onClick={handleopenSecondModal}>Add bank account</button>
+                                  <button onClick={closeModals1}>Withdraw Funds</button>
                                 </div>
                               </div>
                             </Box>
@@ -423,17 +425,23 @@ width:"300px",
                             aria-labelledby="modal-modal-title"
                             aria-describedby="modal-modal-description"
                           >
-                            <Box sx={smallerStyle}>
+                            <Box sx={smallerStyle} className="acct_names">
                               <div className="response">
                                 <div className="modal_resp">
                                   <div className="top">
-                                    <div className="icon"></div>
-                                    <p>Add bank account</p>
+                                    <div className="icon">
+                                      {" "}
+                                      <img src="./gott.svg" />
+                                    </div>
+
+                                    <Typography variant="h5" className="">
+                                      Add bank account
+                                    </Typography>
                                   </div>
 
                                   <p className="desc">
-                                    Your bank account has been added <br /> successfully. This is
-                                    where your withdrawal will <br /> be processed into
+                                    Your bank account has been added successfully. This is where
+                                    your withdrawal will be processed into
                                   </p>
 
                                   <button onClick={closeModals}>Okay, Close.</button>
@@ -475,10 +483,11 @@ width:"300px",
                               },
                             })}
                           />
-
                         </div>
 
-                        <button className="actn_btn" style={{width:"200px"}}>Update</button>
+                        <button className="actn_btn" style={{ width: "200px" }}>
+                          Update
+                        </button>
                       </div>
                     </div>
                   </div>

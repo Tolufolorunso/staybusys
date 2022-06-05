@@ -720,8 +720,11 @@ hr.divide {
   /* border: 1px solid rgba(105, 110, 255, 0.2);
   box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15); */
   border-radius: 7px;
-  padding: 2rem;
-  /* max-width: 739.96px; */
+
+  max-width: 739.96px;
+}
+.hr_with {
+  margin: 0 !important;
 }
 .add_acc_modal .add {
   display: flex;
@@ -737,15 +740,16 @@ hr.divide {
 
 .add_acc_modal .add_input {
   width: 100%;
-  margin: 1rem 0;
+  margin: 6px 0;
 }
 
 .add_acc_modal .add_input label {
   font-style: normal;
-  font-weight: 700;
+  font-weight: 700 !important;
   font-size: 15px;
+  font-family: "Almarena";
   line-height: 130%;
-  color: #181818;
+  color: #181818 !important;
 }
 .add_acc_modal .add_input input {
   width: 100%;
@@ -756,7 +760,14 @@ hr.divide {
   padding: 20px 15px;
   margin-top: 0.35rem;
 }
-
+.acct_names {
+  width: 600px !important;
+}
+@media (max-width: 600px) {
+  .acct_names {
+    width: 85% !important;
+  }
+}
 .add_acc_modal button {
   width: 100%;
   padding: 18px 25px;
@@ -826,9 +837,16 @@ hr.divide {
   font-weight: 400;
   font-size: 16px;
   line-height: 140%;
+  width: 85% !important;
+  margin: auto;
   text-align: center;
   letter-spacing: 0.03em;
   color: #585757;
+}
+@media (max-width: 600px) {
+  .response p.desc {
+    width: 100% !important;
+  }
 }
 .acoout_info {
   background: #ffffff;
@@ -1065,7 +1083,7 @@ hr.divide {
 /* Login Pages */
 .login_wrapper {
   /* position: relative; */
-  height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1105,17 +1123,28 @@ hr.divide {
   color: #2f2e40;
   margin: 3rem 0;
 }
-
+@media (max-width: 600px) {
+  .login h4 {
+    font-size: 25px;
+  }
+}
 .login_inputs {
   background: #ffffff;
   border: 1px solid rgba(255, 204, 0, 0.2);
   box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15);
   border-radius: 7px;
-  padding: 1.5rem;
+  padding: 3.5rem;
   width: 100%;
 }
-.login_input {
-  margin: 1rem 0 2rem;
+@media (max-width: 600px) {
+  .login_inputs {
+    background: #ffffff;
+    border: 1px solid rgba(255, 204, 0, 0.2);
+    box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15);
+    border-radius: 7px;
+    padding: 1.5rem;
+    width: 100%;
+  }
 }
 .login_input label {
   font-family: "Euclid Circular A";
@@ -1142,7 +1171,7 @@ hr.divide {
   border-radius: 10px;
   color: #fff;
   /* padding: 20px 20px 20px 48px; */
-  padding: 1.2rem;
+  padding: 1.2rem 4rem;
   border: none;
   width: 30%;
   margin: 0 auto;
@@ -1169,12 +1198,16 @@ hr.divide {
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
+  text-transform: none !important;
+  text-decoration: none;
   line-height: 140%;
   letter-spacing: 0.03em;
   color: #2f2e40;
   margin: 0.6rem 0;
 }
-
+.input_wraps {
+  margin-top: 10px !important;
+}
 .login_input .input_wrap {
   display: flex;
   justify-content: space-between;
@@ -1190,6 +1223,21 @@ hr.divide {
 .login_input .input_wrap input {
   width: 100%;
   background: transparent;
+}
+.max_withdraw {
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+  color: #ff6685;
+  margin-top: 21px;
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 140%;
+  /* or 25px */
+
+  letter-spacing: 0.03em;
 }
 .login_input .input_wrap span {
   cursor: pointer;
@@ -1212,30 +1260,31 @@ hr.divide {
   color: #2f2e40;
   margin-top: 3rem;
 }
-.login .already button {
+.logins {
   border: none;
-  background: transparent;
+  background-color: transparent !important;
   color: #ff6685;
-  font-family: "Euclid Circular A";
+  font-family: "Euclid Circular A" !important;
   font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
+  font-weight: 400 !important;
+  font-size: 20px !important;
   line-height: 140%;
+  padding: 0 !important;
   text-align: center;
   letter-spacing: 0.03em;
 }
-
-.choose {
-  /* position: relative;
-  display: flex;
-  justify-content: center; */
-  /* align-items: center; */
-  position: absolute;
-  top: 50%;
-  width: 100%;
-
-  left: 50%;
-  transform: translate(-50%, -50%);
+.logins:hover {
+  border: none;
+  background-color: transparent;
+  color: #ff6685;
+  font-family: "Euclid Circular A" !important;
+  font-style: normal;
+  font-weight: 400 !important;
+  font-size: 20px !important;
+  line-height: 140%;
+  text-align: center;
+  padding: 0 !important;
+  letter-spacing: 0.03em;
 }
 
 .choose .tab,
@@ -1255,10 +1304,35 @@ hr.divide {
   height: 80px;
   position: absolute;
   border-radius: 50%;
-  right: 10%;
-  top: 2%;
+  right: 5%;
+  margin-top: -124px;
 }
 
+@media (max-width: 800px) {
+  .choose .tab,
+  .personal_det .tab {
+    font-family: "Almarena";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 130%;
+    text-align: center;
+    color: #ff6685;
+    background: rgba(255, 102, 133, 0.1);
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 52px !important;
+    height: 52px !important;
+    position: absolute;
+    border-radius: 50%;
+    right: 5%;
+    margin-top: -178px;
+  }
+}
 .choose h4 {
   font-family: "Almarena";
   font-style: normal;
@@ -1267,14 +1341,26 @@ hr.divide {
   line-height: 130%;
   text-align: center;
   color: #2f2e40;
-  margin: 2rem 0 5rem;
+  margin: 1rem 2rem 2rem 5rem;
 }
-
+@media (max-width: 700px) {
+  .choose h4 {
+    font-family: "Almarena";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 130%;
+    text-align: center;
+    color: #2f2e40;
+    margin: 20px 0px 20px 0;
+  }
+}
 .choose_tasks {
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 .choose .choose_task .proceed {
@@ -1299,8 +1385,19 @@ hr.divide {
   box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15);
   border-radius: 7px;
   /* height: 57.41566848754883px; */
-  width: 139.2613525390625px;
+  width: 100%;
   padding: 0.85rem;
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 140%;
+  /* or 25px */
+
+  text-align: center;
+  letter-spacing: 0.03em;
+
+  color: #2f2e40;
 }
 .choose .choose_task .buttons button.active {
   background: #ffcc00;
@@ -1315,12 +1412,6 @@ hr.divide {
   width: 70%;
 }
 
-.personal_det_inputs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-  gap: 1rem;
-}
-
 .personal_det select,
 .personal_det input {
   border: none;
@@ -1333,9 +1424,16 @@ hr.divide {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.3rem;
+  gap: 0.6rem;
 }
-
+.modalss {
+  width: 630px !important;
+}
+@media (max-width: 600px) {
+  .modalss {
+    width: 90% !important;
+  }
+}
 .registration_modal_desc .verification {
   font-family: "Almarena";
   font-style: normal;
@@ -1620,45 +1718,9 @@ hr.modal_secions_hr {
   }
 }
 @media (max-width: 1040px) {
-  .choose {
-    /* align-items: center; */
-    padding: 6rem 1.8rem 3rem;
-  }
-
   .personal_det {
     /* align-items: center; */
     padding: 6rem 0 3rem;
-  }
-  .choose {
-    height: 100%;
-  }
-  .modal_secions .section_two {
-    gap: 1rem;
-    margin: 3rem 0;
-  }
-}
-@media (max-width: 1100px) {
-  .personal_det_inputs {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
-}
-@media (max-width: 1000px) {
-  .css-flfpgx {
-    width: 90% !important;
-  }
-  .css-7eg4vx {
-    width: 80% !important;
-  }
-}
-@media (max-width: 900px) {
-  .login_wrapper {
-    height: 100%;
-  }
-  .css-3gqysi {
-    width: 80% !important;
-  }
-  .modal_secions .section_one {
-    flex-wrap: wrap;
   }
 
   .modal_secions .section_two {
@@ -1724,9 +1786,19 @@ hr.modal_secions_hr {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-
+  .login.personal_det {
+    width: 90%;
+    padding: 0 !important;
+  }
   .modal_btn {
     width: 70%;
+  }
+  .modal_sections_hold_btn .buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+  .modal_sections_hold_btn .buttons button {
+    width: 80.2613525390625px;
   }
 
   .modal_secions .section_one {
@@ -1748,8 +1820,9 @@ hr.modal_secions_hr {
   .choose .choose_task .buttons {
     grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
   }
-  .css-7eg4vx {
-    padding: 0 !important;
+  .modal_sections_hold_btn .buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
   }
 }
 @media (max-width: 400px) {
@@ -1762,16 +1835,15 @@ hr.modal_secions_hr {
   }
 }
 @media (max-width: 500px) {
-  .modal_sections_hold_btn .buttons {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-  }
-
   .modal_secions .filter_btns .dbl_btns {
     justify-content: center;
   }
   .modal_secions .filter_btns {
     justify-content: center;
+  }
+  .modal_sections_hold_btn .buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   }
 }
 
@@ -2118,9 +2190,25 @@ button.read_more {
   text-transform: none !important;
   font-family: "Inter" !important;
   font-style: normal !important;
-  font-weight: 400 !important;
+  font-weight: 600 !important;
 }
 .button_enroll1:hover {
+  background-color: #ff6685 !important;
+}
+.button_enroll12 {
+  width: 145px !important;
+  font-size: 16px !important;
+  background-color: #ff6685 !important;
+  height: 52px !important;
+  color: #fff !important;
+  padding: 1.2rem 3rem !important;
+  border-radius: 8px !important;
+  text-transform: none !important;
+  font-family: "Inter" !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+}
+.button_enroll12:hover {
   background-color: #ff6685 !important;
 }
 .textField {
