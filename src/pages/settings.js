@@ -21,7 +21,6 @@ const style = {
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
   boxShadow: 24,
-
 };
 const smallerStyle = {
   position: "absolute",
@@ -32,7 +31,6 @@ const smallerStyle = {
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
   boxShadow: 24,
-
 };
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -84,7 +82,7 @@ export default function Task() {
       border: "1px solid #969696",
       display: "flex",
       borderRadius: "8px",
-      marginTop:"10px",
+      marginTop: "10px",
       height: "50px",
       paddingRight: "12px",
       paddingLeft: "12px",
@@ -94,7 +92,7 @@ export default function Task() {
       fontSize: "16px",
       lineHeight: "140%",
       /* or 25px */
-width:"300px",
+      width: "300px",
       letterSpacing: " 0.03em",
 
       color: "#2F2E40 ",
@@ -332,10 +330,7 @@ width:"300px",
                 <div className="profile">
                   <div className="left">
                     <p>Account Information</p>
-                    <small>
-                      Update your details and other
-                      info here
-                    </small>
+                    <small>Update your details and other info here</small>
                   </div>
                   <div className="right">
                     <div className="top payment">
@@ -376,71 +371,84 @@ width:"300px",
                           Add an account
                         </button>
                         <div>
-                        <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style} className="acct_names">
-          <div className="add_acc_modal">
-            <div style={{padding:"20px"}} className="add">
-              <Typography variant="h5" className="" >Add a new bank account</Typography>
-             <img src="./cancel.svg" alt="cancel" style={{cursor:"pointer"}}  width="38px" onClick={handleClose}/>
-            </div>
+                          <Modal
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                          >
+                            <Box sx={style} className="acct_names">
+                              <div className="add_acc_modal">
+                                <div style={{ padding: "20px" }} className="add">
+                                  <Typography variant="h5" className="">
+                                    Add a new bank account
+                                  </Typography>
+                                  <img
+                                    src="./cancel.svg"
+                                    alt="cancel"
+                                    style={{ cursor: "pointer" }}
+                                    width="38px"
+                                    onClick={handleClose}
+                                  />
+                                </div>
 
-            <hr className="hr_with" />
+                                <hr className="hr_with" />
 
-            <div className="add_inputs" style={{padding:"2.2rem"}}>
-              <div className="add_input " >
-                <label htmlFor="Country">Country</label> <br />
-                <input type="text" />
-              </div>
-                <div className="add_input " >
-                <label htmlFor="Bank">Bank Name</label> <br />
-                <input type="text" />
-              </div>
-              <div className="add_input " >
-                <label htmlFor="AccountNumber">Account Number</label> <br />
-                <input type="number" />
-              </div>
-              <div className="add_input " >
-                <label htmlFor="withdraw">Account Name</label> <br />
-                <input type="text" />
-              </div>
+                                <div className="add_inputs" style={{ padding: "2.2rem" }}>
+                                  <div className="add_input ">
+                                    <label htmlFor="Country">Country</label> <br />
+                                    <input type="text" />
+                                  </div>
+                                  <div className="add_input ">
+                                    <label htmlFor="Bank">Bank Name</label> <br />
+                                    <input type="text" />
+                                  </div>
+                                  <div className="add_input ">
+                                    <label htmlFor="AccountNumber">Account Number</label> <br />
+                                    <input type="number" />
+                                  </div>
+                                  <div className="add_input ">
+                                    <label htmlFor="withdraw">Account Name</label> <br />
+                                    <input type="text" />
+                                  </div>
 
-
-              <button onClick={closeModals1}>Withdraw Funds</button>
-            </div>
-          </div>
-        </Box>
-      </Modal>
+                                  <button onClick={closeModals1}>Withdraw Funds</button>
+                                </div>
+                              </div>
+                            </Box>
+                          </Modal>
                         </div>
                         <div>
-                        <Modal
-        open={openSecondModal}
-        onClose={handlecloseSecondModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={smallerStyle} className="acct_names">
-          <div className="response">
-            <div className="modal_resp">
-              <div className="top">
-                <div className="icon"> <img src="./gott.svg" /></div>
+                          <Modal
+                            open={openSecondModal}
+                            onClose={handlecloseSecondModal}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                          >
+                            <Box sx={smallerStyle} className="acct_names">
+                              <div className="response">
+                                <div className="modal_resp">
+                                  <div className="top">
+                                    <div className="icon">
+                                      {" "}
+                                      <img src="./gott.svg" />
+                                    </div>
 
-                <Typography variant="h5" className="" >Add bank account</Typography>
-              </div>
+                                    <Typography variant="h5" className="">
+                                      Add bank account
+                                    </Typography>
+                                  </div>
 
-              <p className="desc">
-              Your bank account has been added successfully. This is where your withdrawal will be processed into
-              </p>
+                                  <p className="desc">
+                                    Your bank account has been added successfully. This is where
+                                    your withdrawal will be processed into
+                                  </p>
 
-              <button onClick={closeModals}>Okay, Close.</button>
-            </div>
-          </div>
-        </Box>
-      </Modal>
+                                  <button onClick={closeModals}>Okay, Close.</button>
+                                </div>
+                              </div>
+                            </Box>
+                          </Modal>
                         </div>
                       </div>
                     </div>
@@ -475,10 +483,11 @@ width:"300px",
                               },
                             })}
                           />
-
                         </div>
 
-                        <button className="actn_btn" style={{width:"200px"}}>Update</button>
+                        <button className="actn_btn" style={{ width: "200px" }}>
+                          Update
+                        </button>
                       </div>
                     </div>
                   </div>
