@@ -16,7 +16,6 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
   boxShadow: "0px 7px 20px rgba(145, 156, 212, 0.15)",
@@ -31,6 +30,7 @@ export default function profileImage() {
   const [highlight, setHighlight] = React.useState(false);
   const [preview, setPreview] = React.useState("");
   const [drop, setDrop] = React.useState(false);
+  const [imageFile, setFile] = React.useState([]);
 
   const handleEnter = (e) => {
     e.preventDefault();
@@ -65,15 +65,21 @@ export default function profileImage() {
     const [file] = e.target.files || e.dataTransfer.files;
 
     uploadFile(file);
+    setFile(file)
   };
 
   function uploadFile(file) {
     const reader = new FileReader();
     reader.readAsBinaryString(file);
+    console.log(file)
+    // setFile(file)
 
-    reader.onload = () => {
+    reader.onload = (e) => {
       // this is the base64 data
       const fileRes = btoa(reader.result);
+      const fileResult = e.target.result;
+      console.log(fileResult)
+      setFile(`data:image/jpg;base64,${fileRes}`)
       console.log(`data:image/jpg;base64,${fileRes}`);
       setPreview(`data:image/jpg;base64,${fileRes}`);
     };
@@ -107,6 +113,7 @@ export default function profileImage() {
                 >
                   <form className="upload_form">
                     <BackupOutlinedIcon style={{ fontSize: "75px", color: "lightgray" }} />
+                
                     <p>Drag and Drop image here</p>
                     <div className="upload-button">
                       <input
@@ -137,7 +144,7 @@ export default function profileImage() {
               >
                 <Box sx={style} className="modalss">
                   {/* <ImageCropper /> */}
-                  <ImageCropper/>
+                  <ImageCropper imageFile={imageFile}/>
                 </Box>
               </Modal>
             </div>
