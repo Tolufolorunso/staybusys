@@ -4,13 +4,14 @@ import Layout from "src/components/Layout";
 // import  {useDropzone}  from "react-dropzone";
 import { useDropzone } from "react-dropzone";
 import Modal from "@mui/material/Modal";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 // import ImageCropper from "../components/imageupload/ImageCropper";
 // import ImageCropper from './imageupload/imageCropper'
 import ImageCropper from './ImageCropper'
 
 
 import BackupOutlinedIcon from "@mui/icons-material/BackupOutlined";
+import Popup from "./Popup";
 const style = {
   position: "absolute",
   top: "50%",
@@ -21,7 +22,7 @@ const style = {
   border: "1px solid rgba(105, 110, 255, 0.2)",
   boxShadow: "0px 7px 20px rgba(145, 156, 212, 0.15)",
   borderRadius: "7px",
-  p: 4,
+
 };
 
 export default function profileImage() {
@@ -109,17 +110,16 @@ export default function profileImage() {
                     <BackupOutlinedIcon style={{ fontSize: "75px", color: "lightgray" }} />
                     <p>Drag and Drop image here</p>
                     <div className="upload-button">
-                      <input
-                        type="file"
-                        className="upload-file"
-                        accept="image/*"
-                        onChange={(e) => handleUpload(e)}
-                      />
+
                       {/* <button className="button">Upload Here</button> */}
                     </div>
+
                   </form>
+
                 </div>
+                {!preview? ("") :(  <Typography variant="caption2" style={{padding:"10px 0",color: "#FF6685",display:"flex",justifyContent:"center"}}   onClick={handleOpen}> Edit or replace photo</Typography>)}
               </div>
+
 
               <button
                 onClick={handleOpen}
@@ -128,18 +128,31 @@ export default function profileImage() {
               >
                 Proceed
               </button>
-
-              <Modal
+              <Popup
+          open={open}
+          handleClose={handleClose}
+          image={preview}
+          getCroppedFile={(preview) => {
+            setPreview(preview);
+            handleClose();
+          }}
+        />
+              {/* <Modal
                 open={open}
                 onClose={handleClose}
+                image={preview}
+          getCroppedFile={(preview) => {
+            setPreview(preview);
+            handleClose();
+          }}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
-                <Box sx={style} className="modalss">
+                <Box sx={style} className="modalss"> */}
                   {/* <ImageCropper /> */}
-                  <ImageCropper/>
+                  {/* <ImageCropper/>
                 </Box>
-              </Modal>
+              </Modal> */}
             </div>
           </div>
         </div>

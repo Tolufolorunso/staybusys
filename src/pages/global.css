@@ -1734,7 +1734,7 @@ hr.modal_secions_hr {
   position: relative;
   z-index: 1000;
 }
-/* .uploadimg_hold {
+.uploadimg_hold {
   background: #ffffff;
   border: 1px solid rgba(255, 204, 0, 0.2);
   box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15);
@@ -1743,7 +1743,7 @@ hr.modal_secions_hr {
   position: relative;
   width: 60%;
   margin: 0 auto;
-} */
+}
 
 .uploaded_img {
   /* position: absolute;
@@ -1761,15 +1761,12 @@ hr.modal_secions_hr {
   align-items: center;
   justify-content: center;
   /* width: 100%; */
-  width: 60%;
+
   /* color: white; */
   /* font-family: "Montserrat"; */
   /* background-color: #4aa0ea; */
   /* background-color: #f7f4ef; */
-  background: #ffffff;
-  padding: 1rem 1rem 2rem;
-  border: 1px solid rgba(255, 204, 0, 0.2);
-  box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15);
+
   position: relative;
   background-repeat: no-repeat;
   background-position: center;
