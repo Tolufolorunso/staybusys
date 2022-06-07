@@ -1712,6 +1712,164 @@ hr.modal_secions_hr {
   line-height: 130%;
   color: #2f2e40;
 }
+
+.drop_files {
+  background: #f7f4ef;
+  height: 320px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.drop_files p {
+  margin-top: 0.35rem;
+}
+
+.upload_btn {
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1000;
+}
+/* .uploadimg_hold {
+  background: #ffffff;
+  border: 1px solid rgba(255, 204, 0, 0.2);
+  box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15);
+  border-radius: 7px;
+  padding: 1rem 1rem 2rem;
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+} */
+
+.uploaded_img {
+  /* position: absolute;
+  top: 0;
+  right: 0; */
+  /* width: 100%;
+  height: 40px; */
+  /* z-index: 1000; */
+}
+
+/* profile photoupload */
+
+.upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* width: 100%; */
+  width: 60%;
+  /* color: white; */
+  /* font-family: "Montserrat"; */
+  /* background-color: #4aa0ea; */
+  /* background-color: #f7f4ef; */
+  background: #ffffff;
+  padding: 1rem 1rem 2rem;
+  border: 1px solid rgba(255, 204, 0, 0.2);
+  box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15);
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin: 0 auto;
+}
+
+.upload_form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* background: #ffffff; */
+  background-color: #f7f4ef;
+
+  border-radius: 7px;
+  position: relative;
+  /* width: 60%; */
+  width: 100%;
+  height: 400px;
+
+  margin: 0 auto;
+}
+
+.upload p {
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 140%;
+  text-align: center;
+  letter-spacing: 0.03em;
+  margin-top: 1rem;
+  color: #2f2e40;
+  /* letter-spacing: 0.1em;
+  text-transform: uppercase; */
+  opacity: 1;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.upload.is-highlight {
+  background-color: rgba(rgb(74, 160, 234, 0.5));
+}
+
+.upload.is-highlight .upload_form {
+  opacity: 1;
+}
+
+.upload.is-drop .upload_form {
+  opacity: 0;
+}
+.upload.is-drop {
+  padding: 0rem;
+}
+
+.upload-button {
+  width: 200px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.upload-file {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100%;
+  height: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: #101010;
+  border: 0;
+  display: none;
+}
+
+/* crop images */
+
+.cropContainer {
+  position: "relative";
+  width: "100%";
+  height: 200;
+  background: "#333";
+}
+
+/* profile photoupload */
 @media (max-width: 1385px) {
   .personal_det_inputs {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));

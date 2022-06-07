@@ -1,7 +1,8 @@
 import Head from "next/head";
 import React, { useRef, useState } from "react";
 import Layout from "src/components/Layout";
-import  {useDropzone}  from "react-dropzone";
+// import  {useDropzone}  from "react-dropzone";
+import {useDropzone} from 'react-dropzone'
 
 export default function Home() {
   const [yourImage, setImage] = useState([]);
@@ -34,6 +35,12 @@ export default function Home() {
       );
     },
   });
+
+  const images = yourImage.map((file)=>{
+    <div key={file.name}>
+      <img src={file.preview} style={{width:'200px'}} alt="" />
+    </div>
+  })
   return (
     <div>
       <Head>
@@ -58,7 +65,9 @@ export default function Home() {
                    {yourImage && (
                   <div {...getRootProps()}>
                     <input {...getInputProps()}  placeholder="hello" />
-                    {isDragActive ? <p></p> : <p>{yourImage? "draggss" : "drops" }</p>}
+                    {/* {isDragActive ? <p></p> : <p>{yourImage? "draggss" : "drops" }</p>} */}
+                    <p>Drop Files</p>
+                    <div>{images}</div>
                   </div>
                      )}
                 </div>
