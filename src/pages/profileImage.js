@@ -128,7 +128,7 @@ export default function profileImage() {
               >
                 Proceed
               </button>
-              <Popup
+              {/* <Popup
           open={open}
           handleClose={handleClose}
           image={preview}
@@ -136,8 +136,8 @@ export default function profileImage() {
             setPreview(preview);
             handleClose();
           }}
-        />
-              {/* <Modal
+        /> */}
+              <Modal
                 open={open}
                 onClose={handleClose}
                 image={preview}
@@ -148,11 +148,11 @@ export default function profileImage() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
-                <Box sx={style} className="modalss"> */}
+                <Box sx={style} className="modalss">
                   {/* <ImageCropper /> */}
-                  {/* <ImageCropper/>
+                  <ImageCropper/>
                 </Box>
-              </Modal> */}
+              </Modal>
             </div>
           </div>
         </div>

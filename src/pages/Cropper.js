@@ -4,14 +4,13 @@ import Skeleton from "@mui/material/Skeleton";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
-
+import Slider from "@material-ui/core/Slider";
 import "cropperjs/dist/cropper.css";
 
 export default function CropperDemo({ src, getCroppedFile }) {
   const cropperRef = useRef(null);
   const [loading, setLoading] = useState(true);
-  const [scaleX, setScaleX] = useState(1);
-  const [scaleY, setScaleY] = useState(1);
+
 
   const handleClick = () => {
     const imageElement = cropperRef?.current;
@@ -19,22 +18,27 @@ export default function CropperDemo({ src, getCroppedFile }) {
     const img = cropper.getCroppedCanvas().toDataURL();
     getCroppedFile(img);
   };
-  const rotate = () => {
+  const rotateleft = () => {
     const imageElement = cropperRef?.current;
     const cropper = imageElement?.cropper;
-    cropper.rotate(90);
+    cropper.rotate(45);
   };
-  const flip = (type) => {
+  const rotateright = () => {
     const imageElement = cropperRef?.current;
     const cropper = imageElement?.cropper;
-    if (type === "h") {
-      cropper.scaleX(scaleX === 1 ? -1 : 1);
-      setScaleX(scaleX === 1 ? -1 : 1);
-    } else {
-      cropper.scaleY(scaleY === 1 ? -1 : 1);
-      setScaleY(scaleY === 1 ? -1 : 1);
-    }
+    cropper.rotate(-45);
   };
+  const zoom = () => {
+    const imageElement = cropperRef?.current;
+    const cropper = imageElement?.cropper;
+    const containerData = cropper.getContainerData();
+
+    cropper.zoomTo(.5, {
+      x: containerData.width / 2,
+      y: containerData.height / 2,
+    });
+  }
+
   return (
     <>
       {loading && (
@@ -42,9 +46,10 @@ export default function CropperDemo({ src, getCroppedFile }) {
       )}
       <Box display={"flex"} justifyContent={"flex-end"} mb={1}>
         <ButtonGroup disableElevation variant="contained">
-          <Button onClick={rotate}>Rotate</Button>
-          <Button onClick={() => flip("h")}>Flip H</Button>
-          <Button onClick={() => flip("v")}>Flip V</Button>
+          <Button onClick={rotateleft}>Rotate Left</Button>
+          <Button onClick={rotateright}>Rotate right</Button>
+
+
         </ButtonGroup>
       </Box>
 
@@ -54,11 +59,14 @@ export default function CropperDemo({ src, getCroppedFile }) {
         // Cropper.js options
         initialAspectRatio={16 / 9}
         guides={false}
+
         ready={() => {
+
           setLoading(false);
         }}
         ref={cropperRef}
       />
+
       <Button
         sx={{
           float: "right",
