@@ -1,3 +1,4 @@
+import React from "react"
 export const styles = (theme) => ({
   cropContainer: {
     position: 'relative',
