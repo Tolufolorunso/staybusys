@@ -5,14 +5,15 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import ImgDialog from "./Imgdialog";
-import ReactDOM from 'react-dom'
+import ReactDOM from "react-dom";
 import getCroppedImg from "./cropimage";
 import { styles } from "./styles";
 
 const dogImg =
   "https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000";
 
-export default function  Demo ({ classes }) {
+export default function Demo({ imageFile }) {
+  console.log(imageFile);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
   const [zoom, setZoom] = useState(1);
@@ -23,9 +24,13 @@ export default function  Demo ({ classes }) {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
+  function rotateimageRight (){
+    setRotation(rotation )
+  }
+
   const showCroppedImage = useCallback(async () => {
     try {
-      const croppedImage = await getCroppedImg(dogImg, croppedAreaPixels, rotation);
+      const croppedImage = await getCroppedImg(imageFile, croppedAreaPixels, rotation);
       console.log("donee", { croppedImage });
       setCroppedImage(croppedImage);
     } catch (e) {
@@ -41,10 +46,11 @@ export default function  Demo ({ classes }) {
     <div>
       <div className="cropContainer">
         <Cropper
-          image={dogImg}
+          image={imageFile}
           crop={crop}
           rotation={rotation}
           zoom={zoom}
+          cropShape="round"
           aspect={4 / 3}
           onCropChange={setCrop}
           onRotationChange={setRotation}
@@ -52,40 +58,42 @@ export default function  Demo ({ classes }) {
           onZoomChange={setZoom}
         />
       </div>
-      <div >
-        <div >
-          <Typography variant="overline" >
-            Zoom
-          </Typography>
+      <div className="controls">
+        <div className="sliderContainer">
+
           <Slider
             value={zoom}
             min={1}
             max={3}
             step={0.1}
             aria-labelledby="Zoom"
-            
+            className="slider"
             onChange={(e, zoom) => setZoom(zoom)}
           />
         </div>
-        <div >
-          <Typography variant="overline" >
+        <div className="sliderContainer">
+          <Typography variant="overline" className="sliderLabel">
             Rotation
           </Typography>
+          {rotation}
           <Slider
             value={rotation}
             min={0}
             max={360}
             step={1}
             aria-labelledby="Rotation"
-            
+            className="slider"
             onChange={(e, rotation) => setRotation(rotation)}
           />
+          <Button onClick={rotateimageRight} variant="contained" color="primary" className="cropButton">
+            rotate
+          </Button>
         </div>
         <Button
           onClick={showCroppedImage}
           variant="contained"
           color="primary"
-          
+          className="cropButton"
         >
           Show Result
         </Button>
@@ -93,7 +101,7 @@ export default function  Demo ({ classes }) {
       <ImgDialog img={croppedImage} onClose={onClose} />
     </div>
   );
-};
+}
 
 const StyledDemo = withStyles(styles)(Demo);
 

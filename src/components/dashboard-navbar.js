@@ -5,7 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 ;
 import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -14,7 +14,7 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, ...other } = props;
-
+  const mobile = useMediaQuery('(max-width:450px)');
   return (
     <>
       <DashboardNavbarRoot
@@ -52,7 +52,7 @@ export const DashboardNavbar = (props) => {
             </IconButton>
           </Tooltip>
           <Box sx={{ flexGrow: 1 }} />
-          
+
           <Tooltip title="Notifications">
             <IconButton sx={{ ml: 1 }} style={{background:"#fff",padding:"8px",height:"50px", border: '2px solid rgba(47, 46, 64, 0.08)', borderRadius:'8px'}}>
               <Badge
@@ -64,8 +64,20 @@ export const DashboardNavbar = (props) => {
               </Badge>
             </IconButton>
           </Tooltip>
+          {mobile ?  <Avatar
+            sx={{
+              height: 40,
+              width: 40,
+              ml: 1
+
+            }}
+            style={{marginRight:"5px"}}
+            src="/static/images/avatars/avatar_1.png"
+          >
+            <UserCircleIcon fontSize="small" />
+          </Avatar>:
           <IconButton  display={'flex'} alignItems={'center'} style={{marginLeft:"20px", marginRight:"20px",height:"50px" ,padding:"4px 10px",borderRadius:"8px",border: '2px solid rgba(47, 46, 64, 0.08)'}}>
-            <Typography style={{color:"black",fontSize:"13px"}}>
+           <Typography style={{color:"black",fontSize:"13px"}}>
             Tony Signh
             </Typography>
           <Avatar
@@ -74,11 +86,13 @@ export const DashboardNavbar = (props) => {
               width: 40,
               ml: 1
             }}
+
             src="/static/images/avatars/avatar_1.png"
           >
             <UserCircleIcon fontSize="small" />
           </Avatar>
           </IconButton>
+}
         </Toolbar>
       </DashboardNavbarRoot>
     </>

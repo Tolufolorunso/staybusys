@@ -5,24 +5,20 @@ import Layout from "src/components/Layout";
 import { useDropzone } from "react-dropzone";
 import Modal from "@mui/material/Modal";
 import { Box, Typography } from "@mui/material";
-// import ImageCropper from "../components/imageupload/ImageCropper";
-// import ImageCropper from './imageupload/imageCropper'
-import ImageCropper from './ImageCropper'
 
+import ImageCropper from "./ImageCropper";
 
 import BackupOutlinedIcon from "@mui/icons-material/BackupOutlined";
-import Popup from "./Popup";
+
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
   boxShadow: "0px 7px 20px rgba(145, 156, 212, 0.15)",
   borderRadius: "7px",
-
 };
 
 export default function profileImage() {
@@ -32,6 +28,7 @@ export default function profileImage() {
   const [highlight, setHighlight] = React.useState(false);
   const [preview, setPreview] = React.useState("");
   const [drop, setDrop] = React.useState(false);
+  const [imageFile, setFile] = React.useState([]);
 
   const handleEnter = (e) => {
     e.preventDefault();
@@ -66,15 +63,21 @@ export default function profileImage() {
     const [file] = e.target.files || e.dataTransfer.files;
 
     uploadFile(file);
+    setFile(file);
   };
 
   function uploadFile(file) {
     const reader = new FileReader();
     reader.readAsBinaryString(file);
+    console.log(file);
+    // setFile(file)
 
-    reader.onload = () => {
+    reader.onload = (e) => {
       // this is the base64 data
       const fileRes = btoa(reader.result);
+      const fileResult = e.target.result;
+      console.log(fileResult);
+      setFile(`data:image/jpg;base64,${fileRes}`);
       console.log(`data:image/jpg;base64,${fileRes}`);
       setPreview(`data:image/jpg;base64,${fileRes}`);
     };
@@ -108,18 +111,31 @@ export default function profileImage() {
                 >
                   <form className="upload_form">
                     <BackupOutlinedIcon style={{ fontSize: "75px", color: "lightgray" }} />
+
                     <p>Drag and Drop image here</p>
                     <div className="upload-button">
-
                       {/* <button className="button">Upload Here</button> */}
                     </div>
-
                   </form>
-
                 </div>
-                {!preview? ("") :(  <Typography variant="caption2" style={{padding:"10px 0",color: "#FF6685",display:"flex",justifyContent:"center"}}   onClick={handleOpen}> Edit or replace photo</Typography>)}
+                {!preview ? (
+                  ""
+                ) : (
+                  <Typography
+                    variant="caption2"
+                    style={{
+                      padding: "10px 0",
+                      color: "#FF6685",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                    onClick={handleOpen}
+                  >
+                    {" "}
+                    Edit or replace photo
+                  </Typography>
+                )}
               </div>
-
 
               <button
                 onClick={handleOpen}
@@ -128,29 +144,21 @@ export default function profileImage() {
               >
                 Proceed
               </button>
-              {/* <Popup
-          open={open}
-          handleClose={handleClose}
-          image={preview}
-          getCroppedFile={(preview) => {
-            setPreview(preview);
-            handleClose();
-          }}
-        /> */}
+
               <Modal
                 open={open}
                 onClose={handleClose}
                 image={preview}
-          getCroppedFile={(preview) => {
-            setPreview(preview);
-            handleClose();
-          }}
+                getCroppedFile={(preview) => {
+                  setPreview(preview);
+                  handleClose();
+                }}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
                 <Box sx={style} className="modalss">
                   {/* <ImageCropper /> */}
-                  <ImageCropper/>
+                  <ImageCropper imageFile={imageFile} />
                 </Box>
               </Modal>
             </div>
