@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useRef, useState } from "react";
+import React, {  useState } from "react";
 import Layout from "src/components/Layout";
 // import  {useDropzone}  from "react-dropzone";
 import { useDropzone } from "react-dropzone";
@@ -21,14 +21,14 @@ const style = {
   borderRadius: "7px",
 };
 
-export default function profileImage() {
-  const [open, setOpen] = React.useState(false);
+export default function ProfileImage() {
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [highlight, setHighlight] = React.useState(false);
-  const [preview, setPreview] = React.useState("");
-  const [drop, setDrop] = React.useState(false);
-  const [imageFile, setFile] = React.useState([]);
+  const [highlight, setHighlight] =useState(false);
+  const [preview, setPreview] =useState("");
+  const [drop, setDrop] = useState(false);
+  const [imageFile, setFile] =useState([]);
 
   const handleEnter = (e) => {
     e.preventDefault();
