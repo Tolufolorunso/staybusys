@@ -63,9 +63,7 @@ export default function Demo({ imageFile }) {
       </div>
       <div className="controls">
         <div className="sliderContainer">
-          <Typography variant="overline" className="sliderLabel">
-            Zoom
-          </Typography>
+
           <Slider
             value={zoom}
             min={1}

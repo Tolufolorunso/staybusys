@@ -4,7 +4,7 @@ export const theme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
-      sm: 600,
+      sm: 800,
       md: 1000,
       lg: 1200,
       xl: 1920
@@ -85,7 +85,7 @@ export const theme = createTheme({
     MuiCardHeader: {
       defaultProps: {
         titleTypographyProps: {
-          variant: 'h3'
+          // variant: 'h3'
         },
         subheaderTypographyProps: {
           variant: 'body2'
@@ -94,7 +94,7 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           padding: '32px 24px',
-          paddingLeft:"50px"
+          paddingLeft:"2rem"
         }
       }
     },
@@ -151,7 +151,7 @@ export const theme = createTheme({
             borderBottom: 'none',
 
             fontWeight: 900,
-            paddingLeft:"50px !important",
+            paddingLeft:"2rem",
             lineHeight: 1,
             letterSpacing: 0.5,
             textTransform: 'none',
@@ -185,12 +185,13 @@ export const theme = createTheme({
             borderBottom:"1px solid rgba(223, 224, 235, 1)",
             fontSize: '16px',
             fontWeight: 400,
-            paddingLeft:"50px !important",
+            paddingLeft:"2rem !important",
             lineHeight: 1,
             letterSpacing: 0.5,
             fontFamily:"Euclid Circular A",
             textTransform: 'none',
             color: '#18181',
+
           },
           '& .MuiTableCell-paddingCheckbox': {
             paddingTop: 4,

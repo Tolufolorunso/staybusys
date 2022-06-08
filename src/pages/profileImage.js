@@ -25,8 +25,8 @@ const style = {
   padding: "3rem",
 };
 
-export default function profileImage() {
-  const [open, setOpen] = React.useState(false);
+export default function ProfileImage() {
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [highlight, setHighlight] = React.useState(false);
@@ -203,15 +203,7 @@ export default function profileImage() {
               >
                 Proceed
               </button>
-              {/* <Popup
-                open={open}
-                handleClose={handleClose}
-                image={preview}
-                getCroppedFile={(preview) => {
-                    setPreview(preview);
-                    handleClose();
-                }}
-                /> */}
+
               <Modal
                 open={open}
                 onClose={handleClose}
@@ -295,7 +287,7 @@ export default function profileImage() {
                           </button>
                         </div>
                       </div>
-                      <buttom onClick={showCroppedImage} className="cropButtonEnter">
+                      <buttom style={{ cursor: "pointer" }} onClick={showCroppedImage} className="cropButtonEnter">
                         Upload Profile Photo
                       </buttom>
                     </div>

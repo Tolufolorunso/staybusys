@@ -67,9 +67,17 @@ body {
   font-style: normal;
   font-display: fallback;
 }
-@media (max-width: 600px) {
+@media (max-width: 420px) {
   .table_boxs {
     flex-direction: column !important;
+  }
+}
+.currency_euro {
+  margin-right: 46px !important;
+}
+@media (max-width: 550px) {
+  .currency_euro {
+    margin-right: 15px !important;
   }
 }
 
@@ -97,7 +105,14 @@ hr {
 button {
   cursor: pointer;
 }
-
+.cardshead {
+  padding-bottom: 50px !important;
+}
+@media (max-width: 850px) {
+  .cardshead {
+    padding-bottom: 0px !important;
+  }
+}
 input,
 input:focus,
 select {
@@ -1814,7 +1829,8 @@ hr.modal_secions_hr {
 .upload.is-drop {
   padding: 0rem;
 }
-
+.cropper-crop-box {
+}
 .upload-button {
   width: 100%;
   height: 100%;
@@ -2039,7 +2055,28 @@ hr.modal_secions_hr {
   align-items: center;
   margin: 1rem 0 0;
 }
-
+.MuiCardHeader-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 2.25rem !important;
+  line-height: 130%;
+  font-family: Almarena;
+  font-style: normal;
+  color: #2f2e40;
+  display: block;
+}
+@media (max-width: 800px) {
+  .MuiCardHeader-title {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.25rem !important;
+    line-height: 130%;
+    font-family: Almarena;
+    font-style: normal;
+    color: #2f2e40;
+    display: block;
+  }
+}
 .slider {
   padding: 22px 0px;
   margin-left: 32px;

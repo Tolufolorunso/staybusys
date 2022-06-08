@@ -1,11 +1,11 @@
 import Head from "next/head";
-import { useState } from "react";
-import * as React from "react";
+import React, { useState } from "react";
+
 import Select from "react-select";
 
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { useFormik } from "formik";
+import  {useFormik } from "formik";
 import * as Yup from "yup";
 import { Box, Button, Container, Grid, Link, TextField, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -13,8 +13,8 @@ import { Facebook as FacebookIcon } from "../icons/facebook";
 import { Google as GoogleIcon } from "../icons/google";
 import Layout from "src/components/Layout";
 
-const personaldetails = () => {
-  const [value, setValue] = React.useState(0);
+const Personaldetails = () => {
+  const [value, setValue] = useState(0);
   const options = [
 
     { value: "Euro", label: "Euro" },
@@ -242,4 +242,4 @@ const personaldetails = () => {
   );
 };
 
-export default personaldetails;
+export default Personaldetails;
