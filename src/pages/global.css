@@ -1803,16 +1803,9 @@ hr.modal_secions_hr {
   color: #2f2e40;
   /* letter-spacing: 0.1em;
   text-transform: uppercase; */
+  position: relative;
   opacity: 1;
   transition: opacity 0.25s ease-in-out;
-}
-
-.upload.is-highlight {
-  background-color: rgba(rgb(74, 160, 234, 0.5));
-}
-
-.upload.is-highlight .upload_form {
-  opacity: 1;
 }
 
 .upload.is-drop .upload_form {
@@ -1823,10 +1816,28 @@ hr.modal_secions_hr {
 }
 
 .upload-button {
-  width: 200px;
+  width: 100%;
+  height: 100%;
+  /* background: red; */
+  background: transparent;
+  /* width: 200px; */
+  z-index: 2;
   position: absolute;
   bottom: 0;
   left: 0;
+}
+.upload-button input[type="file"] {
+  /* height: 200px !important; */
+  /* height: 119.05px !important; */
+  height: 100% !important;
+  width: 100% !important;
+  position: absolute !important;
+  top: 0% !important;
+  right: 0 !important;
+  /* transform: translate(-50%, -50%); */
+  z-index: 1;
+  opacity: 0 !important;
+  cursor: pointer !important;
 }
 
 .upload-file {
@@ -1845,16 +1856,122 @@ hr.modal_secions_hr {
   justify-content: center;
   margin-top: 10px;
   width: 100%;
-  height: 50px;
+  /* height: 50px; */
+  height: 100%;
   font-size: 15px;
   font-weight: bold;
   color: white;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
-  background-color: #101010;
+  /* background-color: #101010; */
+  background: transparent;
   border: 0;
-  display: none;
+  position: absolute;
+  /* display: none; */
+}
+.upload.is-highlight {
+  /* background-color: rgba(rgb(74, 160, 234, 0.5)); */
+  background-color: red;
+  z-index: 6000;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  /* padding: 7rem; */
+}
+
+.upload.is-highlight .upload_form {
+  opacity: 1;
+}
+
+.upload.is-highlight .upload-button input[type="file"] {
+  height: 100% !important;
+  width: 100% !important;
+  position: absolute !important;
+  top: 0% !important;
+  right: 0 !important;
+  z-index: 0;
+  opacity: 0 !important;
+  cursor: pointer !important;
+  background-color: brown;
+  /* padding: 7rem; */
+}
+
+.displayNone {
+  display: none !important;
+}
+
+.crop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 3rem;
+}
+.rotateBtns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 94%;
+  margin: 2.5rem 0 0rem;
+}
+.rotateBtns button {
+  background: none;
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 140%;
+  text-align: center;
+  letter-spacing: 0.03em;
+  color: #2f2e40;
+  border: none;
+}
+
+.cropButton {
+  display: flex;
+  align-items: center;
+}
+
+.roate_text {
+  margin-left: 2rem;
+}
+.crop p {
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 130%;
+  letter-spacing: 0.03em;
+  color: #2f2e40;
+}
+
+.crop span {
+  color: #2f2e40;
+  /* color: #fff; */
+  font-size: 2rem;
+}
+
+.cropButtonEnter {
+  font-family: "Euclid Circular A";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 140%;
+  text-align: center;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  padding: 1rem;
+  width: 100%;
+  background: #ff6685;
+  border-radius: 10px;
+  margin-top: 2rem;
+}
+.reactEasyCrop_CropArea {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 /* crop images */
@@ -1869,9 +1986,28 @@ hr.modal_secions_hr {
 
 .cropContainer {
   position: relative;
-  width: 100%;
+  width: 70%;
+  margin: 0 auto;
   height: 400px;
-  background: #333;
+  /* background: #333; */
+  /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  opacity: 0.5; */
+}
+.reactEasyCrop_Container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+  cursor: move;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)) !important;
+  /* opacity: 0.5 !important; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* .controls {
@@ -1901,11 +2037,16 @@ hr.modal_secions_hr {
   display: flex;
   flex: 1;
   align-items: center;
+  margin: 1rem 0 0;
 }
 
 .slider {
   padding: 22px 0px;
   margin-left: 32px;
+  margin: 0 auto !important;
+  width: 70% !important;
+  color: #ff6685 !important;
+  border-radius: 177.47px !important;
 }
 
 /* .sliderContainer {
