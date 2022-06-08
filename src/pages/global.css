@@ -2004,7 +2004,7 @@ hr.modal_secions_hr {
   position: relative;
   width: 70%;
   margin: 0 auto;
-  height: 400px;
+  height: 200px !important;
   /* background: #333; */
   /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
   opacity: 0.5; */
