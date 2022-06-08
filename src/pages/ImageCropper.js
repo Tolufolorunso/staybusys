@@ -25,7 +25,10 @@ export default function Demo({ imageFile }) {
   }, []);
 
   function rotateimageRight (){
-    setRotation(rotation )
+    setRotation(rotation + 5)
+  }
+  function rotateimageLeft (){
+    setRotation(rotation - 5)
   }
 
   const showCroppedImage = useCallback(async () => {
@@ -86,7 +89,10 @@ export default function Demo({ imageFile }) {
             onChange={(e, rotation) => setRotation(rotation)}
           />
           <Button onClick={rotateimageRight} variant="contained" color="primary" className="cropButton">
-            rotate
+            rotate right
+          </Button>
+          <Button onClick={rotateimageLeft} variant="contained" color="primary" className="cropButton">
+            rotate left
           </Button>
         </div>
         <Button
