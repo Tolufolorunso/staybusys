@@ -7,7 +7,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ImgDialog from "./Imgdialog";
 import ReactDOM from "react-dom";
 import getCroppedImg from "./cropimage";
-import { styles } from "./styles";
+
 
 const dogImg =
   "https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000";
@@ -109,6 +109,6 @@ export default function Demo({ imageFile }) {
   );
 }
 
-const StyledDemo = withStyles(styles)(Demo);
+
 
 // export default Demo

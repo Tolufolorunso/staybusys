@@ -77,7 +77,7 @@ export default function ProfileImage() {
     setDrop(false);
   }
 
-  
+
 
   const handleEnter = (e) => {
     e.preventDefault();
@@ -198,7 +198,7 @@ export default function ProfileImage() {
               </div>
 
               <button
-                onClick={handleOpen}
+
                 style={{ justifyContent: "center" }}
                 className="upload_btn actn_btn"
               >
@@ -216,7 +216,7 @@ export default function ProfileImage() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
-                <Box sx={style} className="modalss">
+                <Box sx={style} className="modalss2">
                   {/* { <ImageCropper />  */}
                   {/* <ImageCropper imageFile={imageFile} /> */}
                   <div>
@@ -225,11 +225,12 @@ export default function ProfileImage() {
                       <span>
                         <CloseIcon
                           onClick={stopUload}
-                          style={{ fontSize: "40px", cursor: "pointer" }}
+
+                          style={{ fontSize:"40px",cursor: "pointer" }}
                         />
                       </span>
                     </div>
-                    <div className="cropContainer">
+                    <div className="cropContainer1">
                       <Cropper
                         image={imageFile}
                         crop={crop}
@@ -276,13 +277,13 @@ export default function ProfileImage() {
                         <div className="rotateBtns">
                           <button onClick={rotateimageRight} className="cropButton">
                             <span>
-                              <RotateRightIcon style={{ fontSize: "40px" }} />
+                              <RotateRightIcon   className="rotate_icon" />
                             </span>
                             <span className="roate_text">Rotate Right</span>
                           </button>
                           <button onClick={rotateimageLeft} className="cropButton">
                             <span>
-                              <RotateLeftIcon style={{ fontSize: "40px" }} />
+                              <RotateLeftIcon className="rotate_icon" />
                             </span>
                             <span className="roate_text">Rotate Left</span>
                           </button>

@@ -1186,9 +1186,9 @@ hr.divide {
   border-radius: 10px;
   color: #fff;
   /* padding: 20px 20px 20px 48px; */
-  padding: 1.2rem 4rem;
+  padding: 1.2rem 0rem;
   border: none;
-  width: 30%;
+  width: 50%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -1345,7 +1345,7 @@ hr.divide {
     position: absolute;
     border-radius: 50%;
     right: 5%;
-    margin-top: -178px;
+    margin-top: -150px;
   }
 }
 .choose h4 {
@@ -1447,6 +1447,16 @@ hr.divide {
 @media (max-width: 600px) {
   .modalss {
     width: 90% !important;
+  }
+}
+.modalss2 {
+  width: 520px !important;
+  padding: 3rem !important;
+}
+@media (max-width: 600px) {
+  .modalss2 {
+    width: 90% !important;
+    padding: 1rem !important;
   }
 }
 .registration_modal_desc .verification {
@@ -1759,6 +1769,18 @@ hr.modal_secions_hr {
   width: 60%;
   margin: 0 auto;
 }
+@media (max-width: 800px) {
+  .uploadimg_hold {
+    background: #ffffff;
+    border: 1px solid rgba(255, 204, 0, 0.2);
+    box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15);
+    border-radius: 7px;
+    padding: 1rem 1rem 2rem;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
 
 .uploaded_img {
   /* position: absolute;
@@ -1924,14 +1946,14 @@ hr.modal_secions_hr {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 3rem;
+  padding-bottom: 1rem;
 }
 .rotateBtns {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 94%;
-  margin: 2.5rem 0 0rem;
+  width: 97%;
+  margin: 2rem 0 0rem;
 }
 .rotateBtns button {
   background: none;
@@ -1945,6 +1967,20 @@ hr.modal_secions_hr {
   color: #2f2e40;
   border: none;
 }
+@media (max-width: 600px) {
+  .rotateBtns button {
+    background: none;
+    font-family: "Euclid Circular A";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 140%;
+    text-align: center;
+    letter-spacing: 0.03em;
+    color: #2f2e40;
+    border: none;
+  }
+}
 
 .cropButton {
   display: flex;
@@ -1953,6 +1989,19 @@ hr.modal_secions_hr {
 
 .roate_text {
   margin-left: 2rem;
+}
+@media (max-width: 600px) {
+  .roate_text {
+    margin-left: 1rem;
+  }
+}
+.rotate_icon {
+  font-size: 40px;
+}
+@media (max-width: 600px) {
+  .rotate_icon {
+    font-size: 30px;
+  }
 }
 .crop p {
   font-family: "Euclid Circular A";
@@ -2002,12 +2051,32 @@ hr.modal_secions_hr {
 
 .cropContainer {
   position: relative;
-  width: 70%;
+  width: 76%;
   margin: 0 auto;
-  height: 200px !important;
+  height: 270px;
   /* background: #333; */
   /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
   opacity: 0.5; */
+}
+.cropContainer1 {
+  position: relative;
+  width: 76%;
+  margin: 0 auto;
+  height: 270px;
+  /* background: #333; */
+  /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  opacity: 0.5; */
+}
+@media (max-width: 600px) {
+  .cropContainer1 {
+    position: relative;
+    width: 91%;
+    margin: 0 auto;
+    height: 270px;
+    /* background: #333; */
+    /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+    opacity: 0.5; */
+  }
 }
 .reactEasyCrop_Container {
   position: absolute;
@@ -2053,7 +2122,6 @@ hr.modal_secions_hr {
   display: flex;
   flex: 1;
   align-items: center;
-  margin: 1rem 0 0;
 }
 .MuiCardHeader-title {
   margin: 0;
