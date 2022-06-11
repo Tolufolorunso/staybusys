@@ -85,7 +85,7 @@ function Navbar() {
               <>
                 <Box style={{ display: "flex", justifyContent: 'space-between', width: '100%' }}>
 
-                <Button disableRipple href="/" style={{border:"none",backgroundColor:"none",background:"transparent"}}><img src="./logo.svg" alt="" width="100px" />
+                <Button disableRipple href="/" style={{border:"none",backgroundColor:"none",background:"transparent"}}><img src="./logo.svg" alt="" width="150px" />
                 </Button>
 
 
@@ -128,7 +128,7 @@ function Navbar() {
                                <Link href='/faq' style={{textDecoration:"none"}}>
                                <MenuItem style={{ textTransform: "none !important", fontFamily: "Euclid Circular A",color:"#1C1C1C",fontSize:"16px"  }} onClick={handleClose}>FAQs</MenuItem>
                                </Link>
-                               <Link href='www.twitter.com' target='_blank' style={{textDecoration:"none"}}>
+                               <Link  href="https://twitter.com/messages/compose?recipient_id=912242018620932098&text=Hello" target='_blank' style={{textDecoration:"none"}}>
                                <MenuItem style={{ textTransform: "none !important", fontFamily: "Euclid Circular A",color:"#1C1C1C",fontSize:"16px"  }} href='/'onClick={handleClose}>Support</MenuItem>
                                </Link>
 
@@ -148,7 +148,7 @@ function Navbar() {
               </>
             ) : (
               <div style={{ marginRight: "2rem", color: '#fff', display: 'flex', width: "100%", justifyContent: "space-between", margin:"20px 0" }}>
-                <Button disableRipple href="/"  style={{border:"none",backgroundColor:"none",background:"transparent"}}><img src="./logo.svg" alt="" width="130px" />
+                <Button disableRipple href="/"  style={{border:"none",backgroundColor:"none",background:"transparent"}}><img src="./logo.svg" alt=""  />
                 </Button>
 
                 <Box style={{ float: 'center', display: 'flex' }}>
@@ -165,7 +165,7 @@ function Navbar() {
                     variant="text"
                     disableRipple
                     className='buttons1'
-                    href="www.twitter.com"
+                    href="https://twitter.com/messages/compose?recipient_id=912242018620932098&text=Hello"
                     target="_blank"
                     style={{ marginRight: "2rem", color: '#1C1C1C',textTransform:"none",fontSize:"16px",fontFamily:"Euclid Circular A",fontWeight:"normal" }}
                   >

@@ -41,6 +41,7 @@ const Choosetasks = () => {
       }
     });
   }
+
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -68,7 +69,7 @@ const Choosetasks = () => {
             <h4>
               Choose the types of tasks You’re comfortable with from the list below
             </h4>
-            <span className="tab">3/3</span>
+            <span className="tabss">3/3</span>
             <div className="">
               <div className="choose_task">
                 <div className="buttons">

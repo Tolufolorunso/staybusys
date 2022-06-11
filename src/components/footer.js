@@ -29,10 +29,10 @@ function Footer() {
             <Link
                   className="footer-text"
                   style={{ textDecoration: "none" }}
-                  href="wwww.twitter.com"
+                  href="https://twitter.com/messages/compose?recipient_id=912242018620932098&text=Hello"
                   target="_blank"
                 >
-                  <p className="footer-text" >Support</p>
+                  <p target="_blank" className="footer-text" >Support</p>
                 </Link>
                 </div>
 

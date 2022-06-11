@@ -40,7 +40,7 @@ const smallerStyle = {
   p: 4,
 };
 
-const Register = () => {
+const Register = ({value}) => {
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -89,7 +89,7 @@ const Register = () => {
                 <div className="login_input">
                   <label htmlFor="student_email">Your student Email:</label> <br />
                   <div className="input_wrap">
-                    <input type="text" />
+                    <input type="text" value={value}/>
                   </div>
                 </div>
                 <div className="login_input">
