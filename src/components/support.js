@@ -1,6 +1,7 @@
 import { Button, Typography } from '@mui/material'
 import React from 'react'
 import TwitterIcon from "@mui/icons-material/Twitter";
+import Link from 'next/link';
 export default function Supportlayout() {
   return (
     <div style={{display:"flex",flexDirection:"column",textAlign:"center", justifycontent:"center", alignItems:"center"}}>
@@ -14,7 +15,7 @@ export default function Supportlayout() {
         <div style={{display:"flex",justifyContent:"center",paddingBottom:"130px"}} >  <Button href="https://twitter.com/intent/tweet?screen_name=staybusyio" target="_blank" className="faqButton"color='secondary' variant='contained'>  <TwitterIcon style={{ color: "white",fontSize:"36px", paddingRight: "7px" }} />{" "}
           <Typography variant="caption2" >Tweet at us</Typography></Button></div>
           <Typography variant="caption">
-          You can check out our  <a href='/faq' style={{textDecoration:"none",color:"#FC6585"}}target="_blank">FAQs</a> for more help
+          You can check out our  <Link href='/faq' target="_blank">FAQs</Link> for more help
           </Typography>
     </div>
   )
