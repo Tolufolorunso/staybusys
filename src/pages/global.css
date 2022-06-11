@@ -758,6 +758,11 @@ hr.divide {
   padding: 1rem;
   }
 }
+.BO{
+  color: #fc6585;
+  cursor: pointer;
+  text-decoration: none;
+}
 .add_acc_modal .add_input {
   width: 100%;
   margin: 6px 0;

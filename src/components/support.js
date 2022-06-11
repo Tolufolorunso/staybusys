@@ -15,7 +15,7 @@ export default function Supportlayout() {
         <div style={{display:"flex",justifyContent:"center",paddingBottom:"130px"}} >  <Button href="https://twitter.com/intent/tweet?screen_name=staybusyio" target="_blank" className="faqButton"color='secondary' variant='contained'>  <TwitterIcon style={{ color: "white",fontSize:"36px", paddingRight: "7px" }} />{" "}
           <Typography variant="caption2" >Tweet at us</Typography></Button></div>
           <Typography variant="caption">
-          You can check out our  <Link href='/faq' target="_blank">FAQs</Link> for more help
+          You can check out our <Link href='/faq' className="BO" target="_blank"><span className="BO">FAQs  </span></Link> for more help
           </Typography>
     </div>
   )
