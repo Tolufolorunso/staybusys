@@ -11,10 +11,10 @@ export default function Supportlayout() {
         <Typography variant='caption' style={{marginBottom:"30px"}} >
         Tweet at us and we will respond as soon as possible
         </Typography>
-        <div style={{display:"flex",justifyContent:"center",paddingBottom:"130px"}} >  <Button href="#" target="_blank" className="faqButton"color='secondary' variant='contained'>  <TwitterIcon style={{ color: "white",fontSize:"36px", paddingRight: "7px" }} />{" "}
+        <div style={{display:"flex",justifyContent:"center",paddingBottom:"130px"}} >  <Button href="https://twitter.com/intent/tweet?screen_name=staybusyio" target="_blank" className="faqButton"color='secondary' variant='contained'>  <TwitterIcon style={{ color: "white",fontSize:"36px", paddingRight: "7px" }} />{" "}
           <Typography variant="caption2" >Tweet at us</Typography></Button></div>
           <Typography variant="caption">
-          You can check out our FAQs for more help
+          You can check out our  <a href='/faq' style={{textDecoration:"none",color:"#FC6585"}}target="_blank">FAQs</a> for more help
           </Typography>
     </div>
   )

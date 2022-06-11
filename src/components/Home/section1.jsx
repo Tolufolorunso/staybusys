@@ -3,6 +3,8 @@ import React from "react";
 
 
 export default function Section1 () {
+  const [value, setValue] = React.useState("");
+  // console.log(value)
   return (
     <div className='root'>
       <Grid container spacing={2} display={"flex"} alignItems={"center"} className='section1Box'>
@@ -21,9 +23,11 @@ export default function Section1 () {
                       type="email"
                       className='textField'
                       variant="outlined"
+                      // value={value}
+                      // onChange={(e, value) => setValue(value)}
                       placeholder="Enter your student email"
                     />
-                    <Button className='button_enroll'variant="contained">Sign up</Button>
+                    <Button value={value}href=" /register" className='button_enroll'variant="contained">Sign up</Button>
                   </Box>
                 </form>
         </Grid>

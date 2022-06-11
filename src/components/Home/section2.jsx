@@ -23,7 +23,7 @@ function Section2() {
                 <Typography className='section2_det22'>Once all that is done, you can now access your dashboard, where you’ll be able to access available tasks and start earning.</Typography>
             </Box>
 
-            <Button className='button_enroll1' variant="contained">Sign Up</Button>
+            <Button className='button_enroll1' href=" /register" variant="contained">Sign Up</Button>
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={6}>
             <Box><img src="../../section2.png" width="100%" alt="" className='section2Image' /></Box>

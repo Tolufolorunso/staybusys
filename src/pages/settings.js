@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import Modal from "@mui/material/Modal";
 import Select from "react-select";
 
@@ -17,7 +17,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-
+  overflow:"auto",
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
   boxShadow: 24,
@@ -27,7 +27,7 @@ const smallerStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-
+overflow:"auto",
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
   boxShadow: 24,
@@ -333,19 +333,33 @@ export default function Task() {
                     <small>Update your details and other info here</small>
                   </div>
                   <div className="right">
-                    <div className="top payment">
+                    <div className="tops payment">
                       <div className="top_details">
                         {showAccDetails ? (
                           <div className="acoout_info">
                             <div className="wrapper">
                               <div className="left">
+
                                 <div className="act_info">
+<Grid container spacing={8}>
+  <Grid  item xs={6}>
                                   <p>Bank Name:</p>
+                                  </Grid>
+                                  <Grid  item xs={6}>
                                   <span>United Bank For Afrfica</span>
+                                  </Grid>
+                                  </Grid>
                                 </div>
+
                                 <div className="act_info">
+                                <Grid container spacing={8}>
+                                <Grid  item xs={6}>
                                   <p>Account Name:</p>
+                                  </Grid>
+                                  <Grid  item xs={6}>
                                   <span>Melanie Walters</span>
+                                  </Grid>
+                                  </Grid>
                                 </div>
                                 <div className="act_info">
                                   <p>Account Number:</p>
@@ -355,7 +369,9 @@ export default function Task() {
                                   <p>Country:</p>
                                   <span>Nigeria</span>
                                 </div>
+
                               </div>
+
 
                               <div className="right">
                                 <button>Edit</button>
@@ -366,10 +382,64 @@ export default function Task() {
                         ) : (
                           <p>You’ve not added a withdrawal account</p>
                         )}
+                         <div className="acoout_info">
+                            <div className="wrapper">
+                              <div className="left">
+                              <div className="act_info">
+<Grid container spacing={4}>
+  <Grid  item xs={6}>
+                                  <p>Bank Name:</p>
+                                  </Grid>
+                                  <Grid  item xs={6}>
+                                  <span>United Bank For Afrfica</span>
+                                  </Grid>
+                                  </Grid>
+                                </div>
 
+                                <div className="act_info">
+                                <Grid container spacing={4}>
+                                <Grid  item xs={6}>
+                                  <p>Account Name:</p>
+                                  </Grid>
+                                  <Grid  item xs={6}>
+                                  <span>Melanie Walters</span>
+                                  </Grid>
+                                  </Grid>
+                                </div>
+                                <div className="act_info">
+                                <Grid container spacing={4}>
+                                <Grid  item xs={6}>
+                                  <p>Account Number:</p>
+                                  </Grid>
+                                  <Grid  item xs={6}>
+                                  <span>2086078162</span>
+                                  </Grid>
+                                  </Grid>
+                                </div>
+                                <div className="act_info">
+                                <Grid container spacing={4}>
+                                <Grid  item xs={6}>
+                                  <p>Country:</p>
+                                  </Grid>
+                                  <Grid  item xs={6}>
+                                  <span>Nigeria</span>
+                                  </Grid>
+                                  </Grid>
+                                </div>
+                              </div>
+
+                              <div className="right">
+
+                                <button>  <img src="./PENCIL.svg"  style={{marginRight:"8px"}}/> Edit</button>
+                                <small>Added, oct 7,2021</small>
+                              </div>
+                            </div>
+                          </div>
+<div>
                         <button onClick={handleOpen} className="actn_btn">
                           Add an account
                         </button>
+                        </div>
                         <div>
                           <Modal
                             open={open}
@@ -394,7 +464,7 @@ export default function Task() {
 
                                 <hr className="hr_with" />
 
-                                <div className="add_inputs" style={{ padding: "2.2rem" }}>
+                                <div className="add_inputs" >
                                   <div className="add_input ">
                                     <label htmlFor="Country">Country</label> <br />
                                     <input type="text" />
@@ -405,6 +475,10 @@ export default function Task() {
                                   </div>
                                   <div className="add_input ">
                                     <label htmlFor="AccountNumber">Account Number</label> <br />
+                                    <input type="number" />
+                                  </div>
+                                  <div className="add_input ">
+                                    <label htmlFor="withdraw">Sort Code</label> <br />
                                     <input type="number" />
                                   </div>
                                   <div className="add_input ">
