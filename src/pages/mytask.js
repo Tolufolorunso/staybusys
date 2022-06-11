@@ -53,14 +53,25 @@ export default function Task() {
 
         btn.classList.toggle("active");
         if (btn.classList.contains("active")) {
-          selectedBtns.push(btn);
-          console.log(selectedBtns);
+          // selectedBtns.push(btn);
+          //   console.log(selectedBtns);
+          if (selectedBtns.length <= 3 ) {
+            selectedBtns.push(btn);
+            console.log(selectedBtns);
+          } else {
+            alert('You can no longer add new tasks')
+            btn.classList.remove('active')
+            return;
+          }
         }
         selectedBtns.forEach((arrBtn) => {
           if (!arrBtn.classList.contains("active")) {
             selectedBtns.pop(arrBtn);
           }
         });
+
+
+        
       }
     });
   }
@@ -102,16 +113,21 @@ export default function Task() {
     }),
   };
 
-  function changeToGridDisplay() {
+  function changeToGridDisplay(e) {
     console.log("Change Display");
+    console.log(e.target.src);
     const getDisplay = document.querySelector(".grids_sec");
     if (getDisplay.classList.contains("displayGrid")) {
       getDisplay.classList.remove("displayGrid");
+
       localStorage.removeItem("viewMode", "displayGrid");
+      e.target.src = "./list.svg";
     } else {
       getDisplay.classList.add("displayGrid");
       localStorage.setItem("viewMode", "displayGrid");
       const view = localStorage.getItem("viewMode");
+      e.target.src = "./grid.svg";
+
       setviewMode(view);
     }
   }
@@ -221,7 +237,6 @@ export default function Task() {
 
           <Modal
             open={open}
-
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
@@ -311,8 +326,12 @@ export default function Task() {
                     <div className="filter_btns">
                       <button className="clear">Clear all filters</button>
                       <div className="dbl_btns">
-                        <button onClick={handleClose} className="cancel">Cancel</button>
-                        <button onClick={handleopenSecondModal} className="apply">Apply Filter</button>
+                        <button onClick={handleClose} className="cancel">
+                          Cancel
+                        </button>
+                        <button onClick={handleopenSecondModal} className="apply">
+                          Apply Filter
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -331,12 +350,8 @@ export default function Task() {
                 <div className="filter_modal_desc">
                   <div className="modal_secions">
                     <div className="research">
-                    <span className="open_text">Research</span>
-                    <span className="square">
-
-                    </span>
-
-
+                      <span className="open_text">Research</span>
+                      <span className="square"></span>
                     </div>
 
                     <p className="header_text">Auditing information architechture</p>
@@ -355,17 +370,14 @@ export default function Task() {
                       turpis cursus morbi lorem et. Maecenas mus leo convallis penatibus etiam sit.
                       Massa amet congue dignissim elementum. Nunc lorem odio ultricies imperdiet
                       enim. Sit habitant dictumst pellentesque proin dignissim eget diam tortor in.
-                      Elit, vel convallis tellus non.
-                      enim. Sit habitant dictumst pellentesque proin dignissim eget diam tortor in.
-                      Elit, vel convallis tellus non.
-                      enim. Sit habitant dictumst pellentesque proin dignissim eget diam tortor in.
-                      Elit, vel convallis tellus non.
-                      enim. Sit habitant dictumst pellentesque proin dignissim eget diam tortor in.
-                      Elit, vel convallis tellus non.
-                      enim. Sit habitant dictumst pellentesque proin dignissim eget diam tortor in.
-                      Elit, vel convallis tellus non.
-                      enim. Sit habitant dictumst pellentesque proin dignissim eget diam tortor in.
-                      Elit, vel convallis tellus non.
+                      Elit, vel convallis tellus non. enim. Sit habitant dictumst pellentesque proin
+                      dignissim eget diam tortor in. Elit, vel convallis tellus non. enim. Sit
+                      habitant dictumst pellentesque proin dignissim eget diam tortor in. Elit, vel
+                      convallis tellus non. enim. Sit habitant dictumst pellentesque proin dignissim
+                      eget diam tortor in. Elit, vel convallis tellus non. enim. Sit habitant
+                      dictumst pellentesque proin dignissim eget diam tortor in. Elit, vel convallis
+                      tellus non. enim. Sit habitant dictumst pellentesque proin dignissim eget diam
+                      tortor in. Elit, vel convallis tellus non.
                     </p>
 
                     <div className="filter_btns second_filter_btns">
