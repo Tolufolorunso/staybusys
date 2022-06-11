@@ -4,9 +4,9 @@ import Slider from "@material-ui/core/Slider";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import ImgDialog from "./Imgdialog";
+// import ImgDialog from "./Imgdialog"
 import ReactDOM from "react-dom";
-import getCroppedImg from "./cropimage";
+import getCroppedImg from "../components/cropimage";
 
 
 const dogImg =
@@ -104,7 +104,7 @@ export default function Demo({ imageFile }) {
           Show Result
         </Button>
       </div>
-      <ImgDialog img={croppedImage} onClose={onClose} />
+      {/* <ImgDialog img={croppedImage} onClose={onClose} /> */}
     </div>
   );
 }

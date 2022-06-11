@@ -5,7 +5,7 @@ import React, { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
 import Slider from "@material-ui/core/Slider";
 import CloseIcon from "@mui/icons-material/Close";
-import getCroppedImg from "./cropimage";
+import getCroppedImg from "../components/cropimage";
 
 import Modal from "@mui/material/Modal";
 import { Box, Typography } from "@mui/material";
