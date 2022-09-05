@@ -1,24 +1,16 @@
-import { Box, Button, Grid, InputBase, Typography } from "@mui/material";
-import React from "react";
+import { Button, InputBase, Typography } from '@mui/material'
+import { Box } from '@mui/system'
+import React from 'react'
 
-
-export default function Section1 () {
-  const [value, setValue] = React.useState("");
-  // console.log(value)
+export default function section1() {
+    const [value, setValue] = React.useState("");
   return (
-    <div className='root'>
-      <Grid container spacing={2} display={"flex"} alignItems={"center"} className='section1Box'>
-        <Grid item xs={12} sm={12} md={6}>
-          <Box><img src="../../header1.png" width='100%' className='section1Image' alt="" /></Box>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} className='headebox'>
-          <Typography className='headDetail'>
-          The study can be hard...
-          </Typography>
-          <Typography style={{border:"3px solid #FFCC00",width:"90px" ,borderRadius:"12px"}}></Typography>
-          <Typography className='header'>Finding paying tasks as college students shouldn’t be</Typography>
-          <form className='form' noValidate autoComplete="off">
-                  <Box style={{ position: "relative" }}>
+    <div className='roothome homepage'style={{textAlign:"center",}}>
+        <img src="./starhome.svg"  alt="" />
+        <Typography className='header'>Easily Connecting <span style={{color:"#FF6685",}}>College Students </span>  with Paying Tasks</Typography>
+        <Typography className='homepageDetails'>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat.</Typography>
+        <form className='form' noValidate autoComplete="off">
+                  <Box className="homeForm" style={{ position: "relative" }}>
                     <InputBase
                       type="email"
                       className='textField'
@@ -27,12 +19,9 @@ export default function Section1 () {
                       // onChange={(e, value) => setValue(value)}
                       placeholder="Enter your student email"
                     />
-                    <Button value={value}href=" /register" className='button_enroll'variant="contained">Sign up</Button>
+                    <Button value={value}href=" /register" className='button_enroll'variant="contained">Register</Button>
                   </Box>
                 </form>
-        </Grid>
-      </Grid>
-    </div>
-  );
-
-};
+        </div>
+  )
+}

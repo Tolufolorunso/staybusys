@@ -151,7 +151,7 @@ function Navbar() {
                 <Button disableRipple href="/"  style={{border:"none",backgroundColor:"none",background:"transparent"}}><img src="./logo.svg" alt=""  />
                 </Button>
 
-                <Box style={{ float: 'center', display: 'flex' }}>
+                <Box style={{ alignItems: 'center', display: 'flex' }}>
                 <Button
                     variant="text"
                     className='buttons1'

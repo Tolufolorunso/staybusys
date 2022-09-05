@@ -2668,6 +2668,7 @@ button.read_more {
     margin-top: 60px !important;
   }
 }
+
 .roots {
   max-width: 1440px !important;
   width: 88% !important;
@@ -2677,9 +2678,10 @@ button.read_more {
 }
 .root2 {
   max-width: 1440px !important;
-  width: 82% !important;
-  margin-top: 100px !important;
+  width: 85% !important;
   margin: auto !important;
+  margin-top: 100px !important;
+ 
 }
 .root4 {
   max-width: 1440px !important;
@@ -2816,7 +2818,7 @@ button.read_more {
   margin-top: 9px !important;
   margin-right: 9px !important;
   z-index: 8 !important;
-  width: 142px !important;
+  width: 170px !important;
   background-color: #ff6685 !important;
   height: 55px !important;
   color: #fff !important;
@@ -2837,7 +2839,7 @@ button.read_more {
   background-color: #ff6685 !important;
 }
 .button_enroll1 {
-  width: 145px !important;
+  width: 170px !important;
   font-size: 16px !important;
   background-color: #ff6685 !important;
   height: 52px !important;
@@ -2852,13 +2854,33 @@ button.read_more {
 .button_enroll1:hover {
   background-color: #ff6685 !important;
 }
+
+.button_enroll_home {
+  width: 170px !important;
+  font-size: 16px !important;
+  background-color: transparent !important;
+  height: 52px !important;
+  color: #fff !important;
+
+border: 1px solid #FF6685;
+
+  /* border-radius: 8px !important; */
+  text-transform: none !important;
+  font-family: "Inter" !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+}
+.button_enroll_home:hover {
+  background-color: transparent !important;
+}
 .button_enroll12 {
-  width: 145px !important;
+  width: 170px !important;
   font-size: 16px !important;
   background-color: #ff6685 !important;
   height: 52px !important;
   color: #fff !important;
   padding: 1.2rem 3rem !important;
+ 
   border-radius: 8px !important;
   text-transform: none !important;
   font-family: "Inter" !important;
@@ -2891,17 +2913,36 @@ button.read_more {
     font-size: 14px !important;
   }
 }
+.section2Image{
+  padding-left: 25px;
+}
 @media (max-width: 899px) {
   .section2Image {
     margin-top: 90px !important;
   }
 }
+.section2Image2{
+  padding-left: 85px;
+}
+@media (max-width: 899px) {
+  .section2Image2 {
+    margin-top: 90px !important;
+  }
+}
 .section3_det {
-  padding-left: 47px !important ;
+  padding-left: 80px !important ;
 }
 @media (max-width: 899px) {
   .section3_det {
     padding-left: 0px !important ;
+  }
+}
+.section2_dets{
+padding-right: 30px !important;
+}
+@media (max-width: 899px) {
+  .section2_dets {
+    padding-right: 0px !important ;
   }
 }
 .bee {
@@ -3026,24 +3067,24 @@ button.read_more {
   font-family: "Almarena" !important;
   font-style: normal !important;
   font-weight: 700 !important;
-  font-size: 45px !important;
+  font-size: 35px !important;
   line-height: 102% !important;
   /* or 65px */
   margin-top: 22px !important;
 
-  color: #2f2e40 !important;
+  color: #fff !important;
 }
 @media (max-width: 899px) {
   .section2_det {
     font-family: "Almarena" !important;
     font-style: normal !important;
     font-weight: 700 !important;
-    font-size: 36px !important;
+    font-size: 28px !important;
     line-height: 102% !important;
     /* or 65px */
     margin-top: 22px !important;
 
-    color: #2f2e40 !important;
+    color: #fff !important;
   }
 }
 @media (max-width: 500px) {
@@ -3051,12 +3092,12 @@ button.read_more {
     font-family: "Almarena" !important;
     font-style: normal !important;
     font-weight: 700 !important;
-    font-size: 27px !important;
+    font-size: 25px !important;
     line-height: 102% !important;
     /* or 65px */
     margin-top: 22px !important;
 
-    color: #2f2e40 !important;
+    color: #fff !important;
   }
 }
 @media (max-width: 350px) {
@@ -3069,20 +3110,180 @@ button.read_more {
     /* or 65px */
     margin-top: 22px !important;
 
-    color: #2f2e40 !important;
+    color: #fff !important;
   }
 }
 
-.section2Det {
+.section2_det_2 {
   font-family: "Almarena" !important;
   font-style: normal !important;
   font-weight: 700 !important;
-  font-size: 45px !important;
+  font-size: 35px !important;
+  width: 70%;
   line-height: 102% !important;
   /* or 65px */
   margin-top: 22px !important;
 
-  color: #2f2e40 !important;
+  color: #fff !important;
+}
+@media (max-width: 899px) {
+  .section2_det_2 {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 28px !important;
+    line-height: 102% !important;
+    /* or 65px */
+    margin-top: 22px !important;
+    width: 100%;
+    color: #fff !important;
+  }
+}
+@media (max-width: 500px) {
+  .section2_det_2 {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 25px !important;
+    line-height: 102% !important;
+    /* or 65px */
+    margin-top: 22px !important;
+
+    color: #fff !important;
+  }
+}
+@media (max-width: 350px) {
+  .section2_det_2 {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    line-height: 102% !important;
+    /* or 65px */
+    margin-top: 22px !important;
+
+    color: #fff !important;
+  }
+}
+
+.section2_det_3 {
+  font-family: "Almarena" !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 35px !important;
+  width: 80%;
+  line-height: 102% !important;
+  /* or 65px */
+  margin-top: 22px !important;
+
+  color: #fff !important;
+}
+@media (max-width: 899px) {
+  .section2_det_3 {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 28px !important;
+    line-height: 102% !important;
+    /* or 65px */
+    width: 100%;
+    margin-top: 22px !important;
+
+    color: #fff !important;
+  }
+}
+@media (max-width: 500px) {
+  .section2_det_3 {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 25px !important;
+    line-height: 102% !important;
+    /* or 65px */
+    margin-top: 22px !important;
+
+    color: #fff !important;
+  }
+}
+@media (max-width: 350px) {
+  .section2_det_3 {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    line-height: 102% !important;
+    /* or 65px */
+    margin-top: 22px !important;
+
+    color: #fff !important;
+  }
+}
+
+.section2_det_5 {
+  font-family: "Almarena" !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 35px !important;
+  width: 100%;
+  line-height: 102% !important;
+  /* or 65px */
+  margin-top: 22px !important;
+
+  color: #fff !important;
+}
+@media (max-width: 899px) {
+  .section2_det_5 {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 28px !important;
+    line-height: 102% !important;
+    /* or 65px */
+    width: 100%;
+    margin-top: 22px !important;
+
+    color: #fff !important;
+  }
+}
+@media (max-width: 500px) {
+  .section2_det_5 {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 25px !important;
+    line-height: 102% !important;
+    /* or 65px */
+    margin-top: 22px !important;
+
+    color: #fff !important;
+  }
+}
+@media (max-width: 350px) {
+  .section2_det_5 {
+    font-family: "Almarena" !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    line-height: 102% !important;
+    /* or 65px */
+    margin-top: 22px !important;
+
+    color: #fff !important;
+  }
+}
+.section2_det_2{
+
+}
+.section2Det {
+  font-family: "Almarena" !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 35px !important;
+  line-height: 102% !important;
+  /* or 65px */
+  margin-top: 22px !important;
+
+  color: #fff !important;
 }
 @media (max-width: 899px) {
   .section2Det {
@@ -3094,7 +3295,7 @@ button.read_more {
     /* or 65px */
     margin-top: 22px !important;
 
-    color: #2f2e40 !important;
+    color: #fff !important;
   }
 }
 @media (max-width: 600px) {
@@ -3107,7 +3308,7 @@ button.read_more {
     /* or 65px */
     margin-top: 22px !important;
 
-    color: #2f2e40 !important;
+    color: #fff !important;
   }
 }
 @media (max-width: 490px) {
@@ -3120,7 +3321,7 @@ button.read_more {
     /* or 65px */
     margin-top: 22px !important;
 
-    color: #2f2e40 !important;
+    color: #fff !important;
   }
 }
 @media (max-width: 447px) {
@@ -3133,7 +3334,7 @@ button.read_more {
     /* or 65px */
     margin-top: 22px !important;
 
-    color: #2f2e40 !important;
+    color: #fff !important;
   }
 }
 @media (max-width: 1000px) {
@@ -3155,7 +3356,7 @@ button.read_more {
 
   letter-spacing: 0.03em !important;
 
-  color: #2f2e40 !important;
+  color: #fff !important;
 }
 .section2_det4 {
   font-family: "Almarena" !important;
@@ -3166,7 +3367,7 @@ button.read_more {
   /* or 65px */
   margin-top: 24px !important;
 
-  color: #2f2e40 !important;
+  color: #fff !important;
 }
 
 @media (max-width: 899px) {
@@ -3179,7 +3380,7 @@ button.read_more {
     /* or 65px */
     margin-top: 22px !important;
 
-    color: #2f2e40 !important;
+    color: #fff !important;
   }
 }
 @media (max-width: 500px) {
@@ -3205,7 +3406,7 @@ button.read_more {
     /* or 65px */
     margin-top: 22px !important;
 
-    color: #2f2e40 !important;
+    color: #fff !important;
   }
 }
 .section2_det41 {
@@ -3217,12 +3418,12 @@ button.read_more {
   margin: auto !important;
   line-height: 140% !important;
   /* or 25px */
-  margin-top: 55px !important;
+  margin-top: 15px !important;
   margin-bottom: 85px !important;
 
   letter-spacing: 0.03em !important;
 
-  color: #2f2e40 !important;
+  color: #fff !important;
 }
 @media (max-width: 1109px) {
   .section2_det41 {
@@ -3246,7 +3447,7 @@ button.read_more {
   width: 89% !important;
   letter-spacing: 0.03em !important;
 
-  color: #2f2e40 !important;
+  color: #fff !important;
 }
 .section5 {
   font-family: "Almarena" !important;
@@ -3470,4 +3671,14 @@ button.read_more {
   .tasks p {
     margin: 0.75rem 0;
   }
+}
+.jack{width: 100%;
+margin-top: 20px !important;
+margin-bottom: 50px !important;}
+
+.accor{
+  color: #2f2e40 !important;
+}
+.root9{
+  margin-bottom: 100px !important;
 }

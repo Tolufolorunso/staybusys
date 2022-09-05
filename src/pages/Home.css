@@ -1,0 +1,96 @@
+.homepage{
+    
+    margin: auto;
+}
+.homepageDetails{
+    width: 75% !important;
+    margin: auto;
+    font-family: 'SF Pro Display';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 28px;
+/* or 140% */
+
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: 1px;
+
+color: #686868;
+}
+.homeForm{
+    width: 75%;
+    margin: auto;
+    margin-top: 25px;
+}
+
+.roothome {
+    max-width: 1440px !important;
+  
+    width: 70% !important;
+    margin: auto !important;
+    margin-top: 60px !important;
+  }
+  
+  @media (max-width: 1000px) {
+    .roothome {
+      margin-top: 200px !important;
+    }
+  }
+  @media (max-width: 899px) {
+    .roothome {
+      margin-top: 60px !important;
+    }
+  }
+  .staybusyBuilt{
+    font-family: 'SF Pro Display';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 140%;
+/* identical to box height, or 28px */
+
+letter-spacing: 0.03em;
+
+
+background: linear-gradient(180deg, #FF6685 0%, #FFCC00 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+text-fill-color: transparent;
+
+  }
+
+  .imageSections{
+    padding-right: 40px !important;
+  }
+
+  .sectionColor{
+    background-color: #2F2E40;
+padding: 100px 0;
+  }
+  .section6Box{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+   padding-left: 80px;
+    border-left: 1px solid rgba(255, 255, 255, 1);
+  }
+  .sectionParent{
+    background: rgba(255, 255, 255, 0.06);
+backdrop-filter: blur(4px);
+/* Note: backdrop-filter has minimal browser support */
+padding: 7%;
+border-radius: 10px;
+  }
+
+
+  .works{
+    width: 80%;
+    margin: auto;
+  }
+  .header{
+    width: 80% !important;
+    margin: auto;
+  }
