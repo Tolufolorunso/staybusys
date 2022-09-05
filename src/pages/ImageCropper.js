@@ -49,7 +49,7 @@ export default function Demo({ imageFile }) {
     <div>
       <div className="cropContainer">
         <Cropper
-          image={imageFile}
+          // image={imageFile}
           crop={crop}
           rotation={rotation}
           zoom={zoom}
@@ -75,7 +75,8 @@ export default function Demo({ imageFile }) {
           />
         </div>
         <div className="sliderContainer">
-          <Typography variant="overline" className="sliderLabel">
+          <Typography variant="overline"
+className="sliderLabel">
             Rotation
           </Typography>
           {rotation}
@@ -88,10 +89,16 @@ export default function Demo({ imageFile }) {
             className="slider"
             onChange={(e, rotation) => setRotation(rotation)}
           />
-          <Button onClick={rotateimageRight} variant="contained" color="primary" className="cropButton">
+          <Button onClick={rotateimageRight}
+variant="contained"
+color="primary"
+className="cropButton">
             rotate right
           </Button>
-          <Button onClick={rotateimageLeft} variant="contained" color="primary" className="cropButton">
+          <Button onClick={rotateimageLeft}
+variant="contained"
+color="primary"
+className="cropButton">
             rotate left
           </Button>
         </div>

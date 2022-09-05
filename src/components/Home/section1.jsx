@@ -3,7 +3,7 @@ import { Box } from '@mui/system'
 import React from 'react'
 
 export default function section1() {
-    const [value, setValue] = React.useState("");
+    // const [value, setValue] = React.useState("");
   return (
     <div className='roothome homepage'style={{textAlign:"center",}}>
         <img src="./starhome.svg"  alt="" />
@@ -19,7 +19,7 @@ export default function section1() {
                       // onChange={(e, value) => setValue(value)}
                       placeholder="Enter your student email"
                     />
-                    <Button value={value}href=" /register" className='button_enroll'variant="contained">Register</Button>
+                    <Button href=" /register" className='button_enroll'variant="contained">Register</Button>
                   </Box>
                 </form>
         </div>
