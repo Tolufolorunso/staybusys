@@ -17,6 +17,7 @@ function Section7() {
         <Button href=" /register" className='button_enroll1' variant="contained">Join Now</Button>
       </Grid>
     </Grid>
+    
   </div>
   )
 }

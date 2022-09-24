@@ -5,7 +5,7 @@ import DoneIcon from '@mui/icons-material/Done';
 
 export default function section6() {
   return (
-    <div className="root2">
+    <div className="root2 bps">
       <div className="sectionParent">
         <Grid container spacing={5}>
     

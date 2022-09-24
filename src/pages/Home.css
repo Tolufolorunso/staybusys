@@ -78,13 +78,26 @@ padding: 100px 0;
     border-left: 1px solid rgba(255, 255, 255, 1);
   }
   .sectionParent{
-    background: rgba(255, 255, 255, 0.06);
-backdrop-filter: blur(4px);
-/* Note: backdrop-filter has minimal browser support */
-padding: 7%;
-border-radius: 10px;
+    background:url(../../public/transbg.png);
+    /* background: url(/_next/static/media/transbg.08e37b17.png); */
+    /* backdrop-filter: blur(4px); */
+    /* padding: 7%; */
+    border-radius: 10px;
+    background-position: center;
+    padding: 4%;
+    /* background-size: contain; */
+    background-repeat: no-repeat;
   }
+/* .bps{
+  background:  url(../../public/trans.png) ;
+ display: flex;
+ background-size: 50%;
+ background-size: 100% 100%;
+ background-clip: content-box;
+ background-repeat: no-repeat;
+  
 
+} */
 
   .works{
     width: 80%;

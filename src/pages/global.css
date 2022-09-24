@@ -95,7 +95,7 @@ body {
 }
 
 hr {
-  margin: 2rem 0 !important;
+  margin: 1.5rem 0 !important;
 }
 
 .tabs {
@@ -2930,7 +2930,7 @@ border: 1px solid #FF6685;
   }
 }
 .section3_det {
-  padding-left: 80px !important ;
+  padding-left: 30px !important ;
 }
 @media (max-width: 899px) {
   .section3_det {
@@ -3283,7 +3283,7 @@ padding-right: 30px !important;
   /* or 65px */
   margin-top: 22px !important;
 
-  color: #fff !important;
+  color: #181818 !important;
 }
 @media (max-width: 899px) {
   .section2Det {
@@ -3347,12 +3347,12 @@ padding-right: 30px !important;
 .section2_det21 {
   font-family: "Euclid Circular A" !important;
   font-style: normal !important;
-  font-weight: 400 !important;
-  font-size: 18px !important;
-  line-height: 140% !important;
+  font-weight: 400;
+  font-size: 18px ;
+  line-height: 140%;
   /* or 25px */
-  margin-top: 20px !important;
-  margin-bottom: 30px !important;
+  margin-top: 20px ;
+  margin-bottom: 30px ;
 
   letter-spacing: 0.03em !important;
 
@@ -3681,4 +3681,10 @@ margin-bottom: 50px !important;}
 }
 .root9{
   margin-bottom: 100px !important;
+}
+.section8{
+  margin-top: 10px;
+  margin-bottom: 1px;
+  font-size: 15px;
+  line-height: 140%;
 }

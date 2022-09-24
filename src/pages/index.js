@@ -9,6 +9,8 @@ import Section4 from "../components/Home/section4";
 import Section5 from "../components/Home/section5";
 import Section6 from "../components/Home/section6";
 import Section7 from "src/components/Home/section7";
+import Section8 from "src/components/Home/section8";
+import { Divider } from "@mui/material";
 
 const Home = () => {
   return (
@@ -27,7 +29,12 @@ const Home = () => {
         <Section6 />
         <Section4 />
         </div>
+
         <Section7 />
+        <Divider style={{color:"#E4E4E7"}} />
+          
+          
+        <Section8 />
         <Section5 />
         
       </div>

@@ -4,9 +4,9 @@ import React from 'react'
 
 export default function Section5() {
   return (
-    <div style={{backgroundColor:"#2F2E40",position:"relative"}}>
+    <div style={{backgroundColor:"#2F2E40",position:"relative",marginTop:"100px"}}>
 
-        <Box className='root4'>
+        <Box className='root4' >
         <img src="../../bees.png" width="120px" className='bees1' alt="" />
 
 

@@ -14,7 +14,7 @@ function Section21() {
             <Button className='button_enroll1' href=" /register" variant="contained">Join Now</Button>
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={6}>
-            <Box><img src="../../Group.png" width="100%" alt="" className='section2Image' /></Box>
+            <Box><img src="../../Members.png" width="-webkit-fill-available" alt="" className='section2Image' /></Box>
             </Grid>
         </Grid>
     </div>
