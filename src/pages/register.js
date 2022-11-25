@@ -2,18 +2,17 @@ import Head from "next/head";
 import { useState } from "react";
 import * as React from "react";
 
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import Modal from "@mui/material/Modal";
 
 import * as Yup from "yup";
-import {
-  Box, Button
-} from "@mui/material";
+import { Box, Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Layout from "src/components/Layout";
+import { fetchJson } from "../../lib/api.js";
 
 const style = {
   position: "absolute",
@@ -23,10 +22,9 @@ const style = {
 
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
-  boxShadow: '0px 7px 20px rgba(145, 156, 212, 0.15)',
-  borderRadius: '7px',
+  boxShadow: "0px 7px 20px rgba(145, 156, 212, 0.15)",
+  borderRadius: "7px",
   p: 4,
-
 };
 const smallerStyle = {
   position: "absolute",
@@ -40,18 +38,38 @@ const smallerStyle = {
   p: 4,
 };
 
-const Register = ({value}) => {
-  const [passwordShown, setPasswordShown] = useState(false);
+const Register = ({ value = "" }) => {
+  const [passwordShown, setPasswordShown] = useState(true);
+  const [password, setPassword] = useState("12345678");
+  const [email, setEmail] = useState("tolu@yahoo.com");
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  function register(e){
-    e.preventDefault()
-    console.log('first')
+
+  async function register(e) {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3005/api/v1/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const {status,message} = await response.json();
+      router.push("/login");
+      if(status) {
+        router.push("/");
+      } else {
+        throw new Error(message)
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
   }
+
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -79,66 +97,95 @@ const Register = ({value}) => {
         <title>Register | Material Kit</title>
       </Head>
       <Layout>
-      <div className="container ">
-        <div className="login_wrapper">
-          <div className="login">
-            <h4>Create a new account</h4>
+        <div className="container ">
+          <div className="login_wrapper">
+            <div className="login">
+              <h4>Create a new account</h4>
 
-            <div className="login_inputs">
-              <form onSubmit={register}>
-                <div className="login_input">
-                  <label htmlFor="student_email">Your student Email:</label> <br />
-                  <div className="input_wrap">
-                    <input type="text" value={value}/>
-                  </div>
-                </div>
-                <div className="login_input">
-                  <label htmlFor="student_email">Choose a password:</label> <br />
-                  <div className="input_wrap">
-                    <input type={passwordShown ? "text" : "password"} />
-                    <span onClick={togglePassword}>{passwordShown ? "Hide" : "Show"}</span>
-                  </div>
-                </div>
-
-                <div className="login_btn">
-                  <button onClick={handleOpen}>Sign Up</button>
-                </div>
-
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box sx={style} className="modalss">
-                    <div className="registration_modal">
-                      <div className="registration_modal_desc">
-                        <div style={{ border: "2px solid groove" , background:'#FFCC00', width:'80px', height:'80px', borderRadius:'50%', display:'flex', justifyContent:'center', alignItems:'center'}} className="top">
-                         <MailOutlineIcon style={{  background:'#FFCC00', width:'40px', height:'40px', borderRadius:'50%', display:'flex', justifyContent:'center', alignItems:'center'}}/>
-                        </div>
-                        <p className="verification">
-                          Verification Link
-                        </p>
-                        <small>A verification link has been sent to:</small>
-                        <small className="red">Seyi@yahoo.com</small>
-                        <small>Please check your email </small>
-
-
-
-                      </div>
+              <div className="login_inputs">
+                <form onSubmit={register}>
+                  <div className="login_input">
+                    <label htmlFor="student_email">Your student Email:</label> <br />
+                    <div className="input_wrap">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
                     </div>
-                  </Box>
-                </Modal>
-              </form>
-            </div>
-            <div className="already">
-              <p>
-                Already have an account?  <Button className="logins" href="/login"> Login</Button>
-              </p>
+                  </div>
+                  <div className="login_input">
+                    <label htmlFor="student_email">Choose a password:</label> <br />
+                    <div className="input_wrap">
+                      <input
+                        type={passwordShown ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <span onClick={togglePassword}>{passwordShown ? "Hide" : "Show"}</span>
+                    </div>
+                  </div>
+
+                  <div className="login_btn">
+                    <button>Sign Up</button>
+                  </div>
+
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style} className="modalss">
+                      <div className="registration_modal">
+                        <div className="registration_modal_desc">
+                          <div
+                            style={{
+                              border: "2px solid groove",
+                              background: "#FFCC00",
+                              width: "80px",
+                              height: "80px",
+                              borderRadius: "50%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            className="top"
+                          >
+                            <MailOutlineIcon
+                              style={{
+                                background: "#FFCC00",
+                                width: "40px",
+                                height: "40px",
+                                borderRadius: "50%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                            />
+                          </div>
+                          <p className="verification">Verification Link</p>
+                          <small>A verification link has been sent to:</small>
+                          <small className="red">Seyi@yahoo.com</small>
+                          <small>Please check your email </small>
+                        </div>
+                      </div>
+                    </Box>
+                  </Modal>
+                </form>
+              </div>
+              <div className="already">
+                <p>
+                  Already have an account?{" "}
+                  <Button className="logins" href="/login">
+                    {" "}
+                    Login
+                  </Button>
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </Layout>
     </>
   );

@@ -3,6 +3,8 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { DashboardNavbar } from './dashboard-navbar';
 import { DashboardSidebar } from './dashboard-sidebar';
+import { getSession } from 'next-auth/react';
+
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
