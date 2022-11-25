@@ -1,44 +1,48 @@
 import Head from "next/head";
-import React, { useState } from "react";
-
-import Select from "react-select";
-
-import NextLink from "next/link";
+// import Head from "next/head";
+import * as React from "react";
+import { useState } from "react";
+import { Box, Grid, Input, InputLabel, Select, MenuItem, Button } from "@mui/material";
+import { LoadingButton } from '@mui/lab';
+import CountriesData from '../../data/countries_cities';
 import { useRouter } from "next/router";
-import  {useFormik } from "formik";
-import * as Yup from "yup";
-import { Box, Button, Container, Grid, Link, TextField, Typography } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Facebook as FacebookIcon } from "../icons/facebook";
-import { Google as GoogleIcon } from "../icons/google";
+
 import Layout from "src/components/Layout";
+const containerStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
+  bgcolor: "b#F7F4EF",
+  borderRadius: "7px",
+};
+
+const availabilities = [
+  'Weekdays',
+  'Weekends',
+]
+
+const currencies = [
+  'Dollar',
+  'Euro',
+  'Naira',
+]
 
 const Personaldetails = () => {
+  const [loading, setLoading] = useState(false);
   const [value, setValue] = useState(0);
-  const options = [
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [country, setCountry] = useState('')
+  const [city, setCity] = useState('')
+  const [cities, setCities] = useState([])
+  const [availability, setAvailability] = useState('')
+  const [currency, setCurrency] = useState('')
+  const countries = [];
 
-    { value: "Euro", label: "Euro" },
-    { value: "Naira", label: "Naira" },
-    { value: "Dollar", label: "Dollar" },
-  ];
-  const weekdayOptions = [
 
-    { value: "Weekdays", label: "Weekdays" },
-    { value: "Weekends", label: "Weekends" },
 
-  ];
-  const cityOptions = [
 
-    { value: "Abuja", label: "Abuja" },
-    { value: "Lagos", label: "Lagos" },
-
-  ];
-  const countryOptions = [
-
-    { value: "Nigeria", label: "Nigeria" },
-    { value: "India", label: "India" },
-
-  ];
   const customStyles = {
     indicatorSeparator: () => ({
       // none of react-select's styles are passed to <Control />
@@ -75,32 +79,36 @@ const Personaldetails = () => {
       marginTop: "13px",
     }),
   };
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  const [passwordShown, setPasswordShown] = useState(false);
-  const togglePassword = () => {
-    setPasswordShown(!passwordShown);
-  };
+ 
   const router = useRouter();
-  const formik = useFormik({
-    initialValues: {
-      email: "demo@devias.io",
-      password: "Password123",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
-      password: Yup.string().max(255).required("Password is required"),
-    }),
-    onSubmit: () => {
-      router.push("/");
-    },
-  });
+  const handleSelectCountry = (event) => {
+    var selectedCountry = event.target.value;
+    var allCities = CountriesData[selectedCountry];
+    setCities(allCities);
+    setCountry(selectedCountry);
+};
+
+const handleSelectCity = (event) => {
+    var selectedCity = event.target.value;
+    setCity(selectedCity);
+};
+
+for (var item in CountriesData) {
+    countries.push(item)
+}
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    console.log('here');
+    router.push("/profileImage")
+
+}
 
   function proceed() {
     console.log("Proceed");
 
-    // setSelectedBtns(document.querySelectorAll(".active"))
+    
   }
   return (
     <>
@@ -108,135 +116,272 @@ const Personaldetails = () => {
         <title>Enter Personal Details | Material Kit</title>
       </Head>
       <Layout>
-      <div className="container " style={{marginTop:"70px", marginBottom:"100px"}}>
-        <div className="login_wrapper">
-          <div className="login personal_det">
-            <h4>Complete your registration</h4>
-            <span className="tab">1/3</span>
-
-
-              <form action="">
-              <div className="login_inputs">
-                <div className=" personal_det_inputs">
-                <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                  <div className="login_input">
-                    <label htmlFor="student_email">First name:</label> <br />
-                    <div className="input_wrap">
-                      <input type="text" />
-                    </div>
-                  </div>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                  <div className="login_input">
-                    <label htmlFor="student_email">Last name:</label> <br />
-                    <div className="input_wrap">
-                      <input type="text" />
-                    </div>
-                  </div>
+      <Grid container
+sx={containerStyle}
+className="form__container">
+            <Grid item
+sm={12}>
+                <Grid item
+sm={12}>
+                    <Box sx={{ position: 'relative' }}>
+                        <Grid item
+sm={8}
+sx={{ mx: 'auto' }}>
+                            <h5 className="form__container_heading"> Enter your details</h5>
+                        </Grid>
+                        <span className={'update__profile update__profile_counter_1'}>1/3</span>
+                    </Box>
                 </Grid>
-                    <Grid item xs={12} sm={6}>
-                  <div className="login_input">
-                    <label htmlFor="student_email">City:</label> <br />
-                    <Select
+                <Grid item
+sm={8}
+xs={12}
+sx={{ mx: 'auto' }}>
+                    <Box
+                        component="form"
+                        onSubmit={handleSubmit}
+                        className="form__container_form"
+                    >
+                        <Box>
+                            <Grid container>
+                                <Grid item
+xs={12}
+sm={6}>
+                                    <Box className="form__container"
+sx={{ mr: 2 }}>
+                                        <InputLabel shrink
+htmlFor="firstName">
+                                            First Name:
+                                        </InputLabel>
+                                        <Box className="form__input">
+                                            <Input
+                                                id="firstName"
+                                                autoComplete="off"
+                                                name="firstName"
+                                                type="text"
+                                                required
+                                                fullWidth
+                                                autoFocus
+                                                disableUnderline
+                                                value={firstName}
+                                                onChange={(e) => setFirstName(e.target.value)}
+                                            />
+                                        </Box>
+                                    </Box>
+                                </Grid>
 
-                        styles={customStyles}
-                        options={cityOptions}
-                        theme={(theme) => ({
-                          ...theme,
+                                <Grid item
+xs={12}
+sm={6}>
+                                    <Box className="form__container"
+sx={{ ml: 2 }}>
+                                        <InputLabel shrink
+htmlFor="lastName">
+                                            Last Name:
+                                        </InputLabel>
+                                        <Box className="form__input">
+                                            <Input
+                                                id="lastName"
+                                                autoComplete="off"
+                                                name="lastName"
+                                                type="text"
+                                                required
+                                                fullWidth
+                                                disableUnderline
+                                                value={lastName}
+                                                onChange={(e) => setLastName(e.target.value)}
+                                            />
+                                        </Box>
+                                    </Box>
+                                </Grid>
+                            </Grid>
 
-                          colors: {
-                            ...theme.colors,
-                            primary25: "#f2e9c4",
-                            primary: "#2f2e40",
-                            neutral5: "#000",
-                            primary50: "#f2e9c4",
-                          },
-                        })}
-                      />
+                            <Grid container>
+                                <Grid item
+xs={12}
+sm={6}>
+                                    <Box className="form__container"
+sx={{ mr: 2 }}>
+                                        <InputLabel shrink
+htmlFor="firstName">
+                                            Country:
+                                        </InputLabel>
+                                        <Box className="form__input">
+                                            <Select
+                                                value={country}
+                                                onChange={handleSelectCountry}
+                                                className="form__select"
+                                                fullWidth
+                                                required
+                                                renderValue={(country) => {
+                                                    if (!country) {
+                                                        return <em>Select Country</em>;
+                                                    }
+                                                    return country;
+                                                }}
+                                                >
+                                                    <MenuItem disabled
+value="">
+                                                        <em>Select Country</em>
+                                                    </MenuItem>
+                                                    {countries.map((country) => (
+                                                        <MenuItem
+                                                            key={country}
+                                                            value={country}
+                                                        >
+                                                            {country}
+                                                        </MenuItem>
+                                                    ))}
+                                            </Select>
+                                        </Box>
+                                    </Box>
+                                </Grid>
 
-                  </div>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                  <div className="login_input">
-                    <label htmlFor="student_email">Country:</label> <br />
-                    <Select
+                                <Grid item
+xs={12}
+sm={6}>
+                                    <Box className="form__container"
+sx={{ ml: 2 }}>
+                                        <InputLabel shrink
+htmlFor="lastName">
+                                            City:
+                                        </InputLabel>
+                                        <Box className="form__input">
+                                            <Select
+                                                value={city}
+                                                onChange={handleSelectCity}
+                                                required
+                                                className="form__select"
+                                                fullWidth
+                                                renderValue={(city) => {
+                                                    if (!city) {
+                                                        return <em>Select City</em>;
+                                                    }
+                                                    return city;
+                                                }}
+                                                >
+                                                    <MenuItem disabled
+value="">
+                                                        <em>Select City</em>
+                                                    </MenuItem>
+                                                    {cities.map((city) => (
+                                                        <MenuItem
+                                                            key={city}
+                                                            value={city}
+                                                        >
+                                                            {city}
+                                                        </MenuItem>
+                                                    ))}
+                                            </Select>
+                                        </Box>
+                                    </Box>
+                                </Grid>
+                            </Grid>
 
-                        styles={customStyles}
-                        options={countryOptions}
-                        theme={(theme) => ({
-                          ...theme,
+                             <Grid container>
+                                <Grid item
+xs={12}
+sm={6}>
+                                    <Box className="form__container"
+sx={{ mr: 2 }}>
+                                        <InputLabel shrink
+htmlFor="availability">
+                                            When are you more available:
+                                        </InputLabel>
+                                        <Box className="form__input">
+                                            <Select
+                                                value={availability}
+                                                onChange={(e) => setAvailability(e.target.value)}
+                                                required
+                                                className="form__select"
+                                                fullWidth
+                                                renderValue={(availability) => {
+                                                    if (!availability) {
+                                                        return <em>Select Availability</em>;
+                                                    }
+                                                    return availability;
+                                                }}
+                                                >
+                                                    <MenuItem disabled
+value="">
+                                                        <em>Select Availability</em>
+                                                    </MenuItem>
+                                                    {availabilities.map((availability) => (
+                                                        <MenuItem
+                                                            key={availability}
+                                                            value={availability}
+                                                        >
+                                                            {availability}
+                                                        </MenuItem>
+                                                    ))}
+                                            </Select>
+                                        </Box>
+                                    </Box>
+                                </Grid>
 
-                          colors: {
-                            ...theme.colors,
-                            primary25: "#f2e9c4",
-                            primary: "#2f2e40",
-                            neutral5: "#000",
-                            primary50: "#f2e9c4",
-                          },
-                        })}
-                      />
-
-                  </div>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                  <div className="login_input">
-                    <label htmlFor="student_email">When are you more available:</label> <br />
-                    <Select
-
-                        styles={customStyles}
-                        options={weekdayOptions}
-                        theme={(theme) => ({
-                          ...theme,
-
-                          colors: {
-                            ...theme.colors,
-                            primary25: "#f2e9c4",
-                            primary: "#2f2e40",
-                            neutral5: "#000",
-                            primary50: "#f2e9c4",
-                          },
-                        })}
-                      />
-
-                  </div>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                  <div className="login_input">
-                    <label htmlFor="student_email">Preferred Currency</label> <br />
-                    <Select
-
-                        styles={customStyles}
-                        options={options}
-                        theme={(theme) => ({
-                          ...theme,
-
-                          colors: {
-                            ...theme.colors,
-                            primary25: "#f2e9c4",
-                            primary: "#2f2e40",
-                            neutral5: "#000",
-                            primary50: "#f2e9c4",
-                          },
-                        })}
-                      />
-
-                </div>
+                                <Grid item
+xs={12}
+sm={6}>
+                                    <Box className="form__container"
+sx={{ ml: 2 }}>
+                                        <InputLabel shrink
+htmlFor="currency">
+                                            Preferred Currency:
+                                        </InputLabel>
+                                        <Box className="form__input">
+                                            <Select
+                                                value={currency}
+                                                onChange={(e) => setCurrency(e.target.value)}
+                                                required
+                                                className="form__select"
+                                                fullWidth
+                                                renderValue={(currency) => {
+                                                    if (!currency) {
+                                                        return <em>Select Currency</em>;
+                                                    }
+                                                    return currency;
+                                                }}
+                                                >
+                                                    <MenuItem disabled
+value="">
+                                                        <em>Select Currency</em>
+                                                    </MenuItem>
+                                                    {currencies.map((currency) => (
+                                                        <MenuItem
+                                                            key={currency}
+                                                            value={currency}
+                                                        >
+                                                            {currency}
+                                                        </MenuItem>
+                                                    ))}
+                                            </Select>
+                                        </Box>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        
+                            <Grid container
+justifyContent="center">
+                                <Grid item
+sm={6}>
+                                    <LoadingButton
+                      loading={loading}
+                                     
+                                        type="submit"
+                                        size="large"
+                                        variant="contained"
+                                        loadingPosition="end" 
+                                        className="default__button"
+                                        fullWidth
+                                    >
+                                        Proceed
+                                    </LoadingButton>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </Box>
                 </Grid>
-                </Grid>
-                </div>
-                </div>
-                <div className="login_btn" style={{display:"flex",justifyContent:"center"}}>
-                <button onClick={proceed}  className="actn_btn">
-                    Proceed
-                  </button>
-                </div>
-
-              </form>
-
-          </div>
-        </div>
-      </div>
+            </Grid>
+        </Grid>
       </Layout>
     </>
   );

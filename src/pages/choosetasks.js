@@ -1,318 +1,143 @@
 import Head from "next/head";
+import * as React from "react";
 import { useState } from "react";
-
-import NextLink from "next/link";
+import { Box, Grid, Button } from "@mui/material";
+import { LoadingButton } from '@mui/lab';
 import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { Box, Button, Container, Grid, Link, TextField, Typography } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Facebook as FacebookIcon } from "../icons/facebook";
-import { Google as GoogleIcon } from "../icons/google";
-import { number } from "yup";
+// import { toast } from "react-toastify";
+import tasks from '../../data/task_list';
+
 import Layout from "src/components/Layout";
+
+const selectedTasks = [];
+
+const containerStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
+  bgcolor: "#F7F4EF",
+  borderRadius: '7px',
+};
 
 const Choosetasks = () => {
   //   const [selectedBtns, setSelectedBtns] = useState([]);
-
-  const selectedBtns = [];
-
+  const [loading, setLoading] = useState(false)
+ 
   function proceed() {
     console.log("Proceed");
 
-    // setSelectedBtns(document.querySelectorAll(".active"))
-  }
-  function chooseTask(btnNumber) {
-    const allTasks = document.querySelectorAll(".choose_btn");
-    allTasks.forEach((btn, index) => {
-      if (btnNumber === index) {
-        // btn.classList.remove("active");
-
-        btn.classList.toggle("active");
-        if (btn.classList.contains("active")) {
-          selectedBtns.push(btn);
-          console.log(selectedBtns);
-        }
-        selectedBtns.forEach((arrBtn) => {
-          if (!arrBtn.classList.contains("active")) {
-            selectedBtns.pop(arrBtn);
-          }
-        });
-      }
+  
+  }const removeSelectedTasks = (arr, value) => {
+    return arr.filter(function(ele) {
+        return ele != value;
     });
-  }
+}
 
+const handleSelect = (event) => {
+    const task = event.currentTarget.dataset.task;
+    if(selectedTasks.includes(task)) {
+        selectedTasks = removeSelectedTasks(selectedTasks, task);
+        event.currentTarget.classList.remove('is__selected');
+    } else {
+        selectedTasks.push(task);
+        event.currentTarget.classList.add('is__selected');
+    }
+    console.log(selectedTasks)
+}
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    if(!selectedTasks.length) {
+        toast.error('Make a selection to proceed');
+        setLoading(false);
+        return;
+    }
+    router.push("/dashboard")
+  }
   const router = useRouter();
-  const formik = useFormik({
-    initialValues: {
-      email: "demo@devias.io",
-      password: "Password123",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
-      password: Yup.string().max(255).required("Password is required"),
-    }),
-    onSubmit: () => {
-      router.push("/");
-    },
-  });
+  
 
   return (
     <>
-      <Head>
-        <title>Choose Tasks | Material Kit</title>
-      </Head>
-      <Layout>
-      <div className="my_container ">
-        <div className="choose_tasks">
-          <div className="choose">
-            <h4>
-              Choose the types of tasks You’re comfortable with from the list below
-            </h4>
-            <span className="tabss">3/3</span>
-            <div className="">
-              <div className="choose_task">
-                <div className="buttons">
-                <Grid container spacing={3}>
-                        <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(0)} className="choose_btn 0">
-                    Tag 1
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(1)} className="choose_btn 1">
-                    Tag 2
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(2)} className="choose_btn 2">
-                    Tag 3
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
+        <Head>
+        <title> Task Preference | Staybusy.io</title>
+        </Head>
+<Layout>
+        <Grid container
+sx={containerStyle}
+className="form__container">
+            <Grid item
+sm={12}>
+                <Grid item
+sm={12}>
+                    <Box sx={{ position: 'relative' }}>
+                        <Grid item
+sm={8}
+sx={{ mx: 'auto' }}>
+                            <h5 className="form__container_heading"
+style={{ width: '60%', margin: '10px auto' }}>Choose the types of tasks You’re comfortable with from the list below</h5>
+                        </Grid>
+                        <span className={'update__profile update__profile_counter_3'}>3/3</span>
+                    </Box>
+                </Grid>
 
-                  <button onClick={() => chooseTask(3)} className="choose_btn 3">
-                    Tag 4
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(4)} className="choose_btn 4">
-                    Tag 5
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(5)} className="choose_btn 5">
-                    Tag 6
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(6)} className="choose_btn 6">
-                    Tag 7
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(7)} className="choose_btn 7">
-                    Tag 8
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(8)} className="choose_btn 8">
-                    Tag 9
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(9)} className="choose_btn 9">
-                    Tag 10
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(10)} className="choose_btn 10">
-                    Tag 11
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(11)} className="choose_btn 11">
-                    Tag 12
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(12)} className="choose_btn 12">
-                    Tag 13
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(13)} className="choose_btn 13">
-                    Tag 14
-                  </button>
-                  </Grid>
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <button onClick={() => chooseTask(14)} className="choose_btn 14">
-                    Tag 15
-                  </button>
-                  </Grid>
-                  </Grid>
-                </div>
-                <div className="proceed">
-                  <button onClick={proceed} className="actn_btn">
-                    Proceed
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      </Layout>
-      {/* <Box
-        component="main"
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexGrow: 1,
-          minHeight: '100%'
-        }}
-      >
-        <Container maxWidth="sm">
-          <NextLink
-            href="/"
-            passHref
-          >
-            <Button
-              component="a"
-              startIcon={<ArrowBackIcon fontSize="small" />}
-            >
-              Dashboard
-            </Button>
-          </NextLink>
-          <form onSubmit={formik.handleSubmit}>
-            <Box sx={{ my: 3 }}>
-              <Typography
-                color="textPrimary"
-                variant="h4"
-              >
-                Sign in
-              </Typography>
-              <Typography
-                color="textSecondary"
-                gutterBottom
-                variant="body2"
-              >
-                Sign in on the internal platform
-              </Typography>
-            </Box>
-            <Grid
-              container
-              spacing={3}
-            >
-              <Grid
-                item
-                xs={12}
-                md={6}
-              >
-                <Button
-                  color="info"
-                  fullWidth
-                  startIcon={<FacebookIcon />}
-                  onClick={formik.handleSubmit}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Facebook
-                </Button>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                md={6}
-              >
-                <Button
-                  fullWidth
-                  color="error"
-                  startIcon={<GoogleIcon />}
-                  onClick={formik.handleSubmit}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Google
-                </Button>
-              </Grid>
+                <Grid container
+md={8}
+xs={12}
+sx={{ mx: 'auto', my: 4 }}
+spacing={6}>
+                    {tasks && tasks.length>0 && tasks.map(taskList => (
+                        <Grid item
+xs={2}
+sm={4}
+md={3}
+key={taskList.id}>
+                            <Button
+                                variant="contained"
+                                fullWidth
+                                size="large"
+                                data-task={taskList.id}
+                                className={`task__list ${selectedTasks.includes(taskList.id) ? 'is__selected' : ''}`}
+                                onClick={handleSelect}
+                            >{taskList.title}</Button>
+                        </Grid>
+                    ))}
+                </Grid>
+
+                <Grid item
+md={8}
+xs={12}
+sx={{ mx: 'auto' }}>
+                    <Box
+                        component="form"
+                        noValidate
+                        onSubmit={handleSubmit}
+                    >
+                        <Grid container
+justifyContent="center">
+                            <Grid item
+sm={6}
+sx={{ mt: 4 }}>
+                                <LoadingButton
+                                    loading={loading}
+                                    type="submit"
+                                    size="large"
+                                    variant="contained"
+                                    loadingPosition="end" 
+                                    className="default__button"
+                                    fullWidth
+                                >
+                                    Proceed
+                                </LoadingButton>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Grid>
             </Grid>
-            <Box
-              sx={{
-                pb: 1,
-                pt: 3
-              }}
-            >
-              <Typography
-                align="center"
-                color="textSecondary"
-                variant="body1"
-              >
-                or login with email address
-              </Typography>
-            </Box>
-            <TextField
-              error={Boolean(formik.touched.email && formik.errors.email)}
-              fullWidth
-              helperText={formik.touched.email && formik.errors.email}
-              label="Email Address"
-              margin="normal"
-              name="email"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="email"
-              value={formik.values.email}
-              variant="outlined"
-            />
-            <TextField
-              error={Boolean(formik.touched.password && formik.errors.password)}
-              fullWidth
-              helperText={formik.touched.password && formik.errors.password}
-              label="Password"
-              margin="normal"
-              name="password"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="password"
-              value={formik.values.password}
-              variant="outlined"
-            />
-            <Box sx={{ py: 2 }}>
-              <Button
-                color="primary"
-                disabled={formik.isSubmitting}
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-              >
-                Sign In Now
-              </Button>
-            </Box>
-            <Typography
-              color="textSecondary"
-              variant="body2"
-            >
-              Don&apos;t have an account?
-              {' '}
-              <NextLink
-                href="/register"
-              >
-                <Link
-                  to="/register"
-                  variant="subtitle2"
-                  underline="hover"
-                  sx={{
-                    cursor: 'pointer'
-                  }}
-                >
-                  Sign Up
-                </Link>
-              </NextLink>
-            </Typography>
-          </form>
-        </Container>
-      </Box> */}
+        </Grid>
+        </Layout>
     </>
   );
 };
