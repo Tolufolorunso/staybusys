@@ -6,9 +6,10 @@ import Cropper from "react-easy-crop";
 import Slider from "@material-ui/core/Slider";
 import CloseIcon from "@mui/icons-material/Close";
 import getCroppedImg from "../components/cropimage";
-
+import { LoadingButton } from '@mui/lab';
+import { useRouter } from "next/router";
 import Modal from "@mui/material/Modal";
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import RotateRightIcon from "@mui/icons-material/RotateRight";
 
@@ -25,6 +26,15 @@ const style = {
   borderRadius: "7px",
   padding: "3rem",
 };
+const containerStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
+  bgcolor: "b#F7F4EF",
+  borderRadius: "7px",
+  marginTop:"100px",
+};
 
 export default function ProfileImage() {
   const [open, setOpen] = useState(false);
@@ -38,9 +48,10 @@ export default function ProfileImage() {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
   const [zoom, setZoom] = useState(1);
+  const router = useRouter();
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
-
+  const [loading, setLoading] = useState(false)
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
@@ -115,7 +126,7 @@ export default function ProfileImage() {
     uploadFile(file);
     setFile(file);
   };
-
+ 
   function uploadFile(file) {
     console.log(file);
     try {
@@ -139,17 +150,39 @@ export default function ProfileImage() {
       console.log("There is a problem while uploading...");
     };
   }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    if(!file || !fileName) {
+        toast.error('Attach a photo to your profile to proceed');
+        setLoading(false);
+        return;
+    }
+    router.push("/choosetasks")
+  }
   return (
     <div>
       <Head>
-        <title>Choose Tasks | Material Kit</title>
+        <title>Upload Picture | Staybusy.io</title>
       </Head>
       <Layout>
-        <div className="my_container ">
+      <Grid container sx={containerStyle} className="form__container">
+        <Grid item sm={12}>
+          <Grid item sm={12}>
+            <Box sx={{ position: "relative" }}>
+              <Grid item sm={8} sx={{ mx: "auto" }}>
+                <h5 className="form__container_heading"> Attach a photo to your profile</h5>
+              </Grid>
+              <span className={"update__profile update__profile_counter_1"}>1/3</span>
+            </Box>
+          </Grid>
+          <Grid>
+            <div className="my_container "   component="form"
+                        noValidate
+                        onSubmit={handleSubmit}>
           <div className="choose_tasks">
             <div className="choose">
-              <h4>Attach a photo to your profile</h4>
-              <span className="tab">2/3</span>
+              
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <div className="image_upload"></div>
               </div>
@@ -197,13 +230,19 @@ export default function ProfileImage() {
                 )}
               </div>
 
-              <button
-
-                style={{ justifyContent: "center" }}
-                className="upload_btn actn_btn"
-              >
-                Proceed
-              </button>
+              <LoadingButton
+                                    loading={loading}
+                                    type="submit"
+                                    onSubmit={handleSubmit}
+                                    size="large"
+                                    variant="contained"
+                                    loadingPosition="end" 
+                                    className="upload_btn actn_btn"
+                                 
+                                >
+                                    Proceed
+                                </LoadingButton>
+                
 
               <Modal
                 open={open}
@@ -300,6 +339,11 @@ export default function ProfileImage() {
             </div>
           </div>
         </div>
+          </Grid>
+          </Grid>
+          </Grid>
+          
+        
       </Layout>
     </div>
   );
