@@ -11,8 +11,15 @@ import Section6 from "../components/Home/section6";
 import Section7 from "src/components/Home/section7";
 import Section8 from "src/components/Home/section8";
 import { Divider } from "@mui/material";
+import { getSession, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
-const Home = () => {
+const Home = (props) => {
+  const router = useRouter()
+  const {user} = props
+  if(user) {
+    router.push("/dashboard")
+  }
   return (
     <Layout>
       <div className="container">
@@ -43,3 +50,22 @@ const Home = () => {
 };
 
 export default Home;
+
+export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      ...session,
+    },
+  };
+}
