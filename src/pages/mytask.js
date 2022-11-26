@@ -11,6 +11,7 @@ import { DashboardLayout } from "../components/dashboard-layout";
 import Modal from "@mui/material/Modal";
 import { fetchJson } from "lib/api";
 import { getSession } from "next-auth/react";
+import { useEffect } from "react";
 
 const style = {
   position: "absolute",
@@ -46,6 +47,12 @@ export default function Task(props) {
     setopenSecondModal(false);
     setOpen(false);
   }
+
+
+  useEffect(() => {
+    console.log(hello)
+  },[])
+
   const selectedBtns = [];
 
   function chooseTask(btnNumber) {
@@ -431,29 +438,29 @@ export default function Task(props) {
 
 Task.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-export async function getServerSideProps(ctx) {
-  const session = await getSession(ctx);
+// export async function getServerSideProps(ctx) {
+//   const session = await getSession(ctx);
 
-  const tasks = await fetchJson("/api/tasks", {
-    method: "POST",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ token: "token" }),
-  });
+//   const tasks = await fetchJson("/api/tasks", {
+//     method: "POST",
+//     headers: { "Content-type": "application/json" },
+//     body: JSON.stringify({ token: "token" }),
+//   });
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/login",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: {
-      ...session,
-      name: 'hey'
+//   return {
+//     props: {
+//       ...session,
+//       name: 'hey'
 
-    },
-  };
-}
+//     },
+//   };
+// }
