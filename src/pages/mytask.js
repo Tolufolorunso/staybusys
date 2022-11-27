@@ -9,6 +9,9 @@ import { tasksList } from "src/__mocks__/tasksList";
 import Select from "react-select";
 import { DashboardLayout } from "../components/dashboard-layout";
 import Modal from "@mui/material/Modal";
+import { fetchJson } from "lib/api";
+import { getSession } from "next-auth/react";
+import { useEffect } from "react";
 
 const style = {
   position: "absolute",
@@ -31,7 +34,8 @@ const style = {
   p: 4,
 };
 
-export default function Task() {
+export default function Task(props) {
+  console.log(props)
   const [viewMode, setviewMode] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -43,6 +47,12 @@ export default function Task() {
     setopenSecondModal(false);
     setOpen(false);
   }
+
+
+  useEffect(() => {
+    console.log(hello)
+  },[])
+
   const selectedBtns = [];
 
   function chooseTask(btnNumber) {
@@ -55,12 +65,12 @@ export default function Task() {
         if (btn.classList.contains("active")) {
           // selectedBtns.push(btn);
           //   console.log(selectedBtns);
-          if (selectedBtns.length <= 3 ) {
+          if (selectedBtns.length <= 3) {
             selectedBtns.push(btn);
             console.log(selectedBtns);
           } else {
-            alert('You can no longer add new tasks')
-            btn.classList.remove('active')
+            alert("You can no longer add new tasks");
+            btn.classList.remove("active");
             return;
           }
         }
@@ -69,9 +79,6 @@ export default function Task() {
             selectedBtns.pop(arrBtn);
           }
         });
-
-
-        
       }
     });
   }
@@ -136,7 +143,7 @@ export default function Task() {
     <>
       <div className="tasks_page">
         <Head>
-          <title>Task | Stay busy</title>
+          <title>Tasks | Stay busy</title>
         </Head>
         <div className="container">
           <div className="top_btns">
@@ -430,3 +437,30 @@ export default function Task() {
 }
 
 Task.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+
+// export async function getServerSideProps(ctx) {
+//   const session = await getSession(ctx);
+
+//   const tasks = await fetchJson("/api/tasks", {
+//     method: "POST",
+//     headers: { "Content-type": "application/json" },
+//     body: JSON.stringify({ token: "token" }),
+//   });
+
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/login",
+//         permanent: false,
+//       },
+//     };
+//   }
+
+//   return {
+//     props: {
+//       ...session,
+//       name: 'hey'
+
+//     },
+//   };
+// }
