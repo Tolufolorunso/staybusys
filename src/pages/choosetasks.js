@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Box, Grid, Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useRouter } from "next/router";
-// import { toast } from "react-toastify";
-import tasks from "../../data/task_list";
+import { toast } from "react-toastify";
+// import tasks from "../../data/task_list";
 
 import {getTags} from "../../lib/get-tags"
 
@@ -24,13 +24,12 @@ const containerStyle = {
 
 const Choosetasks = (props) => {
   const { tags } = props;
-  console.log(25, tags);
   //   const [selectedBtns, setSelectedBtns] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  function proceed() {
-    console.log("Proceed");
-  }
+  // function proceed() {
+  //   console.log("Proceed");
+  // }
   const removeSelectedTasks = (arr, value) => {
     return arr.filter(function (ele) {
       return ele != value;
@@ -47,7 +46,7 @@ const Choosetasks = (props) => {
       selectedTasks.push(task);
       event.currentTarget.classList.add("is__selected");
     }
-    console.log(selectedTasks);
+    // console.log(selectedTasks);
   };
 
   const proceedHandler = async (e) => {
@@ -141,7 +140,7 @@ export default Choosetasks;
 
 export async function getStaticProps() {
   const tags = await getTags();
-
+  
   return {
     props: {
       tags: tags,
