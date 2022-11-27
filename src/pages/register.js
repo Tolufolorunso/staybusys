@@ -14,6 +14,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Layout from "src/components/Layout";
 
 import { fetchJson } from "../../lib/api";
+import { set } from "nprogress";
 
 const style = {
   position: "absolute",
@@ -49,7 +50,7 @@ const Register = ({ value }) => {
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   async function register(e) {
@@ -62,7 +63,9 @@ const Register = ({ value }) => {
       });
 
       if (user.status) {
+        setOpen(true);
         setTimeout(() => {
+          setOpen(false);
           router.push("/");
         }, 3000);
       } else {
@@ -89,7 +92,7 @@ const Register = ({ value }) => {
       policy: Yup.boolean().oneOf([true], "This field must be checked"),
     }),
     onSubmit: () => {
-      router.push("/");
+      // router.push("/");
     },
   });
 

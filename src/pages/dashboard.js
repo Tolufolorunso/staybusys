@@ -9,15 +9,22 @@ import { TotalProfit } from "../components/dashboard/total-profit";
 import { DashboardLayout } from "../components/dashboard-layout";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Dashboard = (props) => {
   const { user } = props;
+
+  console.log(user)
   const router = useRouter();
   if (typeof window === "undefined") return null;
 
   if (!user?.completed && !user.firstname) {
     router.replace("/personaldetails");
   }
+
+  useEffect(() => {
+    fetch("/api/auth/session?update");
+  })
 
   return (
     <>

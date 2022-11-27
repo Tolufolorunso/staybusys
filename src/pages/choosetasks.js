@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 // import { toast } from "react-toastify";
 import tasks from "../../data/task_list";
 
+import {getTags} from "../../lib/get-tags"
+
 import Layout from "src/components/Layout";
 
 const selectedTasks = [];
@@ -20,7 +22,9 @@ const containerStyle = {
   borderRadius: "7px",
 };
 
-const Choosetasks = () => {
+const Choosetasks = (props) => {
+  const { tags } = props;
+  console.log(25, tags);
   //   const [selectedBtns, setSelectedBtns] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -39,7 +43,7 @@ const Choosetasks = () => {
       selectedTasks = removeSelectedTasks(selectedTasks, task);
       event.currentTarget.classList.remove("is__selected");
     } else {
-    if(selectedTasks.length > 3) return
+      if (selectedTasks.length > 3) return;
       selectedTasks.push(task);
       event.currentTarget.classList.add("is__selected");
     }
@@ -50,15 +54,16 @@ const Choosetasks = () => {
     e.preventDefault();
     setLoading(true);
     if (!selectedTasks.length) {
-    //   toast.error("Make a selection to proceed");
-    alert('Make a selection to proceed')
+      //   toast.error("Make a selection to proceed");
+      alert("Make a selection to proceed");
       setLoading(false);
       return;
     }
-    const personalDetailLS = localStorage && JSON.parse(localStorage.getItem("personaldetails")) || "";
-    personalDetailLS.tags = selectedTasks.join(',')
-    console.log(personalDetailLS)
-    localStorage.setItem('personaldetails', JSON.stringify(personalDetailLS))
+    const personalDetailLS =
+      (localStorage && JSON.parse(localStorage.getItem("personaldetails"))) || "";
+    personalDetailLS.tags = selectedTasks.join(",");
+    console.log(personalDetailLS);
+    localStorage.setItem("personaldetails", JSON.stringify(personalDetailLS));
     router.push("/profileImage");
   };
   const router = useRouter();
@@ -86,21 +91,21 @@ const Choosetasks = () => {
             </Grid>
 
             <Grid container md={8} xs={12} sx={{ mx: "auto", my: 4 }} spacing={6}>
-              {tasks &&
-                tasks.length > 0 &&
-                tasks.map((taskList) => (
-                  <Grid item xs={2} sm={4} md={3} key={taskList.id}>
+              {tags &&
+                tags.length > 0 &&
+                tags.map((tag) => (
+                  <Grid item xs={2} sm={4} md={3} key={tag._id}>
                     <Button
                       variant="contained"
                       fullWidth
                       size="large"
-                      data-task={taskList.title}
+                      data-task={tag.tag}
                       className={`task__list ${
-                        selectedTasks.includes(taskList.id) ? "is__selected" : ""
+                        selectedTasks.includes(tag._id) ? "is__selected" : ""
                       }`}
                       onClick={handleSelect}
                     >
-                      {taskList.title}
+                      {tag.tag}
                     </Button>
                   </Grid>
                 ))}
@@ -133,3 +138,14 @@ const Choosetasks = () => {
 };
 
 export default Choosetasks;
+
+export async function getStaticProps() {
+  const tags = await getTags();
+
+  return {
+    props: {
+      tags: tags,
+    },
+    revalidate: 20000,
+  };
+}

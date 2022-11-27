@@ -33,9 +33,9 @@ const Login = () => {
     router.replace("/dashboard");
   }
 
-  console.log(status, data)
+  console.log(status, data);
 
-  useEffect(() => { 
+  useEffect(() => {
     if (status !== "unauthenticated") {
       setLoading(false);
     }
@@ -87,60 +87,55 @@ const Login = () => {
       <Head>
         <title>Login | Material Kit</title>
       </Head>
-      {!loading && (
-        <Layout>
-          {" "}
-          <div className="container ">
-            <div className="login_wrapper">
-              <div className="login">
-                <h4>Login</h4>
 
-                <div className="login_inputs">
-                  <form onSubmit={login}>
-                    <div className="login_input">
-                      <label htmlFor="student_email">Your student Email:</label> <br />
-                      <div className="input_wrap">
-                        <input
-                          type="text"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    <div className="login_input">
-                      <label htmlFor="student_email">Choose a password:</label> <br />
-                      <div className="input_wrap">
-                        <input
-                          type={passwordShown ? "text" : "password"}
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <span onClick={togglePassword}>{passwordShown ? "Hide" : "Show"} </span>
-                      </div>
-                      <a href="resetpassword" className="forgot_pass">
-                        Forgot your password?
-                      </a>
-                    </div>
+      <Layout>
+        {" "}
+        <div className="container ">
+          <div className="login_wrapper">
+            <div className="login">
+              <h4>Login</h4>
 
-                    <div className="login_btn">
-                      <button type="submit">{loginLoading ? "Login..." : "Login"}</button>
+              <div className="login_inputs">
+                <form onSubmit={login}>
+                  <div className="login_input">
+                    <label htmlFor="student_email">Your student Email:</label> <br />
+                    <div className="input_wrap">
+                      <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
-                  </form>
-                </div>
-                <div className="already">
-                  <p>
-                    {" Don't "} have an account?{" "}
-                    <Button className="logins" href="/register">
-                      {" "}
-                      Sign Up
-                    </Button>
-                  </p>
-                </div>
+                  </div>
+                  <div className="login_input">
+                    <label htmlFor="student_email">Choose a password:</label> <br />
+                    <div className="input_wrap">
+                      <input
+                        type={passwordShown ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <span onClick={togglePassword}>{passwordShown ? "Hide" : "Show"} </span>
+                    </div>
+                    <a href="resetpassword" className="forgot_pass">
+                      Forgot your password?
+                    </a>
+                  </div>
+
+                  <div className="login_btn">
+                    <button type="submit">{loginLoading ? "Login..." : "Login"}</button>
+                  </div>
+                </form>
+              </div>
+              <div className="already">
+                <p>
+                  {" Don't "} have an account?{" "}
+                  <Button className="logins" href="/register">
+                    {" "}
+                    Sign Up
+                  </Button>
+                </p>
               </div>
             </div>
           </div>
-        </Layout>
-      )}
+        </div>
+      </Layout>
     </>
   );
 };
