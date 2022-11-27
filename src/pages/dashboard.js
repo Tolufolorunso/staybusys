@@ -49,7 +49,7 @@ const Dashboard = (props) => {
                   border: "1px solid rgba(255, 204, 0, 0.2)",
                   boxShadow: " 0px 7px 20px rgba(145, 156, 212, 0.15)",
                 }}
-                totalCompleted={user?.completedTasks.length}
+                totalCompleted={user?.completedTasks?.length}
               />
             </Grid>
             <Grid item xl={4} lg={4} sm={6} xs={12}>
@@ -58,7 +58,7 @@ const Dashboard = (props) => {
                   border: "1px solid rgba(255, 204, 0, 0.2)",
                   boxShadow: " 0px 7px 20px rgba(145, 156, 212, 0.15)",
                 }}
-                totalDeclinedTasks={user?.declinedTasks.length}
+                totalDeclinedTasks={user?.declinedTasks?.length}
               />
             </Grid>
             <Grid item xl={4} lg={4} sm={6} xs={12}>

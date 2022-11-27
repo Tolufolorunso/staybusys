@@ -5,7 +5,8 @@ const createOptions = (req) => ({
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
-        const url = process.env.API_URL + "/api/v1/auth/login";
+        console.log("server authorize")
+        const url = process.env.API_URL + "/auth/login";
         const response = await fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -23,9 +24,10 @@ const createOptions = (req) => ({
   ],
   callbacks: {
     async jwt({ token, user, account }) {
+      console.log("server login")
       if (req.url === "/api/auth/session?update") {
         console.log("server", "/api/v1/users/me")
-        const url = process.env.API_URL + "/api/v1/users/me";
+        const url = process.env.API_URL + "/users/me";
         const response = await fetch(url, {
           method: "GET",
           headers: { authorization: `Bearer ${token.accessToken}` },
