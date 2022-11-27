@@ -159,8 +159,9 @@ export default function ProfileImage() {
     e.preventDefault();
 
     setLoading(true);
-    if (!imageFile) {
-      toast.error("Attach a photo to your profile to proceed");
+    if (!userImage) {
+      // toast.error("Attach a photo to your profile to proceed");
+      alert("Attach a photo to your profile to proceed");
       setLoading(false);
       return;
     }

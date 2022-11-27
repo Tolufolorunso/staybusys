@@ -24,6 +24,7 @@ const createOptions = (req) => ({
   callbacks: {
     async jwt({ token, user, account }) {
       if (req.url === "/api/auth/session?update") {
+        console.log("server", "/api/v1/users/me")
         const url = process.env.API_URL + "/api/v1/users/me";
         const response = await fetch(url, {
           method: "GET",
@@ -36,8 +37,6 @@ const createOptions = (req) => ({
         token.accessToken = user.token;
         token.id = user._id;
       }
-
-      console.log(41, user);
 
       return { ...token, ...user };
     },

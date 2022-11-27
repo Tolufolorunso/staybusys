@@ -13,13 +13,17 @@ import Section8 from "src/components/Home/section8";
 import { Divider } from "@mui/material";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Home = (props) => {
-  const router = useRouter()
-  const {user} = props
-  if(user) {
-    router.push("/dashboard")
-  }
+  const router = useRouter();
+
+  useEffect(() => {
+    if (props.user.firstname) {
+      router.push("/dashboard");
+    }
+  });
+
   return (
     <Layout>
       <div className="container">
@@ -29,21 +33,20 @@ const Home = (props) => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Section1 />
-        <div className="sectionColor"><Section2 />
-       
-        <Section3 />
-        <Section21 />
-        <Section6 />
-        <Section4 />
+        <div className="sectionColor">
+          <Section2 />
+
+          <Section3 />
+          <Section21 />
+          <Section6 />
+          <Section4 />
         </div>
 
         <Section7 />
-        <Divider style={{color:"#E4E4E7"}} />
-          
-          
+        <Divider style={{ color: "#E4E4E7" }} />
+
         <Section8 />
         <Section5 />
-        
       </div>
     </Layout>
   );
