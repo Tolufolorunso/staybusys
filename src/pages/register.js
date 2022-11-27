@@ -15,6 +15,7 @@ import Layout from "src/components/Layout";
 
 import { fetchJson } from "../../lib/api";
 import { set } from "nprogress";
+import { API_URI } from "lib/contant";
 
 const style = {
   position: "absolute",
@@ -56,7 +57,7 @@ const Register = ({ value }) => {
   async function register(e) {
     e.preventDefault();
     try {
-      const user = await fetchJson("http://localhost:3005/api/v1/auth/register", {
+      const user = await fetchJson(`${API_URI}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

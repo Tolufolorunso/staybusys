@@ -76,7 +76,7 @@ function Navbar() {
     <div>
 
 
-      <AppBar style={{ background: "transparent", boxShadow:' 0px 1px 0px #EDEDF2',position:"inherit" ,borderBottom:"1px solid rgba(47, 46, 64, 0.44);",width:"90%",margin:"auto", margin:"10px auto"}}>
+      <AppBar style={{ background: "transparent", boxShadow:' 0px 1px 0px #EDEDF2',position:"inherit" ,borderBottom:"1px solid rgba(47, 46, 64, 0.44)",width:"90%",margin:"auto", margin:"10px auto"}}>
         <div style={{ width: "100%", margin: "auto" }}>
           <Toolbar>
 

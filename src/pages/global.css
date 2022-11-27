@@ -2154,14 +2154,14 @@ hr.modal_secions_hr {
   }
 }
 
-.uploaded_img {
+/* .uploaded_img { */
   /* position: absolute;
   top: 0;
   right: 0; */
   /* width: 100%;
   height: 40px; */
   /* z-index: 1000; */
-}
+/* } */
 
 /* profile photoupload */
 
@@ -2223,8 +2223,8 @@ hr.modal_secions_hr {
 .upload.is-drop {
   padding: 0rem;
 }
-.cropper-crop-box {
-}
+/* .cropper-crop-box {
+} */
 .upload-button {
   width: 100%;
   height: 100%;
@@ -3440,9 +3440,9 @@ padding-right: 30px !important;
     color: #fff !important;
   }
 }
-.section2_det_2{
+/* .section2_det_2{
 
-}
+} */
 .section2Det {
   font-family: "Almarena" !important;
   font-style: normal !important;

@@ -1,7 +1,8 @@
 import { fetchJson } from "lib/api";
+import { API_URI } from "lib/contant";
 
 export default async function handler(req, res) {
-  const tasks = await fetchJson(`http://localhost:3005/api/v1/tasks`, {
+  const tasks = await fetchJson(`${API_URI}/tasks`, {
     method: "GET",
     headers: { authorization: `Bearer ${req.body.token}` },
   });
