@@ -19,7 +19,7 @@ const Home = (props) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (props.user.firstname) {
+    if (props?.user?.firstname) {
       router.push("/dashboard");
     }
   });
@@ -57,14 +57,14 @@ export default Home;
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: "/login",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   return {
     props: {
