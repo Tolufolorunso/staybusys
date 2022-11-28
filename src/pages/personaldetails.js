@@ -27,7 +27,7 @@ const currencies = ["Dollar", "Euro", "Naira"];
 
 // }
 
-const Personaldetails = () => {
+const Personaldetails = (props) => {
   const personalDetailLS = typeof window !== "undefined" && JSON.parse(localStorage.getItem("personaldetails")) || "";
   const [loading, setLoading] = useState(false);
   //   const [values, setValues] = useState(initialValues);
@@ -342,3 +342,22 @@ const Personaldetails = () => {
 };
 
 export default Personaldetails;
+
+export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      ...session,
+    },
+  };
+}

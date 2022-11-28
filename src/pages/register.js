@@ -12,12 +12,13 @@ import * as Yup from "yup";
 import { Box, Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Layout from "src/components/Layout";
-import 'react-toastify/dist/ReactToastify.css';
-import { LoadingButton } from '@mui/lab';
-import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { LoadingButton } from "@mui/lab";
+import { ToastContainer, toast } from "react-toastify";
 import { fetchJson } from "../../lib/api";
 import { set } from "nprogress";
 import { API_URI } from "lib/contant";
+import { useEffect } from "react";
 
 const style = {
   position: "absolute",
@@ -48,7 +49,13 @@ const Register = ({ value }) => {
   const [passwordShown, setPasswordShown] = useState(false);
 
   const [password, setPassword] = useState("12345678");
-  const [email, setEmail] = useState("tolu@yahoo.com");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const getEmail = localStorage.getItem("email")
+    setEmail(getEmail ||  "tolu@yahoo.com")
+    
+  })
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -66,6 +73,7 @@ const Register = ({ value }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+      localStorage.removeItem("email")
 
       if (user.status) {
         setOpen(true);
@@ -78,11 +86,8 @@ const Register = ({ value }) => {
         }, 3000);
       } else {
         throw new Error(user.message);
-
-
       }
     } catch (error) {
-
       toast.error(error.message);
 
       console.log(error.message);
@@ -116,7 +121,7 @@ const Register = ({ value }) => {
         <title>Register | Material Kit</title>
       </Head>
       <Layout>
-      <ToastContainer />
+        <ToastContainer />
         <div className="container ">
           <div className="login_wrapper">
             <div className="login">

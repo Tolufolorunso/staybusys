@@ -12,10 +12,11 @@ import Modal from "@mui/material/Modal";
 import { fetchJson } from "lib/api";
 import { getSession, useSession } from "next-auth/react";
 import { useEffect } from "react";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import { API_URI } from "../../lib/contant";
+import { filterTask, padPrice } from "../../lib/filter";
 
 const style = {
   position: "absolute",
@@ -39,14 +40,13 @@ const style = {
 };
 
 export default function Task(props) {
-  const {accessToken,user} = props
+  const { user } = props;
   console.log(user);
   const [viewMode, setviewMode] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [openSecondModal, setopenSecondModal] = React.useState(false);
-  const handleopenSecondModal = () => setopenSecondModal(true);
   const handlecloseSecondModal = () => setopenSecondModal(false);
   function closeModals() {
     setopenSecondModal(false);
@@ -59,16 +59,15 @@ export default function Task(props) {
   const { data } = useSession();
 
   useEffect(() => {
-    (async function () {
+    async function fetchTasks() {
       const res = await fetchJson("/api/tasks", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ token: data?.user?.token }),
       });
-
-      console.log(1234);
       setTasksList(res.tasks || []);
-    })();
+    }
+    fetchTasks();
   }, [data?.user]);
 
   const selectedBtns = [];
@@ -85,7 +84,6 @@ export default function Task(props) {
           //   console.log(selectedBtns);
           if (selectedBtns.length <= 3) {
             selectedBtns.push(btn);
-            console.log(selectedBtns);
           } else {
             toast.error("You can no longer add new tasks");
             btn.classList.remove("active");
@@ -182,8 +180,8 @@ export default function Task(props) {
       }
     } catch (error) {
       toast.error(error.message);
-
     }
+    closeModals()
   }
 
   async function declineHandler(id) {
@@ -207,15 +205,57 @@ export default function Task(props) {
     } catch (error) {
       toast.error(error.message);
     }
+    closeModals()
   }
 
   const titleDescriptionRef = React.useRef();
   const locationRef = React.useRef();
   const paymentRef = React.useRef();
+  const minPriceRef = React.useRef();
+  const maxPriceRef = React.useRef();
+  const startDateRef = React.useRef();
+  const endDateRef = React.useRef();
   const [sort, setSort] = useState("Old");
 
+  async function handleopenSecondModal() {
+    let url = `${API_URI}/tasks?`;
+    const price1 = padPrice(minPriceRef.current.value);
+    const price2 = padPrice(maxPriceRef.current.value);
+    const startDate = startDateRef.current.value;
+    const endDate = endDateRef.current.value;
+
+    let tags = "";
+    selectedBtns.forEach((btn) => {
+      tags += `${btn.innerText},`;
+    });
+
+    const titleDescription = titleDescriptionRef.current.value;
+    const location = locationRef.current.value;
+    const price = paymentRef.current.value;
+
+    url = `${url}tagFilter=${tags}&title=${titleDescription}&location=${location}&price=${price}&sort=${sort}`;
+
+    if (price1 && price2) {
+      url = `${url}&priceFilter[gte]=${price1}&priceFilter[lte]=${price2}`;
+    } else if (price1) {
+      url = `${url}&priceFilter[gte]=${price1}`;
+    } else if (price2) {
+      url = `${url}&priceFilter[lte]=${price2}`;
+    }
+
+    if (startDate && endDate) {
+      url = `${url}&date[start]=${startDate}&date[end]=${endDate}`;
+    } else if (startDate) {
+      url = `${url}&date[start]=${startDate}`;
+    } else if (endDate) {
+      url = `${url}&date[end]=${endDate}`;
+    }
+
+    filterTask(url, setTasksList, props);
+    closeModals();
+  }
+
   const sortHandler = (e) => {
-    console.log(e.value);
     setSort(e.value);
     searchOneHandler();
   };
@@ -228,25 +268,7 @@ export default function Task(props) {
     const price = paymentRef.current.value;
 
     url = `${url}title=${titleDescription}&location=${location}&price=${price}&sort=${sort}`;
-
-    try {
-      const res = await fetchJson(url, {
-        method: "GET",
-        headers: { authorization: `Bearer ${props.accessToken}` },
-      });
-
-      console.log(res.tasks);
-
-      if (res.status) {
-        setTasksList(res.tasks);
-      }
-
-      if (!res.status) {
-        throw new Error(res.message);
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
+    filterTask(url, setTasksList, props, toast);
   }
 
   return (
@@ -260,7 +282,7 @@ export default function Task(props) {
           <div className="top_btns">
             <div className="top_btns_wrapper">
               <Grid container spacing={1}>
-                <Grid item style={{ paddingLeft: "3px " }} xs={12} sm={12} md={12} lg={4.7}>
+                <Grid item style={{ paddingLeft: "3px " }} xs={12} sm={12} md={12} lg={4}>
                   <div className="input_wrap_top">
                     <img src="../search.svg" style={{ padding: "1rem", paddingRight: "0px" }} />
                     <input
@@ -381,8 +403,6 @@ export default function Task(props) {
                               {tag}
                             </button>
                           ))}
-
-
                         </div>
                       </div>
                     </div>
@@ -396,12 +416,12 @@ export default function Task(props) {
 
                       <div className="filter_inputs">
                         <div className="input">
-                          <input type="text" placeholder="2022-01-01" />
+                          <input type="date" placeholder="2022-01-01" ref={startDateRef} />
                           <DateRangeIcon style={{ color: "#DCDCDC" }} />
                         </div>
                         <div className="span"></div>
                         <div className="input">
-                          <input type="text" placeholder="Today" />
+                          <input type="date" placeholder="Today" ref={endDateRef} />
                           <DateRangeIcon style={{ color: "#DCDCDC" }} />
                         </div>
                       </div>
@@ -415,12 +435,12 @@ export default function Task(props) {
 
                       <div className="filter_inputs">
                         <div className="input">
-                          <input type="text" placeholder="Min price" />
+                          <input type="text" placeholder="Min price" ref={minPriceRef} />
                           <AttachMoneyIcon style={{ color: "#DCDCDC" }} />
                         </div>
                         <div className="span"></div>
                         <div className="input">
-                          <input type="text" placeholder="Max Price" />
+                          <input type="text" placeholder="Max Price" ref={maxPriceRef} />
                           <AttachMoneyIcon style={{ color: "#DCDCDC" }} />
                         </div>
                       </div>
@@ -463,7 +483,7 @@ export default function Task(props) {
                     <p className="desc">{taskDetail?.description}</p>
 
                     <div className="filter_btns second_filter_btns">
-                      <p>399£</p>
+                      <p>{taskDetail?.price}</p>
                       <div className="dbl_btns">
                         <button className="cancel" onClick={() => declineHandler(taskDetail?._id)}>
                           Decline
