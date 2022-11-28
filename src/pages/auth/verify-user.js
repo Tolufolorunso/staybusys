@@ -56,7 +56,7 @@ function VerifyUserPage() {
       <Head>
         <title>Confirm Email | Staybusy.io</title>
       </Head>
-      <Layout>
+
         <Grid container spacing={2} className="form__container" justifyContent="center">
           <Grid item xs={12} sm={4}>
             <h5 className="form__container_heading"> Verification Status</h5>
@@ -80,7 +80,7 @@ function VerifyUserPage() {
             </Box>
           </Grid>
         </Grid>
-      </Layout>
+
     </>
   );
 }
