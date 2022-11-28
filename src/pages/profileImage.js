@@ -15,7 +15,7 @@ import RotateRightIcon from "@mui/icons-material/RotateRight";
 import { toast,ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-import { signOut, useSession } from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
 
 import completeProfile from "../../lib/complet-profile";
 
@@ -360,4 +360,24 @@ export default function ProfileImage() {
 
     </div>
   );
+}
+
+
+export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      ...session,
+    },
+  };
 }
