@@ -151,6 +151,7 @@ export default function ProfileImage() {
       };
     } catch (err) {
       console.log(err);
+      setLoading(false)
       toast.error(err.message);
     }
 
@@ -180,7 +181,7 @@ export default function ProfileImage() {
       <Head>
         <title>Upload Picture | Staybusy.io</title>
       </Head>
-      <Layout>
+
         <ToastContainer />
         <Grid container sx={containerStyle} className="form__container">
           <Grid item sm={12}>
@@ -356,7 +357,7 @@ export default function ProfileImage() {
             </Grid>
           </Grid>
         </Grid>
-      </Layout>
+
     </div>
   );
 }

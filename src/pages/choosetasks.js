@@ -76,7 +76,7 @@ const Choosetasks = (props) => {
       <Head>
         <title> Task Preference | Staybusy.io</title>
       </Head>
-      <Layout>
+
       <ToastContainer />
         <Grid container sx={containerStyle} className="form__container">
           <Grid item sm={12}>
@@ -136,7 +136,7 @@ const Choosetasks = (props) => {
             </Grid>
           </Grid>
         </Grid>
-      </Layout>
+
     </>
   );
 };
