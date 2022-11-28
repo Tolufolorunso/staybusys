@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Box, Grid, Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useRouter } from "next/router";
-import { toast } from "react-toastify";
+import { toast,ToastContainer } from "react-toastify";
 // import tasks from "../../data/task_list";
+import 'react-toastify/dist/ReactToastify.css';
 
 import {getTags} from "../../lib/get-tags"
 
@@ -44,17 +45,19 @@ const Choosetasks = (props) => {
     } else {
       if (selectedTasks.length > 3) return;
       selectedTasks.push(task);
+      // toast.error("You can select only 4 tasks");
       event.currentTarget.classList.add("is__selected");
+
     }
-    // console.log(selectedTasks);
   };
 
   const proceedHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
     if (!selectedTasks.length) {
-      //   toast.error("Make a selection to proceed");
-      alert("Make a selection to proceed");
+        toast.error("Make a selection to proceed");
+        // console.log(error.message)
+      // alert("Make a selection to proceed");
       setLoading(false);
       return;
     }
@@ -63,6 +66,7 @@ const Choosetasks = (props) => {
     personalDetailLS.tags = selectedTasks.join(",");
     console.log(personalDetailLS);
     localStorage.setItem("personaldetails", JSON.stringify(personalDetailLS));
+    toast.success("Tasks added successfully")
     router.push("/profileImage");
   };
   const router = useRouter();
@@ -73,6 +77,7 @@ const Choosetasks = (props) => {
         <title> Task Preference | Staybusy.io</title>
       </Head>
       <Layout>
+      <ToastContainer />
         <Grid container sx={containerStyle} className="form__container">
           <Grid item sm={12}>
             <Grid item sm={12}>
@@ -140,7 +145,7 @@ export default Choosetasks;
 
 export async function getStaticProps() {
   const tags = await getTags();
-  
+
   return {
     props: {
       tags: tags,

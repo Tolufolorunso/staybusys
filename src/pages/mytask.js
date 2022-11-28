@@ -12,7 +12,9 @@ import Modal from "@mui/material/Modal";
 import { fetchJson } from "lib/api";
 import { getSession, useSession } from "next-auth/react";
 import { useEffect } from "react";
+import 'react-toastify/dist/ReactToastify.css';
 
+import { ToastContainer, toast } from 'react-toastify';
 import { API_URI } from "../../lib/contant";
 
 const style = {
@@ -85,7 +87,7 @@ export default function Task(props) {
             selectedBtns.push(btn);
             console.log(selectedBtns);
           } else {
-            alert("You can no longer add new tasks");
+            toast.error("You can no longer add new tasks");
             btn.classList.remove("active");
             return;
           }
@@ -179,7 +181,8 @@ export default function Task(props) {
         throw new Error(res.message);
       }
     } catch (error) {
-      console.log(error.message); // show error message
+      toast.error(error.message);
+
     }
   }
 
@@ -202,7 +205,7 @@ export default function Task(props) {
         throw new Error(res.message);
       }
     } catch (error) {
-      console.log(error.message); // show error message
+      toast.error(error.message);
     }
   }
 
@@ -242,7 +245,7 @@ export default function Task(props) {
         throw new Error(res.message);
       }
     } catch (error) {
-      console.log(error.message); // show error message
+      toast.error(error.message);
     }
   }
 
@@ -252,6 +255,7 @@ export default function Task(props) {
         <Head>
           <title>Tasks | Stay busy</title>
         </Head>
+        <ToastContainer />
         <div className="container">
           <div className="top_btns">
             <div className="top_btns_wrapper">
@@ -378,30 +382,7 @@ export default function Task(props) {
                             </button>
                           ))}
 
-                          {/* <button onClick={() => chooseTask(1)} className="choose_btn 1">
-                            Tag 2
-                          </button>
-                          <button onClick={() => chooseTask(2)} className="choose_btn 2">
-                            Tag 3
-                          </button>
-                          <button onClick={() => chooseTask(3)} className="choose_btn 3">
-                            Tag 4
-                          </button>
-                          <button onClick={() => chooseTask(4)} className="choose_btn 4">
-                            Tag 5
-                          </button>
-                          <button onClick={() => chooseTask(5)} className="choose_btn 5">
-                            Tag 6
-                          </button>
-                          <button onClick={() => chooseTask(6)} className="choose_btn 6">
-                            Tag 7
-                          </button>
-                          <button onClick={() => chooseTask(7)} className="choose_btn 7">
-                            Tag 8
-                          </button> */}
-                          {/* <button onClick={() => chooseTask(8)} className="choose_btn 8">
-                            Tag 9
-                          </button> */}
+
                         </div>
                       </div>
                     </div>
