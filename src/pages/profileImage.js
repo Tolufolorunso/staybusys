@@ -12,6 +12,8 @@ import Modal from "@mui/material/Modal";
 import { Box, Grid, Typography } from "@mui/material";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import RotateRightIcon from "@mui/icons-material/RotateRight";
+import { toast,ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import { signOut, useSession } from "next-auth/react";
 
@@ -38,7 +40,7 @@ const containerStyle = {
   height: "100vh",
   bgcolor: "b#F7F4EF",
   borderRadius: "7px",
-  marginTop: "100px",
+
 };
 
 export default function ProfileImage() {
@@ -149,19 +151,18 @@ export default function ProfileImage() {
       };
     } catch (err) {
       console.log(err);
+      toast.error(err.message);
     }
 
-    reader.onerror = () => {
-      console.log("There is a problem while uploading...");
-    };
+
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setLoading(true);
     if (!userImage) {
-      // toast.error("Attach a photo to your profile to proceed");
-      alert("Attach a photo to your profile to proceed");
+      toast.error("Attach a photo to your profile to proceed");
+      // alert("Attach a photo to your profile to proceed");
       setLoading(false);
       return;
     }
@@ -170,6 +171,7 @@ export default function ProfileImage() {
       await fetch("/api/auth/session?update");
       router.push("/dashboard");
     } else {
+      toast.error("An error occurred...");
       console.log("handle the error here");
     }
   };
@@ -179,6 +181,7 @@ export default function ProfileImage() {
         <title>Upload Picture | Staybusy.io</title>
       </Head>
       <Layout>
+        <ToastContainer />
         <Grid container sx={containerStyle} className="form__container">
           <Grid item sm={12}>
             <Grid item sm={12}>
