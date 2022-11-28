@@ -1,33 +1,26 @@
 import Head from "next/head";
 import { useState } from "react";
 
-import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { Box, Button, Container, Grid, Link, TextField, Typography } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Facebook as FacebookIcon } from "../icons/facebook";
-import { Google as GoogleIcon } from "../icons/google";
+
+import { ToastContainer, toast } from "react-toastify";
+import { Button } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import Layout from "src/components/Layout";
+import "react-toastify/dist/ReactToastify.css";
 
 import { signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 
 const Login = () => {
   const [passwordShown, setPasswordShown] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [email, setEmail] = useState("tolu@yahoo.com");
   const [password, setPassword] = useState("12345678");
 
-  const [loginLoading, setLoginLoading] = useState(false);
   const { status, data } = useSession();
   const router = useRouter();
-
-  // if (status === "loading") {
-  //   return <p>Loading.....</p>;
-  // }
 
   if (status === "authenticated" && data) {
     router.replace("/dashboard");
@@ -45,23 +38,9 @@ const Login = () => {
     setPasswordShown(!passwordShown);
   };
 
-  // const formik = useFormik({
-  //   initialValues: {
-  //     email: "demo@devias.io",
-  //     password: "Password123",
-  //   },
-  //   validationSchema: Yup.object({
-  //     email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
-  //     password: Yup.string().max(255).required("Password is required"),
-  //   }),
-  //   onSubmit: () => {
-  //     router.push("/");
-  //   },
-  // });
-
   async function login(e) {
     e.preventDefault();
-    setLoginLoading(true);
+    setLoading(true);
     try {
       const res = await signIn("credentials", {
         redirect: false,
@@ -70,6 +49,8 @@ const Login = () => {
       });
 
       if (!res.error) {
+        toast.success("Login Successful");
+
         router.push("/dashboard");
       }
 
@@ -77,19 +58,21 @@ const Login = () => {
         throw new Error(res.error);
       }
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
+
     }
-    setLoginLoading(false);
+    setLoading(false);
   }
 
   return (
     <>
       <Head>
-        <title>Login | Material Kit</title>
+        <title>Login | Staybusy.io</title>
       </Head>
 
       <Layout>
         {" "}
+        <ToastContainer />
         <div className="container ">
           <div className="login_wrapper">
             <div className="login">
@@ -118,9 +101,17 @@ const Login = () => {
                     </a>
                   </div>
 
-                  <div className="login_btn">
-                    <button type="submit">{loginLoading ? "Login..." : "Login"}</button>
-                  </div>
+                  <LoadingButton
+                    loading={loading}
+                    type="submit"
+                    size="large"
+                    variant="contained"
+                    loadingPosition="end"
+                    className="default__button"
+                    fullWidth
+                  >
+                    Login
+                  </LoadingButton>
                 </form>
               </div>
               <div className="already">
