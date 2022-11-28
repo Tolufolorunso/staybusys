@@ -125,7 +125,7 @@ const Personaldetails = () => {
       <Head>
         <title>Enter Personal Details | Material Kit</title>
       </Head>
-      <Layout>
+
         <Grid container sx={containerStyle} className="form__container">
           <Grid item sm={12}>
             <Grid item sm={12}>
@@ -336,7 +336,7 @@ const Personaldetails = () => {
             </Grid>
           </Grid>
         </Grid>
-      </Layout>
+
     </>
   );
 };

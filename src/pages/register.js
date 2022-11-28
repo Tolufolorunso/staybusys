@@ -12,7 +12,9 @@ import * as Yup from "yup";
 import { Box, Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Layout from "src/components/Layout";
-
+import 'react-toastify/dist/ReactToastify.css';
+import { LoadingButton } from '@mui/lab';
+import { ToastContainer, toast } from 'react-toastify';
 import { fetchJson } from "../../lib/api";
 import { set } from "nprogress";
 import { API_URI } from "lib/contant";
@@ -51,11 +53,13 @@ const Register = ({ value }) => {
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   async function register(e) {
     e.preventDefault();
+    setLoading(true);
     try {
       const user = await fetchJson(`${API_URI}/auth/register`, {
         method: "POST",
@@ -65,16 +69,25 @@ const Register = ({ value }) => {
 
       if (user.status) {
         setOpen(true);
+        setLoading(false);
+
+        toast.success("User Successful sign-up");
         setTimeout(() => {
           setOpen(false);
           router.push("/");
         }, 3000);
       } else {
         throw new Error(user.message);
+
+
       }
     } catch (error) {
+
+      toast.error(error.message);
+
       console.log(error.message);
     }
+    setLoading(false);
   }
   const router = useRouter();
   const formik = useFormik({
@@ -103,6 +116,7 @@ const Register = ({ value }) => {
         <title>Register | Material Kit</title>
       </Head>
       <Layout>
+      <ToastContainer />
         <div className="container ">
           <div className="login_wrapper">
             <div className="login">
@@ -126,10 +140,17 @@ const Register = ({ value }) => {
                       <span onClick={togglePassword}>{passwordShown ? "Hide" : "Show"}</span>
                     </div>
                   </div>
-
-                  <div className="login_btn">
-                    <button>Sign Up</button>
-                  </div>
+                  <LoadingButton
+                    loading={loading}
+                    type="submit"
+                    size="large"
+                    variant="contained"
+                    loadingPosition="end"
+                    className="default__button"
+                    fullWidth
+                  >
+                    Sign Up
+                  </LoadingButton>
 
                   <Modal
                     open={open}
