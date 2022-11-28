@@ -37,14 +37,13 @@ const style = {
 };
 
 export default function Task(props) {
-  const {accessToken,user} = props
+  const { accessToken, user } = props;
   console.log(user);
   const [viewMode, setviewMode] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [openSecondModal, setopenSecondModal] = React.useState(false);
-  const handleopenSecondModal = () => setopenSecondModal(true);
   const handlecloseSecondModal = () => setopenSecondModal(false);
   function closeModals() {
     setopenSecondModal(false);
@@ -57,17 +56,16 @@ export default function Task(props) {
   const { data } = useSession();
 
   useEffect(() => {
-    (async function () {
+    async function fetchTasks() {
       const res = await fetchJson("/api/tasks", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ token: data?.user?.token }),
       });
-
-      console.log(1234);
       setTasksList(res.tasks || []);
-    })();
-  }, [data?.user]);
+    }
+    fetchTasks();
+  }, []);
 
   const selectedBtns = [];
 
@@ -83,7 +81,6 @@ export default function Task(props) {
           //   console.log(selectedBtns);
           if (selectedBtns.length <= 3) {
             selectedBtns.push(btn);
-            console.log(selectedBtns);
           } else {
             alert("You can no longer add new tasks");
             btn.classList.remove("active");
@@ -209,7 +206,49 @@ export default function Task(props) {
   const titleDescriptionRef = React.useRef();
   const locationRef = React.useRef();
   const paymentRef = React.useRef();
+  const minPriceRef = React.useRef();
+  const maxPriceRef = React.useRef();
   const [sort, setSort] = useState("Old");
+
+  async function handleopenSecondModal() {
+    let url = `${API_URI}/tasks?`;
+    const price1 = minPriceRef.current.value;
+    const price2 = maxPriceRef.current.value;
+
+    let tags = ''
+    selectedBtns.forEach((btn) => {
+      tags += `${btn.innerText},`
+    })
+
+    const titleDescription = titleDescriptionRef.current.value;
+    const location = locationRef.current.value;
+    const price = paymentRef.current.value;
+
+    url = `${url}tagFilter=${tags}&title=${titleDescription}&location=${location}&price=${price}&sort=${sort}`;
+
+    if(price1 && price2) {
+      url = `${url}&priceFilter[gte]=${price1}&priceFilter[lte]=${price2}`
+    }
+    try {
+      const res = await fetchJson(url, {
+        method: "GET",
+        headers: { authorization: `Bearer ${props.accessToken}` },
+      });
+
+      console.log(234, res.tasks);
+
+      if (res.status) {
+        setTasksList(res.tasks);
+      }
+
+      if (!res.status) {
+        throw new Error(res.message);
+      }
+    } catch (error) {
+      console.log(error.message); // show error message
+    }
+    closeModals()
+  }
 
   const sortHandler = (e) => {
     console.log(e.value);
@@ -415,7 +454,7 @@ export default function Task(props) {
 
                       <div className="filter_inputs">
                         <div className="input">
-                          <input type="text" placeholder="2022-01-01" />
+                          <input type="date" placeholder="2022-01-01" />
                           <DateRangeIcon style={{ color: "#DCDCDC" }} />
                         </div>
                         <div className="span"></div>
@@ -434,12 +473,12 @@ export default function Task(props) {
 
                       <div className="filter_inputs">
                         <div className="input">
-                          <input type="text" placeholder="Min price" />
+                          <input type="text" placeholder="Min price" ref={minPriceRef}/>
                           <AttachMoneyIcon style={{ color: "#DCDCDC" }} />
                         </div>
                         <div className="span"></div>
                         <div className="input">
-                          <input type="text" placeholder="Max Price" />
+                          <input type="text" placeholder="Max Price" ref={maxPriceRef}/>
                           <AttachMoneyIcon style={{ color: "#DCDCDC" }} />
                         </div>
                       </div>
