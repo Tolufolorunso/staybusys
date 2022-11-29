@@ -9,7 +9,7 @@ function Section8() {
           <Box>
             <Typography className="staybusyBuilt">Staybusy is built for you.</Typography>
             <Typography className="section2_det_2 accor section8">
-              Let's take a look at things you have on your mind.
+              Let&apos;s take a look at things you have on your mind.
             </Typography>
 
             <img src="./Section8.png" width="100%" alt="" className="imageSections" style={{paddingTop:"40px"}} />
@@ -52,6 +52,7 @@ function Section8() {
           </Button>
         </Grid>
       </Grid>
+      <img src="../../roll5.png" className='roll5' alt="" />
     </div>
   );
 }
