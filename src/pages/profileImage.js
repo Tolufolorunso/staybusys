@@ -168,6 +168,7 @@ export default function ProfileImage(props) {
     if (result) {
       await fetch("/api/auth/session?update");
       router.push("/dashboard");
+      localStorage.removeItem("personaldetails")
     } else {
       toast.error("An error occurred...");
     }
