@@ -275,7 +275,7 @@ export default function Task(props) {
     <>
       <div className="tasks_page">
         <Head>
-          <title>Tasks | Stay busy</title>
+          <title>Tasks | Staybusy.io</title>
         </Head>
         <ToastContainer />
         <div className="container">

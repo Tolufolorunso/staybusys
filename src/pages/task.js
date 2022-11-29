@@ -84,7 +84,7 @@ export default function Task() {
     <>
       <div className="tasks_page">
         <Head>
-          <title>Task | Stay busy</title>
+          <title>Task | Staybusy.io</title>
         </Head>
         <Box
       component="main"
