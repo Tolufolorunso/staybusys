@@ -41,7 +41,6 @@ const style = {
 
 export default function Task(props) {
   const { user } = props;
-  console.log(user);
   const [viewMode, setviewMode] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -81,7 +80,6 @@ export default function Task(props) {
         btn.classList.toggle("active");
         if (btn.classList.contains("active")) {
           // selectedBtns.push(btn);
-          //   console.log(selectedBtns);
           if (selectedBtns.length <= 3) {
             selectedBtns.push(btn);
           } else {
@@ -136,8 +134,6 @@ export default function Task(props) {
   };
 
   function changeToGridDisplay(e) {
-    console.log("Change Display");
-    console.log(e.target.src);
     const getDisplay = document.querySelector(".grids_sec");
     if (getDisplay.classList.contains("displayGrid")) {
       getDisplay.classList.remove("displayGrid");
