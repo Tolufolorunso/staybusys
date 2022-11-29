@@ -4,11 +4,11 @@ import { useState } from "react";
 import { Box, Grid, Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useRouter } from "next/router";
-import { toast,ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 // import tasks from "../../data/task_list";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
-import {getTags} from "../../lib/get-tags"
+import { getTags } from "../../lib/get-tags";
 
 import Layout from "src/components/Layout";
 import { getSession } from "next-auth/react";
@@ -19,9 +19,10 @@ const containerStyle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "100vh",
+
   bgcolor: "#F7F4EF",
   borderRadius: "7px",
+  marginTop:"100px"
 };
 
 const Choosetasks = (props) => {
@@ -48,7 +49,6 @@ const Choosetasks = (props) => {
       selectedTasks.push(task);
       // toast.error("You can select only 4 tasks");
       event.currentTarget.classList.add("is__selected");
-
     }
   };
 
@@ -64,7 +64,7 @@ const Choosetasks = (props) => {
       (localStorage && JSON.parse(localStorage.getItem("personaldetails"))) || "";
     personalDetailLS.tags = selectedTasks.join(",");
     localStorage.setItem("personaldetails", JSON.stringify(personalDetailLS));
-    toast.success("Tasks added successfully")
+    toast.success("Tasks added successfully");
     router.push("/profileImage");
   };
   const router = useRouter();
@@ -76,65 +76,66 @@ const Choosetasks = (props) => {
       </Head>
 
       <ToastContainer />
-        <Grid container sx={containerStyle} className="form__container">
+      <Grid container sx={containerStyle} className="form__container">
+        <Grid item sm={12}>
           <Grid item sm={12}>
-            <Grid item sm={12}>
-              <Box sx={{ position: "relative" }}>
-                <Grid item sm={8} sx={{ mx: "auto" }}>
-                  <h5
-                    className="form__container_heading"
-                    style={{ width: "60%", margin: "10px auto" }}
+            <Box sx={{ position: "relative" }}>
+              <Grid item sm={8} sx={{ mx: "auto" }}>
+                <h5
+                  className="form__container_heading"
+                  style={{ width: "60%", margin: "10px auto" }}
+                >
+                  Choose the types of tasks You’re comfortable with from the list below
+                </h5>
+              </Grid>
+              <span className={"update__profile update__profile_counter_2"}>2/3</span>
+            </Box>
+          </Grid>
+          <div className="choose_tasks" >
+            <div className="buttons">
+              <Grid container spacing={3}>
+                {tags &&
+                  tags.length > 0 &&
+                  tags.map((tag) => (
+                    <Grid item xs={6} sm={4} md={3} lg={2.4} key={tag._id}>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        size="large"
+                        data-task={tag.tag}
+                        className={`task__list ${
+                          selectedTasks.includes(tag._id) ? "is__selected" : ""
+                        }`}
+                        onClick={handleSelect}
+                      >
+                        {tag.tag}
+                      </Button>
+                    </Grid>
+                  ))}
+              </Grid>
+            </div>
+          </div>
+          <Grid item md={8} xs={12} sx={{ mx: "auto" }}>
+            <Box component="form" noValidate onSubmit={proceedHandler}>
+              <Grid container justifyContent="center">
+                <Grid item sm={6} sx={{ mt: 4 }}>
+                  <LoadingButton
+                    loading={loading}
+                    type="submit"
+                    size="large"
+                    variant="contained"
+                    loadingPosition="end"
+                    className="default__button"
+                    fullWidth
                   >
-                    Choose the types of tasks You’re comfortable with from the list below
-                  </h5>
+                    Proceed
+                  </LoadingButton>
                 </Grid>
-                <span className={"update__profile update__profile_counter_3"}>2/3</span>
-              </Box>
-            </Grid>
-
-            <Grid container md={8} xs={12} sx={{ mx: "auto", my: 4 }} spacing={6}>
-              {tags &&
-                tags.length > 0 &&
-                tags.map((tag) => (
-                  <Grid item xs={2} sm={4} md={3} key={tag._id}>
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      size="large"
-                      data-task={tag.tag}
-                      className={`task__list ${
-                        selectedTasks.includes(tag._id) ? "is__selected" : ""
-                      }`}
-                      onClick={handleSelect}
-                    >
-                      {tag.tag}
-                    </Button>
-                  </Grid>
-                ))}
-            </Grid>
-
-            <Grid item md={8} xs={12} sx={{ mx: "auto" }}>
-              <Box component="form" noValidate onSubmit={proceedHandler}>
-                <Grid container justifyContent="center">
-                  <Grid item sm={6} sx={{ mt: 4 }}>
-                    <LoadingButton
-                      loading={loading}
-                      type="submit"
-                      size="large"
-                      variant="contained"
-                      loadingPosition="end"
-                      className="default__button"
-                      fullWidth
-                    >
-                      Proceed
-                    </LoadingButton>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Grid>
+              </Grid>
+            </Box>
           </Grid>
         </Grid>
-
+      </Grid>
     </>
   );
 };

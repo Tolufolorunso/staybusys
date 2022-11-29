@@ -128,7 +128,7 @@ export default function Task() {
     <>
       <div className="tasks_page">
         <Head>
-          <title>Settings | Stay busy</title>
+          <title>Settings | Staybusy.io</title>
         </Head>
         <h1 className="header_text" style={{ marginTop: "20px", marginLeft: "30px" }}></h1>
         <Box

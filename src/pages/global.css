@@ -1586,8 +1586,10 @@ hr.divide {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  width: 70%;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .choose .choose_task .proceed {
@@ -1601,7 +1603,8 @@ hr.divide {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 2.5rem;
-  margin-bottom: 2rem;
+
+  margin-top: 2rem;
   place-items: center;
   max-width: 1000px;
   margin: 0 auto 4rem;
@@ -1659,6 +1662,9 @@ hr.divide {
 @media (max-width: 600px) {
   .modalss {
     width: 90% !important;
+  }
+  .choose_tasks{
+    width: 90%;
   }
 }
 .modalss2 {
@@ -2035,7 +2041,7 @@ hr.modal_secions_hr {
   position: relative;
   /* width: 60%; */
   width: 100%;
-  height: 400px;
+  height: 340px;
 
   margin: 0 auto;
 }
@@ -2690,7 +2696,7 @@ button.read_more {
   width: 85% !important;
   margin: auto !important;
   margin-top: 230px !important;
- 
+
 }
 @media (max-width: 600px) {
   .root2 {
@@ -2703,7 +2709,7 @@ button.read_more {
   width: 85% !important;
   margin: auto !important;
   margin-top: 30px !important;
- 
+
 }
 @media (max-width: 600px) {
   .root21 {
@@ -2944,7 +2950,7 @@ border: 1px solid #FF6685;
   height: 52px !important;
   color: #fff !important;
   padding: 1.2rem 3rem !important;
- 
+
   border-radius: 8px !important;
   text-transform: none !important;
   font-family: "Inter" !important;
@@ -2960,7 +2966,7 @@ border: 1px solid #FF6685;
   height: 75px !important;
   padding: 1rem 1rem 1rem 40px!important;
   background: #fff !important;
-  
+
   position: relative !important;
   width: 86% !important;
   font-family: "Euclid Circular A" !important;
@@ -3808,10 +3814,14 @@ margin-bottom: 50px !important;}
   padding-bottom: 20px;
 }
 
+
+
 .form__container {
   font-family: "Euclid Circular A";
-  height: 140vh !important;
+
 }
+
+
 .form__container_heading {
   font-family: "Almarena";
   font-style: normal;
@@ -3822,11 +3832,30 @@ margin-bottom: 50px !important;}
   color: #2f2e40;
   margin: 3rem 0;
 }
+@media screen and (max-width: 600px) {
+  .form__container_heading {
+    font-family: "Almarena";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 130%;
+    text-align: center;
+    color: #2f2e40;
+    margin: 3rem 0;
+  }
+}
+
 .form__container_form {
   background-color: #fff;
   border-radius: 10px;
   border: 1px solid #fc0;
   padding: 3rem;
+}
+@media screen and (max-width: 600px) {
+  .form__container_form{
+    padding: 1rem;
+
+  }
 }
 .form__container_form .kiHXWb {
   border: none !important;
@@ -3936,7 +3965,7 @@ margin-bottom: 50px !important;}
 .update__profile {
   position: absolute;
   right: 8%;
-  top: 47px;
+  top: -50px;
   color: #ff6685;
   background: rgba(255, 102, 133, 0.1);
   width: 60px;
@@ -3948,6 +3977,12 @@ margin-bottom: 50px !important;}
   font-weight: bolder;
   font-family: "Almarena";
 }
+}
+@media (max-width: 600px) {
+
+  .update__profile {
+    top: -60px;
+  }
 }
 .update__profile_counter_1 {
   border-top: 2px solid red;
@@ -3975,4 +4010,9 @@ margin-bottom: 50px !important;}
   background-color: #fc0;
 }
 
-
+.choose_tasks2{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: auto;
+}

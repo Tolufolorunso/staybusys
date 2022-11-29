@@ -122,7 +122,7 @@ const Personaldetails = (props) => {
   return (
     <>
       <Head>
-        <title>Enter Personal Details | Material Kit</title>
+        <title>Enter Personal Details | Staybusy.io</title>
       </Head>
 
         <Grid container sx={containerStyle} className="form__container">
@@ -130,7 +130,7 @@ const Personaldetails = (props) => {
             <Grid item sm={12}>
               <Box sx={{ position: "relative" }}>
                 <Grid item sm={8} sx={{ mx: "auto" }}>
-                  <h5 className="form__container_heading"> Enter your details</h5>
+                  <h5 className="form__container_heading"> Enter your Personal details</h5>
                 </Grid>
                 <span className={"update__profile update__profile_counter_1"}>1/3</span>
               </Box>
@@ -140,7 +140,8 @@ const Personaldetails = (props) => {
                 <Box>
                   <Grid container>
                     <Grid item xs={12} sm={6}>
-                      <Box className="form__container" sx={{ mr: 2 }}>
+                      <Box className="form__container boxform">
+
                         <InputLabel shrink htmlFor="firstName">
                           First Name:
                         </InputLabel>
@@ -162,7 +163,7 @@ const Personaldetails = (props) => {
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
-                      <Box className="form__container" sx={{ ml: 2 }}>
+                      <Box className="form__container" >
                         <InputLabel shrink htmlFor="lastName">
                           Last Name:
                         </InputLabel>
@@ -185,7 +186,7 @@ const Personaldetails = (props) => {
 
                   <Grid container>
                     <Grid item xs={12} sm={6}>
-                      <Box className="form__container" sx={{ mr: 2 }}>
+                      <Box className="form__container boxform">
                         <InputLabel shrink htmlFor="firstName">
                           Country:
                         </InputLabel>
@@ -251,7 +252,7 @@ const Personaldetails = (props) => {
 
                   <Grid container>
                     <Grid item xs={12} sm={6}>
-                      <Box className="form__container" sx={{ mr: 2 }}>
+                      <Box className="form__container boxform">
                         <InputLabel shrink htmlFor="availability">
                           When are you more available:
                         </InputLabel>
