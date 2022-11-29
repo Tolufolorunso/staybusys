@@ -27,7 +27,12 @@ function Section2() {
             <Button className='button_enroll1' href=" /register" variant="contained">Join Now</Button>
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={6}>
-            <Box><img src="../../section2.png" width="100%" alt="" className='section2Image' /></Box>
+            <img src="../../roll.png" className='roll' alt="" />
+            <Box className='rollBox'>
+            
+                <img src="../../section2.png" width="100%" alt="" className='section2Image' />
+            
+            </Box>
             </Grid>
         </Grid>
     </div>

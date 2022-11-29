@@ -1,6 +1,9 @@
-import { Button, InputBase, Typography } from "@mui/material";
+// import React from 'react'
+import { Button, InputBase, Typography ,useMediaQuery} from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
+
+import React, { useState } from "react";
+
 
 export default function section1() {
   const [value, setValue] = useState("");
@@ -12,17 +15,28 @@ export default function section1() {
     }
    localStorage.setItem('email', email);
   }
+  const mobile = useMediaQuery("(max-width:800px)");
   return (
     <div className="roothome homepage" style={{ textAlign: "center" }}>
-      <img src="./starhome.svg" alt="" />
+     {mobile ? (
+        ""
+      ) : (
+        <>
+          <img src="../../roll7.png" 
+          className="roll6"
+           alt="" />
+          <img src="./starhome.svg" 
+          alt="" />{" "}
+        </>
+      )}
       <Typography className="header">
-        Easily Connecting <span style={{ color: "#FF6685" }}>College Students </span> with Paying
-        Tasks
+        Easily Connecting <span style={{ color: "#FF6685" }}>College Students </span> with <span className="wrappers">Paying Tasks</span>{" "}
       </Typography>
       <Typography className="homepageDetails">
         Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
         consequat duis enim velit mollit. Exercitation veniam consequat.
       </Typography>
+      {mobile ? (
       <form className="form" noValidate autoComplete="off">
         <Box className="homeForm" style={{ position: "relative" }}>
           <InputBase
@@ -35,7 +49,7 @@ export default function section1() {
           />
           <Button
             href=" /register"
-            className="button_enroll"
+            className="button_enroll0"
             variant="contained"
             onClick={clickHandler}
           >
@@ -43,6 +57,30 @@ export default function section1() {
           </Button>
         </Box>
       </form>
+       ) : (
+        <form className="form" noValidate autoComplete="off" style={{ position: "relative" }}>
+          <Box className="homeForm" style={{ position: "relative" }}>
+            <InputBase
+              type="email"
+              className="textField"
+              variant="outlined"
+              // value={value}
+              onChange={(e, value) => setValue(e.target.value)}
+              placeholder="Enter your student email"
+            />
+            <Button href=" /register" className="button_enroll" variant="contained">
+              Register
+            </Button>
+          </Box>
+        </form>
+      )}
+       {mobile ? (
+        ""
+      ) : (
+        <>
+          <img src="../../roll6.png" className="roll7" alt="" />{" "}
+        </>
+      )}
     </div>
   );
 }

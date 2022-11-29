@@ -7,7 +7,8 @@ function Section7() {
     <div className='root2 root9' style={{margin:"80px auto"}}>
     <Grid container spacing={2} display={"flex"} alignItems={"center"}>
       <Grid item xs={12} sm={12} md={6}>
-        <Box><img src="../../laptopgirl.png" width="100%" alt="" className="imageSections"/></Box>
+        <Box className="rollBox">
+        <img src="../../roll3.png" className='roll4' alt="" /><img src="../../laptopgirl.png" width="100%" alt="" className="imageSections"/></Box>
       </Grid>
       <Grid item xs={12} sm={12} md={6} className='section3_det'>
 

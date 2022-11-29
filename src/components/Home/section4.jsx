@@ -14,10 +14,10 @@ export default function Section4() {
             <Typography className='section2_det41'>Staybusy has been built to fit easily into your student lifestyle</Typography>
               </Box>
             <Grid container spacing={2} display={"flex"} className="works" alignItems={"center"}>
-      <Grid item xs={12} sm={12} md={6}>
-        <Box><img src="../../LADY1.png" width="100%" alt="" className="imageSections"/></Box>
+      <Grid item xs={12} sm={12}  md={12} lg={6}>
+        <Box><img src="../../LADY1.png" width="100%" alt="" className="imageSections2"/></Box>
       </Grid>
-      <Grid item xs={12} sm={12} md={6} className='section3_det '>
+      <Grid item xs={12} sm={12}  md={12} lg={6} className='section3_det '>
 
       <img src="./Icon1.svg" alt="" /> 
         <Typography  className='section2_det_5'>Sign up and get verified</Typography>
@@ -26,7 +26,7 @@ export default function Section4() {
       </Grid>
     </Grid>
     
-    <Grid container spacing={2}  display={"flex"} className="works" style={{marginTop:"100px"}} alignItems={"center"}>
+    <Grid container spacing={2}  display={"flex"} className="works works2" alignItems={"center"}>
             <Grid item xs={12} sm={12} md={12} lg={6} className="section2_dets">
             <img src="./Icon2.svg" alt="" /> 
         <Typography  className='section2_det_5'>Complete Assigned Tasks</Typography>
@@ -38,10 +38,10 @@ export default function Section4() {
             </Grid>
         </Grid>
         <Grid container spacing={2} display={"flex"}  style={{marginTop:"100px"}}  className="works" alignItems={"center"}>
-      <Grid item xs={12} sm={12} md={6}>
-        <Box><img src="../../lady3.png" width="100%" alt="" className="imageSections"/></Box>
+      <Grid item xs={12} sm={12}  md={12} lg={6}>
+        <Box><img src="../../lady3.png" width="100%" alt="" className="imageSections2"/></Box>
       </Grid>
-      <Grid item xs={12} sm={12} md={6} className='section3_det '>
+      <Grid item xs={12} sm={12} md={12} lg={6} className='section3_det '>
 
       <img src="./Icon3.svg" alt="" /> 
         <Typography  className='section2_det_5'>Get paid upon completion</Typography>
