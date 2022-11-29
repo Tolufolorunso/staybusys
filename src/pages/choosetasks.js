@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {getTags} from "../../lib/get-tags"
 
 import Layout from "src/components/Layout";
+import { getSession } from "next-auth/react";
 
 const selectedTasks = [];
 
@@ -56,15 +57,12 @@ const Choosetasks = (props) => {
     setLoading(true);
     if (!selectedTasks.length) {
         toast.error("Make a selection to proceed");
-        // console.log(error.message)
-      // alert("Make a selection to proceed");
       setLoading(false);
       return;
     }
     const personalDetailLS =
       (localStorage && JSON.parse(localStorage.getItem("personaldetails"))) || "";
     personalDetailLS.tags = selectedTasks.join(",");
-    console.log(personalDetailLS);
     localStorage.setItem("personaldetails", JSON.stringify(personalDetailLS));
     toast.success("Tasks added successfully")
     router.push("/profileImage");
@@ -143,15 +141,44 @@ const Choosetasks = (props) => {
 
 export default Choosetasks;
 
-export async function getStaticProps() {
+export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx);
   const tags = await getTags();
+  console.log(tags)
+  if (session.user.completed) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {
-      tags: tags,
+      ...session,
+      tags
     },
-    revalidate: 20000,
   };
 }
+
+// export async function getStaticProps() {
+//   const tags = await getTags();
+
+//   return {
+//     props: {
+//       tags: tags,
+//     },
+//     revalidate: 20000,
+//   };
+// }
 
 

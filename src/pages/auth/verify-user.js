@@ -20,7 +20,6 @@ function VerifyUserPage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false)
 
-  console.log(query.token);
 
   async function verifyUser() {
     const url = `${API_URI}/auth/verify-user/${query.token}/${query.email}`;
@@ -49,7 +48,6 @@ function VerifyUserPage() {
   useEffect(() => {
     verifyUser();
     setLoading(true);
-    console.log("verify")
   });
   return (
     <>

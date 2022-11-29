@@ -5,7 +5,6 @@ const createOptions = (req) => ({
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
-        console.log("server authorize");
         const url = process.env.API_URL + "/auth/login";
         const response = await fetch(url, {
           method: "POST",
@@ -25,7 +24,6 @@ const createOptions = (req) => ({
   secret: process.env.NEXT_PUBLIC_SECRET,
   callbacks: {
     async jwt({ token, user, account }) {
-      console.log("server login");
       if (req.url === "/api/auth/session?update") {
         const url = process.env.API_URL + "/users/me";
         const response = await fetch(url, {

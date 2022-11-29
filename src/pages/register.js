@@ -52,10 +52,12 @@ const Register = ({ value }) => {
   const [email, setEmail] = useState("");
 
   useEffect(() => {
-    const getEmail = localStorage.getItem("email")
-    setEmail(getEmail ||  "tolu@yahoo.com")
-    
-  })
+    const getEmail = localStorage.getItem("email");
+    setEmail(getEmail || "tolu@yahoo.com");
+    if (email.includes("@")) {
+      localStorage.removeItem("email");
+    }
+  },[]);
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -73,7 +75,7 @@ const Register = ({ value }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      localStorage.removeItem("email")
+      localStorage.removeItem("email");
 
       if (user.status) {
         setOpen(true);
@@ -89,8 +91,6 @@ const Register = ({ value }) => {
       }
     } catch (error) {
       toast.error(error.message);
-
-      console.log(error.message);
     }
     setLoading(false);
   }

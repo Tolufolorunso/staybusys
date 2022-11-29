@@ -97,7 +97,6 @@ const Personaldetails = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("here");
     router.push("/profileImage");
   };
 
@@ -345,7 +344,14 @@ export default Personaldetails;
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
-
+  if (session.user.completed) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
   if (!session) {
     return {
       redirect: {

@@ -13,8 +13,6 @@ import { useEffect } from "react";
 
 const Dashboard = (props) => {
   const { user } = props;
-
-  console.log(user);
   const router = useRouter();
   if (typeof window === "undefined") return null;
 

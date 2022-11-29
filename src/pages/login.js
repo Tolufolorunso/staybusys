@@ -26,8 +26,6 @@ const Login = () => {
     router.replace("/dashboard");
   }
 
-  console.log(status, data);
-
   useEffect(() => {
     if (status !== "unauthenticated") {
       setLoading(false);

@@ -55,7 +55,6 @@ export const DashboardSidebar = (props) => {
   });
 
   function logoutHandler() {
-    console.log("hello");
     signOut();
     router.push('/login')
   }
