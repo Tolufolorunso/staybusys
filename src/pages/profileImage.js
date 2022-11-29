@@ -180,28 +180,28 @@ export default function ProfileImage() {
       </Head>
 
       <ToastContainer />
-      <Grid container 
-      sx={containerStyle} 
+      <Grid container
+      sx={containerStyle}
       className="form__container">
         <Grid item
          sm={12}>
-          <Grid item 
+          <Grid item
           sm={12}>
             <Box sx={{ position: "relative" }}>
-              <Grid item 
-              sm={8} 
+              <Grid item
+              sm={8}
               sx={{ mx: "auto" }}>
                 <h5 className="form__container_heading"> Attach a photo to your profile</h5>
               </Grid>
-              <span className={"update__profile update__profile_counter_1"}>3/3</span>
+              <span className={"update__profile update__profile_counter_3"}>3/3</span>
             </Box>
           </Grid>
           <Grid>
-            <div className="my_container " 
-            component="form" 
-            noValidate 
+            <div className="my_container "
+            component="form"
+            noValidate
             onSubmit={handleSubmit}>
-              <div className="choose_tasks">
+              <div className="choose_tasks2">
                 <div className="choose">
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className="image_upload"></div>
@@ -215,7 +215,7 @@ export default function ProfileImage() {
                       className={`upload${highlight ? " is-highlight" : drop ? " is-drop" : ""}`}
                       style={{ backgroundImage: `url(${preview})` }}
                     >
-                      <form onSubmit={(e) => e.preventDefault()} 
+                      <form onSubmit={(e) => e.preventDefault()}
                       className="upload_form">
                         <BackupOutlinedIcon style={{ fontSize: "75px", color: "lightgray" }} />
 
@@ -274,7 +274,7 @@ export default function ProfileImage() {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                   >
-                    <Box sx={style} 
+                    <Box sx={style}
                     className="modalss2">
                       {/* { <ImageCropper />  */}
                       {/* <ImageCropper imageFile={imageFile} /> */}
@@ -333,16 +333,16 @@ export default function ProfileImage() {
                         /> */}
 
                             <div className="rotateBtns">
-                              <button 
-                              onClick={rotateimageRight} 
+                              <button
+                              onClick={rotateimageRight}
                               className="cropButton">
                                 <span>
                                   <RotateRightIcon className="rotate_icon" />
                                 </span>
                                 <span className="roate_text">Rotate Right</span>
                               </button>
-                              <button 
-                              onClick={rotateimageLeft} 
+                              <button
+                              onClick={rotateimageLeft}
                               className="cropButton">
                                 <span>
                                   <RotateLeftIcon className="rotate_icon" />
