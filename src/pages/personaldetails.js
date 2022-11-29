@@ -123,7 +123,7 @@ const Personaldetails = (props) => {
   return (
     <>
       <Head>
-        <title>Enter Personal Details | Material Kit</title>
+        <title>Enter Personal Details | Staybusy.io</title>
       </Head>
 
         <Grid container sx={containerStyle} className="form__container">

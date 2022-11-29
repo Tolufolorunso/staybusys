@@ -54,7 +54,7 @@ const Register = ({ value }) => {
   useEffect(() => {
     const getEmail = localStorage.getItem("email")
     setEmail(getEmail ||  "tolu@yahoo.com")
-    
+
   })
 
   const togglePassword = () => {
@@ -118,7 +118,7 @@ const Register = ({ value }) => {
   return (
     <>
       <Head>
-        <title>Register | Material Kit</title>
+        <title>Register | Staybusy.io</title>
       </Head>
       <Layout>
         <ToastContainer />
@@ -131,8 +131,8 @@ const Register = ({ value }) => {
                   <div className="login_input">
                     <label htmlFor="student_email">Your student Email:</label> <br />
                     <div className="input_wrap">
-                      <input type="text" 
-                      value={email} 
+                      <input type="text"
+                      value={email}
                       onChange={(e) => setEmail(e.target.value)} />
                     </div>
                   </div>
@@ -165,7 +165,7 @@ const Register = ({ value }) => {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                   >
-                    <Box sx={style} 
+                    <Box sx={style}
                     className="modalss">
                       <div className="registration_modal">
                         <div className="registration_modal_desc">
