@@ -12,8 +12,8 @@ import Modal from "@mui/material/Modal";
 import { Box, Grid, Typography } from "@mui/material";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import RotateRightIcon from "@mui/icons-material/RotateRight";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast,ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import { getSession, signOut, useSession } from "next-auth/react";
 
@@ -40,6 +40,7 @@ const containerStyle = {
   height: "100vh",
   bgcolor: "b#F7F4EF",
   borderRadius: "7px",
+
 };
 
 export default function ProfileImage(props) {
@@ -146,9 +147,12 @@ export default function ProfileImage(props) {
         setPreview(`data:image/jpg;base64,${fileRes}`);
       };
     } catch (err) {
-      setLoading(false);
+      console.log(err);
+      setLoading(false)
       toast.error(err.message);
     }
+
+
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -174,135 +178,135 @@ export default function ProfileImage(props) {
         <title>Upload Picture | Staybusy.io</title>
       </Head>
 
-      <ToastContainer />
-      <Grid container sx={containerStyle} className="form__container">
-        <Grid item sm={12}>
+        <ToastContainer />
+        <Grid container sx={containerStyle} className="form__container">
           <Grid item sm={12}>
-            <Box sx={{ position: "relative" }}>
-              <Grid item sm={8} sx={{ mx: "auto" }}>
-                <h5 className="form__container_heading"> Attach a photo to your profile</h5>
-              </Grid>
-              <span className={"update__profile update__profile_counter_1"}>3/3</span>
-            </Box>
-          </Grid>
-          <Grid>
-            <div className="my_container " component="form" noValidate onSubmit={handleSubmit}>
-              <div className="choose_tasks">
-                <div className="choose">
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <div className="image_upload"></div>
-                  </div>
-                  <div className="uploadimg_hold">
-                    <div
-                      onDragEnter={(e) => handleEnter(e)}
-                      onDragLeave={(e) => handleLeave(e)}
-                      onDragOver={(e) => handleOver(e)}
-                      onDrop={(e) => handleUpload(e)}
-                      className={`upload${highlight ? " is-highlight" : drop ? " is-drop" : ""}`}
-                      style={{ backgroundImage: `url(${preview})` }}
-                    >
-                      <form onSubmit={(e) => e.preventDefault()} className="upload_form">
-                        <BackupOutlinedIcon style={{ fontSize: "75px", color: "lightgray" }} />
-
-                        <p>Drag and Drop image here</p>
-                        <div className="upload-button">
-                          <input
-                            type="file"
-                            className={`upload-file ${mouseEnter ? "displayNone" : ""}`}
-                            accept="image/*"
-                            onChange={(e) => handleUpload(e)}
-                          />
-                          <button className="button"></button>
-                        </div>
-                      </form>
+            <Grid item sm={12}>
+              <Box sx={{ position: "relative" }}>
+                <Grid item sm={8} sx={{ mx: "auto" }}>
+                  <h5 className="form__container_heading"> Attach a photo to your profile</h5>
+                </Grid>
+                <span className={"update__profile update__profile_counter_1"}>3/3</span>
+              </Box>
+            </Grid>
+            <Grid>
+              <div className="my_container " component="form" noValidate onSubmit={handleSubmit}>
+                <div className="choose_tasks">
+                  <div className="choose">
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <div className="image_upload"></div>
                     </div>
-                    {!preview ? (
-                      ""
-                    ) : (
-                      <Typography
-                        variant="caption2"
-                        style={{
-                          padding: "20px 0 0",
-                          color: "#FF6685",
-                          display: "flex",
-                          justifyContent: "center",
-                          cursor: "pointer",
-                        }}
-                        onClick={handleOpen}
+                    <div className="uploadimg_hold">
+                      <div
+                        onDragEnter={(e) => handleEnter(e)}
+                        onDragLeave={(e) => handleLeave(e)}
+                        onDragOver={(e) => handleOver(e)}
+                        onDrop={(e) => handleUpload(e)}
+                        className={`upload${highlight ? " is-highlight" : drop ? " is-drop" : ""}`}
+                        style={{ backgroundImage: `url(${preview})` }}
                       >
-                        {" "}
-                        Edit or replace photo
-                      </Typography>
-                    )}
-                  </div>
+                        <form onSubmit={(e) => e.preventDefault()} className="upload_form">
+                          <BackupOutlinedIcon style={{ fontSize: "75px", color: "lightgray" }} />
 
-                  <LoadingButton
-                    loading={loading}
-                    type="submit"
-                    onClick={handleSubmit}
-                    size="large"
-                    variant="contained"
-                    loadingPosition="end"
-                    className="upload_btn actn_btn"
-                  >
-                    Complete Profile
-                  </LoadingButton>
-
-                  <Modal
-                    open={open}
-                    onClose={handleClose}
-                    image={preview}
-                    getCroppedFile={(preview) => {
-                      setPreview(preview);
-                      handleClose();
-                    }}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style} className="modalss2">
-                      {/* { <ImageCropper />  */}
-                      {/* <ImageCropper imageFile={imageFile} /> */}
-                      <div>
-                        <div className="crop">
-                          <p>Crop image and upload</p>
-                          <span>
-                            <CloseIcon
-                              onClick={stopUload}
-                              style={{ fontSize: "40px", cursor: "pointer" }}
+                          <p>Drag and Drop image here</p>
+                          <div className="upload-button">
+                            <input
+                              type="file"
+                              className={`upload-file ${mouseEnter ? "displayNone" : ""}`}
+                              accept="image/*"
+                              onChange={(e) => handleUpload(e)}
                             />
-                          </span>
-                        </div>
-                        <div className="cropContainer1">
-                          <Cropper
-                            image={imageFile}
-                            crop={crop}
-                            rotation={rotation}
-                            zoom={zoom}
-                            cropShape="round"
-                            aspect={4 / 3}
-                            onCropChange={setCrop}
-                            onRotationChange={setRotation}
-                            onCropComplete={onCropComplete}
-                            onZoomChange={setZoom}
-                          />
-                        </div>
-                        <div className="controls">
-                          <div className="sliderContainer">
-                            {/* <Typography variant="overline" className="sliderLabel">
-                          Zoom
-                        </Typography> */}
-                            <Slider
-                              value={zoom}
-                              min={1}
-                              max={3}
-                              step={0.1}
-                              aria-labelledby="Zoom"
-                              className="slider"
-                              onChange={(e, zoom) => setZoom(zoom)}
+                            <button className="button"></button>
+                          </div>
+                        </form>
+                      </div>
+                      {!preview ? (
+                        ""
+                      ) : (
+                        <Typography
+                          variant="caption2"
+                          style={{
+                            padding: "20px 0 0",
+                            color: "#FF6685",
+                            display: "flex",
+                            justifyContent: "center",
+                            cursor: "pointer",
+                          }}
+                          onClick={handleOpen}
+                        >
+                          {" "}
+                          Edit or replace photo
+                        </Typography>
+                      )}
+                    </div>
+
+                    <LoadingButton
+                      loading={loading}
+                      type="submit"
+                      onClick={handleSubmit}
+                      size="large"
+                      variant="contained"
+                      loadingPosition="end"
+                      className="upload_btn actn_btn"
+                    >
+                      Complete Profile
+                    </LoadingButton>
+
+                    <Modal
+                      open={open}
+                      onClose={handleClose}
+                      image={preview}
+                      getCroppedFile={(preview) => {
+                        setPreview(preview);
+                        handleClose();
+                      }}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={style} className="modalss2">
+                        {/* { <ImageCropper />  */}
+                        {/* <ImageCropper imageFile={imageFile} /> */}
+                        <div>
+                          <div className="crop">
+                            <p>Crop image and upload</p>
+                            <span>
+                              <CloseIcon
+                                onClick={stopUload}
+                                style={{ fontSize: "40px", cursor: "pointer" }}
+                              />
+                            </span>
+                          </div>
+                          <div className="cropContainer1">
+                            <Cropper
+                              image={imageFile}
+                              crop={crop}
+                              rotation={rotation}
+                              zoom={zoom}
+                              cropShape="round"
+                              aspect={4 / 3}
+                              onCropChange={setCrop}
+                              onRotationChange={setRotation}
+                              onCropComplete={onCropComplete}
+                              onZoomChange={setZoom}
                             />
                           </div>
-                          <div className="sliderContainer">
-                            {/* <Typography variant="overline" className="sliderLabel">
+                          <div className="controls">
+                            <div className="sliderContainer">
+                              {/* <Typography variant="overline" className="sliderLabel">
+                          Zoom
+                        </Typography> */}
+                              <Slider
+                                value={zoom}
+                                min={1}
+                                max={3}
+                                step={0.1}
+                                aria-labelledby="Zoom"
+                                className="slider"
+                                onChange={(e, zoom) => setZoom(zoom)}
+                              />
+                            </div>
+                            <div className="sliderContainer">
+                              {/* <Typography variant="overline" className="sliderLabel">
                           Rotation
                         </Typography>
                         {rotation}
@@ -316,42 +320,44 @@ export default function ProfileImage(props) {
                           onChange={(e, rotation) => setRotation(rotation)}
                         /> */}
 
-                            <div className="rotateBtns">
-                              <button onClick={rotateimageRight} className="cropButton">
-                                <span>
-                                  <RotateRightIcon className="rotate_icon" />
-                                </span>
-                                <span className="roate_text">Rotate Right</span>
-                              </button>
-                              <button onClick={rotateimageLeft} className="cropButton">
-                                <span>
-                                  <RotateLeftIcon className="rotate_icon" />
-                                </span>
-                                <span className="roate_text">Rotate Left</span>
-                              </button>
+                              <div className="rotateBtns">
+                                <button onClick={rotateimageRight} className="cropButton">
+                                  <span>
+                                    <RotateRightIcon className="rotate_icon" />
+                                  </span>
+                                  <span className="roate_text">Rotate Right</span>
+                                </button>
+                                <button onClick={rotateimageLeft} className="cropButton">
+                                  <span>
+                                    <RotateLeftIcon className="rotate_icon" />
+                                  </span>
+                                  <span className="roate_text">Rotate Left</span>
+                                </button>
+                              </div>
                             </div>
+                            <buttom
+                              style={{ cursor: "pointer" }}
+                              onClick={showCroppedImage}
+                              className="cropButtonEnter"
+                            >
+                              Upload Profile Photo
+                            </buttom>
                           </div>
-                          <buttom
-                            style={{ cursor: "pointer" }}
-                            onClick={showCroppedImage}
-                            className="cropButtonEnter"
-                          >
-                            Upload Profile Photo
-                          </buttom>
+                          {/* <ImgDialog img={croppedImage} onClose={onClose} /> */}
                         </div>
-                        {/* <ImgDialog img={croppedImage} onClose={onClose} /> */}
-                      </div>
-                    </Box>
-                  </Modal>
+                      </Box>
+                    </Modal>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+
     </div>
   );
 }
+
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);

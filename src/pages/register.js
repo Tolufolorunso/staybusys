@@ -81,7 +81,7 @@ const Register = ({ value }) => {
         setOpen(true);
         setLoading(false);
 
-        toast.success("User Successful sign-up");
+        toast.success("User has Successful Signed Up");
         setTimeout(() => {
           setOpen(false);
           router.push("/");
@@ -131,7 +131,9 @@ const Register = ({ value }) => {
                   <div className="login_input">
                     <label htmlFor="student_email">Your student Email:</label> <br />
                     <div className="input_wrap">
-                      <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                      <input type="text" 
+                      value={email} 
+                      onChange={(e) => setEmail(e.target.value)} />
                     </div>
                   </div>
                   <div className="login_input">
@@ -163,7 +165,8 @@ const Register = ({ value }) => {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                   >
-                    <Box sx={style} className="modalss">
+                    <Box sx={style} 
+                    className="modalss">
                       <div className="registration_modal">
                         <div className="registration_modal_desc">
                           <div
@@ -204,7 +207,8 @@ const Register = ({ value }) => {
               <div className="already">
                 <p>
                   Already have an account?{" "}
-                  <Button className="logins" href="/login">
+                  <Button className="logins"
+                   href="/login">
                     {" "}
                     Login
                   </Button>

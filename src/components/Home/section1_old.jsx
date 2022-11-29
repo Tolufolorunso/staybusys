@@ -1,38 +1,77 @@
-import { Box, Button, Grid, InputBase, Typography } from "@mui/material";
+// import { useMediaQuery } from '@material-ui/core'
+import { Button, InputBase, Typography, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/system";
 import React from "react";
 
-
-export default function Section1 () {
-  const [value, setValue] = React.useState("");
-  // console.log(value)
+function Section1() {
+  // const [value, setValue] = React.useState("");
+  const mobile = useMediaQuery("(max-width:800px)");
   return (
-    <div className='root'>
-      <Grid container spacing={2} display={"flex"} alignItems={"center"} className='section1Box'>
-        <Grid item xs={12} sm={12} md={6}>
-          <Box><img src="../../header1.png" width='100%' className='section1Image' alt="" /></Box>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} className='headebox'>
-          <Typography className='headDetail'>
-          The study can be hard...
-          </Typography>
-          <Typography style={{border:"3px solid #FFCC00",width:"90px" ,borderRadius:"12px"}}></Typography>
-          <Typography className='header'>Finding paying tasks as college students shouldn’t be</Typography>
-          <form className='form' noValidate autoComplete="off">
-                  <Box style={{ position: "relative" }}>
-                    <InputBase
-                      type="email"
-                      className='textField'
-                      variant="outlined"
-                      // value={value}
-                      // onChange={(e, value) => setValue(value)}
-                      placeholder="Enter your student email"
-                    />
-                    <Button value={value}href=" /register" className='button_enroll'variant="contained">Sign up</Button>
-                  </Box>
-                </form>
-        </Grid>
-      </Grid>
+    <div className="roothome homepage"
+     style={{ textAlign: "center" }}>
+      {mobile ? (
+        ""
+      ) : (
+        <>
+          <img src="../../roll7.png" 
+          className="roll6"
+           alt="" />
+          <img src="./starhome.svg" 
+          alt="" />{" "}
+        </>
+      )}
+
+      <Typography className="header">
+        Easily Connecting <span style={{ color: "#FF6685" }}>College Students </span> with{" "}
+        <span className="wrappers">Paying Tasks</span>{" "}
+      </Typography>
+      <Typography className="homepageDetails">
+        Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
+        consequat duis enim velit mollit. Exercitation veniam consequat.
+      </Typography>
+
+      {mobile ? (
+        <form className="form" noValidate autoComplete="off" style={{ position: "relative" }}>
+          <Box className="homeForm" style={{ position: "relative" }}>
+            <InputBase
+              type="email"
+              className="textField"
+              variant="outlined"
+              // value={value}
+              // onChange={(e, value) => setValue(value)}
+              placeholder="Enter your student email"
+            />
+            <Button href=" /register" className="button_enroll0" variant="contained">
+              Register
+            </Button>
+          </Box>
+        </form>
+      ) : (
+        <form className="form" noValidate autoComplete="off" style={{ position: "relative" }}>
+          <Box className="homeForm" style={{ position: "relative" }}>
+            <InputBase
+              type="email"
+              className="textField"
+              variant="outlined"
+              // value={value}
+              // onChange={(e, value) => setValue(value)}
+              placeholder="Enter your student email"
+            />
+            <Button href=" /register" className="button_enroll" variant="contained">
+              Register
+            </Button>
+          </Box>
+        </form>
+      )}
+      {mobile ? (
+        ""
+      ) : (
+        <>
+          <img src="../../roll6.png" className="roll7" alt="" />{" "}
+        </>
+      )}
     </div>
   );
+}
 
-};
+export default Section1;
