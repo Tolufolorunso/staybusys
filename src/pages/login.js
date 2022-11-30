@@ -9,7 +9,7 @@ import { LoadingButton } from "@mui/lab";
 import Layout from "src/components/Layout";
 import "react-toastify/dist/ReactToastify.css";
 
-import { signIn, useSession } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 
 const Login = () => {
@@ -130,3 +130,21 @@ const Login = () => {
 };
 
 export default Login;
+
+export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx);
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      ...session,
+    },
+  };
+}

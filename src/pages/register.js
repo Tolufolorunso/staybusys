@@ -19,6 +19,7 @@ import { fetchJson } from "../../lib/api";
 import { set } from "nprogress";
 import { API_URI } from "lib/contant";
 import { useEffect } from "react";
+import { getSession } from "next-auth/react";
 
 const style = {
   position: "absolute",
@@ -53,10 +54,11 @@ const Register = ({ value }) => {
 
   useEffect(() => {
     const getEmail = localStorage.getItem("email");
+    console.log(getEmail)
     setEmail(getEmail || "tolu@yahoo.com");
-    if (email.includes("@")) {
-      localStorage.removeItem("email");
-    }
+    // if (email.includes("@")) {
+    //   localStorage.removeItem("email");
+    // }
   },[]);
 
   const togglePassword = () => {
@@ -75,16 +77,15 @@ const Register = ({ value }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      localStorage.removeItem("email");
 
       if (user.status) {
         setOpen(true);
         setLoading(false);
-
         toast.success("User has Successful Signed Up");
         setTimeout(() => {
           setOpen(false);
-          router.push("/");
+          localStorage.removeItem("email")
+          router.push("/login");
         }, 3000);
       } else {
         throw new Error(user.message);
@@ -223,3 +224,21 @@ const Register = ({ value }) => {
 };
 
 export default Register;
+
+export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx);
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      ...session,
+    },
+  };
+}
