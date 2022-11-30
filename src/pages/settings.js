@@ -8,16 +8,24 @@ import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 import Modal from "@mui/material/Modal";
 import Select from "react-select";
+import { fetchJson } from "lib/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { API_URI } from "lib/contant";
+import { getSession } from "next-auth/react";
+import { LoadingButton } from "@mui/lab";
+import { getTags } from "lib/get-tags";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  overflow:"auto",
+  overflow: "auto",
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
   boxShadow: 24,
@@ -27,11 +35,14 @@ const smallerStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-overflow:"auto",
+  overflow: "auto",
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
   boxShadow: 24,
 };
+
+// const selectedTasks = [];
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -65,8 +76,10 @@ function a11yProps(index) {
   };
 }
 
-export default function Task() {
+export default function Task(props) {
   const [value, setValue] = React.useState(0);
+  const { user, tags } = props;
+  const [selectedTasks, setSelectedTasks] = React.useState(user.tags);
   const options = [
     { value: "Euro", label: "Euro" },
     { value: "Naira", label: "Naira" },
@@ -124,12 +137,143 @@ export default function Task() {
     setopenSecondModal(true);
     setOpen(false);
   }
+
+  const [loading, setLoading] = React.useState(false);
+  const [basicValues, setBasicValues] = React.useState({
+    email: user.email,
+    phone_number: user.phone_number,
+    firstname: user.firstname,
+    lastname: user.lastname,
+  });
+
+  const [passwordValues, setPasswordValues] = React.useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  async function profileBasicHandler() {
+    const { email, firstname, lastname, phone_number } = basicValues;
+    setLoading(true);
+    try {
+      const updatedUser = await fetchJson(`${API_URI}/users/basic`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.accessToken}`,
+        },
+        body: JSON.stringify({ email, phone_number, firstname, lastname }),
+      });
+
+      if (updatedUser.status) {
+        await fetch("/api/auth/session?update");
+        setLoading(false);
+        toast.success("profile updated");
+        console.log(updatedUser);
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message);
+      // console.log(error);
+    }
+  }
+
+  const removeSelectedTasks = (arr, value) => {
+    return arr.filter(function (ele) {
+      return ele != value;
+    });
+  };
+
+  const handleSelect = (event) => {
+    const task = event.currentTarget.dataset.task;
+
+    if (selectedTasks.includes(task)) {
+      selectedTasks = removeSelectedTasks(selectedTasks, task);
+      event.currentTarget.classList.remove("is__selected");
+    } else {
+      if (selectedTasks.length > 3) return toast.error("You can select only 4 tasks");
+      selectedTasks.push(task);
+      event.currentTarget.classList.add("is__selected");
+    }
+  };
+
+  async function updateFavHandler() {
+    if (selectedTasks.length < 1) {
+      return toast.error("Select atleast one tag");
+    }
+
+    try {
+      const updatedUser = await fetchJson(`${API_URI}/users/update-tag`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.accessToken}`,
+        },
+        body: JSON.stringify({ tags: selectedTasks.join(",") }),
+      });
+
+      console.log(updatedUser);
+
+      if (updatedUser.status) {
+        await fetch("/api/auth/session?update");
+        setLoading(false);
+        toast.success("profile updated");
+        console.log(updatedUser);
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message);
+      // console.log(error);
+    }
+  }
+
+  function changeBasicInfoHandler(e) {
+    setBasicValues({ ...basicValues, [e.target.name]: e.target.value });
+  }
+
+  function passwordOnChangeHandler(e) {
+    setPasswordValues({ ...passwordValues, [e.target.name]: e.target.value });
+  }
+
+  async function changePasswordHandler() {
+    const { oldPassword, newPassword, confirmPassword } = passwordValues;
+    if (newPassword !== confirmPassword) {
+      return toast.error("passwords not matched");
+    }
+
+    try {
+      const updatedUser = await fetchJson(`${API_URI}/auth/change-password`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.accessToken}`,
+        },
+        body: JSON.stringify({ oldPassword, newPassword }),
+      });
+
+      if (updatedUser.status) {
+        await fetch("/api/auth/session?update");
+        setLoading(false);
+        toast.success(updatedUser.message);
+        console.log(updatedUser);
+      }
+      if(!updatedUser.status) {
+        throw new Error(updatedUser.message)
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message);
+      // console.log(error);
+    }
+  }
+
   return (
     <>
       <div className="tasks_page">
         <Head>
           <title>Settings | Staybusy.io</title>
         </Head>
+        <ToastContainer />
         <h1 className="header_text" style={{ marginTop: "20px", marginLeft: "30px" }}></h1>
         <Box
           component="main"
@@ -175,14 +319,30 @@ export default function Task() {
                       <Grid container spacing={5}>
                         <Grid item xs={12} sm={6}>
                           <div className="inputs" style={{ width: "100%" }}>
-                            <label htmlFor="First name:">First name:</label> <br />
-                            <input type="text" style={{ width: "100%" }} placeholder="Seyi" />
+                            <label htmlFor="firstname:">First name:</label> <br />
+                            <input
+                              id="firstname"
+                              type="text"
+                              style={{ width: "100%" }}
+                              placeholder="Seyi"
+                              value={basicValues.firstname}
+                              name="firstname"
+                              onChange={changeBasicInfoHandler}
+                            />
                           </div>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                           <div className="inputs" style={{ width: "100%" }}>
-                            <label htmlFor="Last name:">Last name:</label> <br />
-                            <input type="text" style={{ width: "100%" }} placeholder="Blessing" />
+                            <label htmlFor="lastname:">Last name:</label> <br />
+                            <input
+                              type="text"
+                              id="lastname"
+                              style={{ width: "100%" }}
+                              placeholder="Blessing"
+                              value={basicValues.lastname}
+                              name="lastname"
+                              onChange={changeBasicInfoHandler}
+                            />
                           </div>
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -192,6 +352,9 @@ export default function Task() {
                               type="email"
                               style={{ width: "100%" }}
                               placeholder="Seyi@staybusy.io"
+                              value={basicValues.email}
+                              name="email"
+                              onChange={changeBasicInfoHandler}
                             />
                           </div>
                         </Grid>
@@ -202,12 +365,29 @@ export default function Task() {
                               type="number"
                               style={{ width: "100%" }}
                               placeholder="07041328653"
+                              value={basicValues.phone_number}
+                              name="phone_number"
+                              onChange={changeBasicInfoHandler}
                             />
                           </div>
                         </Grid>
                       </Grid>
 
-                      <button className="actn_btn">Update</button>
+                      {/* <button className="actn_btn" onClick={profileBasicHandler}>
+                        Update
+                      </button> */}
+                      <LoadingButton
+                        loading={loading}
+                        type="button"
+                        size="large"
+                        variant="contained"
+                        loadingPosition="end"
+                        className="actn_btn"
+                        fullWidth
+                        onClick={profileBasicHandler}
+                      >
+                        Update
+                      </LoadingButton>
                     </div>
                   </div>
                 </div>
@@ -222,59 +402,28 @@ export default function Task() {
                   <div className="right">
                     <div className="input_wrap">
                       <Grid container spacing={3}>
-                        <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                          <button variant="contain" className="interests_btn">
-                            Tag 1
-                          </button>
-                        </Grid>
-                        <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                          <button variant="contain" className="interests_btn">
-                            Tag 2
-                          </button>
-                        </Grid>
-                        <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                          <button variant="contain" className="interests_btn">
-                            Tag 3
-                          </button>
-                        </Grid>
-                        <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                          <button variant="contain" className="interests_btn">
-                            Tag 4
-                          </button>
-                        </Grid>
-                        <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                          <button variant="contain" className="interests_btn">
-                            Tag 5
-                          </button>
-                        </Grid>
-                        <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                          <button variant="contain" className="interests_btn">
-                            Tag 6
-                          </button>
-                        </Grid>
-                        <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                          <button variant="contain" className="interests_btn">
-                            Tag 7
-                          </button>
-                        </Grid>
-                        <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                          <button variant="contain" className="interests_btn">
-                            Tag 8
-                          </button>
-                        </Grid>
-                        <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                          <button variant="contain" className="interests_btn">
-                            Tag 9
-                          </button>
-                        </Grid>
-                        <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                          <button variant="contain" className="interests_btn">
-                            Tag 10
-                          </button>
-                        </Grid>
+                        {tags.map((tag) => {
+                          return (
+                            <Grid item xs={6} sm={4} md={3} lg={2.4} key={tags._id}>
+                              <button
+                                fullWidth
+                                size="large"
+                                variant="contain"
+                                data-task={tag.tag}
+                                className={`task__list interests_btn ${
+                                  selectedTasks.includes(tag.tag) ? "is__selected" : ""
+                                }`}
+                                onClick={handleSelect}
+                              >
+                                {tag.tag}
+                              </button>
+                            </Grid>
+                          );
+                        })}
                       </Grid>
-
-                      <button className="actn_btn">Update</button>
+                      <button className="actn_btn" onClick={updateFavHandler}>
+                        Update
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -295,6 +444,9 @@ export default function Task() {
                               type="password"
                               style={{ width: "100%" }}
                               placeholder="......................."
+                              name="oldPassword"
+                              value={passwordValues.oldPassword}
+                              onChange={passwordOnChangeHandler}
                             />
                           </div>
                         </Grid>
@@ -307,6 +459,9 @@ export default function Task() {
                               type="password"
                               style={{ width: "100%" }}
                               placeholder="......................."
+                              name="newPassword"
+                              value={passwordValues.newPassword}
+                              onChange={passwordOnChangeHandler}
                             />
                           </div>
                         </Grid>
@@ -317,11 +472,16 @@ export default function Task() {
                               type="password"
                               style={{ width: "100%" }}
                               placeholder="................"
+                              name="confirmPassword"
+                              value={passwordValues.confirmPassword}
+                              onChange={passwordOnChangeHandler}
                             />
                           </div>
                         </Grid>
                       </Grid>
-                      <button className="actn_btn">Update</button>
+                      <button className="actn_btn" onClick={changePasswordHandler}>
+                        Update
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -339,26 +499,25 @@ export default function Task() {
                           <div className="acoout_info">
                             <div className="wrapper">
                               <div className="left">
-
                                 <div className="act_info">
-<Grid container spacing={8}>
-  <Grid  item xs={6}>
-                                  <p>Bank Name:</p>
-                                  </Grid>
-                                  <Grid  item xs={6}>
-                                  <span>United Bank For Afrfica</span>
-                                  </Grid>
+                                  <Grid container spacing={8}>
+                                    <Grid item xs={6}>
+                                      <p>Bank Name:</p>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                      <span>United Bank For Afrfica</span>
+                                    </Grid>
                                   </Grid>
                                 </div>
 
                                 <div className="act_info">
-                                <Grid container spacing={8}>
-                                <Grid  item xs={6}>
-                                  <p>Account Name:</p>
-                                  </Grid>
-                                  <Grid  item xs={6}>
-                                  <span>Melanie Walters</span>
-                                  </Grid>
+                                  <Grid container spacing={8}>
+                                    <Grid item xs={6}>
+                                      <p>Account Name:</p>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                      <span>Melanie Walters</span>
+                                    </Grid>
                                   </Grid>
                                 </div>
                                 <div className="act_info">
@@ -369,9 +528,7 @@ export default function Task() {
                                   <p>Country:</p>
                                   <span>Nigeria</span>
                                 </div>
-
                               </div>
-
 
                               <div className="right">
                                 <button>Edit</button>
@@ -382,63 +539,65 @@ export default function Task() {
                         ) : (
                           <p>You’ve not added a withdrawal account</p>
                         )}
-                         <div className="acoout_info">
-                            <div className="wrapper">
-                              <div className="left">
+                        <div className="acoout_info">
+                          <div className="wrapper">
+                            <div className="left">
                               <div className="act_info">
-<Grid container spacing={4}>
-  <Grid  item xs={6}>
-                                  <p>Bank Name:</p>
-                                  </Grid>
-                                  <Grid  item xs={6}>
-                                  <span>United Bank For Afrfica</span>
-                                  </Grid>
-                                  </Grid>
-                                </div>
-
-                                <div className="act_info">
                                 <Grid container spacing={4}>
-                                <Grid  item xs={6}>
-                                  <p>Account Name:</p>
+                                  <Grid item xs={6}>
+                                    <p>Bank Name:</p>
                                   </Grid>
-                                  <Grid  item xs={6}>
-                                  <span>Melanie Walters</span>
+                                  <Grid item xs={6}>
+                                    <span>United Bank For Afrfica</span>
                                   </Grid>
-                                  </Grid>
-                                </div>
-                                <div className="act_info">
-                                <Grid container spacing={4}>
-                                <Grid  item xs={6}>
-                                  <p>Account Number:</p>
-                                  </Grid>
-                                  <Grid  item xs={6}>
-                                  <span>2086078162</span>
-                                  </Grid>
-                                  </Grid>
-                                </div>
-                                <div className="act_info">
-                                <Grid container spacing={4}>
-                                <Grid  item xs={6}>
-                                  <p>Country:</p>
-                                  </Grid>
-                                  <Grid  item xs={6}>
-                                  <span>Nigeria</span>
-                                  </Grid>
-                                  </Grid>
-                                </div>
+                                </Grid>
                               </div>
 
-                              <div className="right">
-
-                                <button>  <img src="./PENCIL.svg"  style={{marginRight:"8px"}}/> Edit</button>
-                                <small>Added, oct 7,2021</small>
+                              <div className="act_info">
+                                <Grid container spacing={4}>
+                                  <Grid item xs={6}>
+                                    <p>Account Name:</p>
+                                  </Grid>
+                                  <Grid item xs={6}>
+                                    <span>Melanie Walters</span>
+                                  </Grid>
+                                </Grid>
+                              </div>
+                              <div className="act_info">
+                                <Grid container spacing={4}>
+                                  <Grid item xs={6}>
+                                    <p>Account Number:</p>
+                                  </Grid>
+                                  <Grid item xs={6}>
+                                    <span>2086078162</span>
+                                  </Grid>
+                                </Grid>
+                              </div>
+                              <div className="act_info">
+                                <Grid container spacing={4}>
+                                  <Grid item xs={6}>
+                                    <p>Country:</p>
+                                  </Grid>
+                                  <Grid item xs={6}>
+                                    <span>Nigeria</span>
+                                  </Grid>
+                                </Grid>
                               </div>
                             </div>
+
+                            <div className="right">
+                              <button>
+                                {" "}
+                                <img src="./PENCIL.svg" style={{ marginRight: "8px" }} /> Edit
+                              </button>
+                              <small>Added, oct 7,2021</small>
+                            </div>
                           </div>
-<div>
-                        <button onClick={handleOpen} className="actn_btn">
-                          Add an account
-                        </button>
+                        </div>
+                        <div>
+                          <button onClick={handleOpen} className="actn_btn">
+                            Add an account
+                          </button>
                         </div>
                         <div>
                           <Modal
@@ -464,7 +623,7 @@ export default function Task() {
 
                                 <hr className="hr_with" />
 
-                                <div className="add_inputs" >
+                                <div className="add_inputs">
                                   <div className="add_input ">
                                     <label htmlFor="Country">Country</label> <br />
                                     <input type="text" />
@@ -576,3 +735,24 @@ export default function Task() {
 }
 
 Task.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+
+export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx);
+  const tags = await getTags();
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      ...session,
+      tags,
+    },
+  };
+}
