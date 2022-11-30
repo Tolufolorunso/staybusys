@@ -5,10 +5,18 @@ import { useState } from "react";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { tasksList } from "src/__mocks__/tasksList";
+// import { tasksList } from "src/__mocks__/tasksList";
 import Select from "react-select";
 import { DashboardLayout } from "../components/dashboard-layout";
 import Modal from "@mui/material/Modal";
+import { fetchJson } from "lib/api";
+import { getSession, useSession } from "next-auth/react";
+import { useEffect } from "react";
+import "react-toastify/dist/ReactToastify.css";
+
+import { ToastContainer, toast } from "react-toastify";
+import { API_URI } from "../../lib/contant";
+import { filterTask, padPrice } from "../../lib/filter";
 
 const style = {
   position: "absolute",
@@ -31,18 +39,36 @@ const style = {
   p: 4,
 };
 
-export default function Task() {
+export default function Task(props) {
+  const { user } = props;
   const [viewMode, setviewMode] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [openSecondModal, setopenSecondModal] = React.useState(false);
-  const handleopenSecondModal = () => setopenSecondModal(true);
   const handlecloseSecondModal = () => setopenSecondModal(false);
   function closeModals() {
     setopenSecondModal(false);
     setOpen(false);
   }
+
+  const [tasksList, setTasksList] = useState([]);
+  const [taskDetail, settaskDetail] = useState(null);
+
+  const { data } = useSession();
+
+  useEffect(() => {
+    async function fetchTasks() {
+      const res = await fetchJson("/api/tasks", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ token: data?.user?.token }),
+      });
+      setTasksList(res.tasks || []);
+    }
+    fetchTasks();
+  }, [data?.user]);
+
   const selectedBtns = [];
 
   function chooseTask(btnNumber) {
@@ -54,13 +80,11 @@ export default function Task() {
         btn.classList.toggle("active");
         if (btn.classList.contains("active")) {
           // selectedBtns.push(btn);
-          //   console.log(selectedBtns);
-          if (selectedBtns.length <= 3 ) {
+          if (selectedBtns.length <= 3) {
             selectedBtns.push(btn);
-            console.log(selectedBtns);
           } else {
-            alert('You can no longer add new tasks')
-            btn.classList.remove('active')
+            toast.error("You can no longer add new tasks");
+            btn.classList.remove("active");
             return;
           }
         }
@@ -69,14 +93,10 @@ export default function Task() {
             selectedBtns.pop(arrBtn);
           }
         });
-
-
-        
       }
     });
   }
   const options = [
-    { value: "Relevance", label: "Sort by: Relevance" },
     { value: "Newest", label: "Sort by: Newest" },
     { value: "Oldest", label: "Sort by: Oldest" },
   ];
@@ -114,8 +134,6 @@ export default function Task() {
   };
 
   function changeToGridDisplay(e) {
-    console.log("Change Display");
-    console.log(e.target.src);
     const getDisplay = document.querySelector(".grids_sec");
     if (getDisplay.classList.contains("displayGrid")) {
       getDisplay.classList.remove("displayGrid");
@@ -132,23 +150,142 @@ export default function Task() {
     }
   }
 
+  function readMoreHandler(id) {
+    const task = tasksList.find((task) => task._id === id);
+    settaskDetail(task);
+    setopenSecondModal(true);
+  }
+
+  async function acceptHandler(id) {
+    const url = `${API_URI}/tasks/${id}/accept`;
+
+    try {
+      const res = await fetchJson(url, {
+        method: "PATCH",
+        headers: { authorization: `Bearer ${props.accessToken}` },
+      });
+
+      if (res.status) {
+        setTasksList(function () {
+          return tasksList.filter((task) => task._id !== id);
+        });
+      }
+
+      if (!res.status) {
+        throw new Error(res.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+    closeModals()
+  }
+
+  async function declineHandler(id) {
+    const url = `${API_URI}/tasks/${id}/decline`;
+
+    try {
+      const res = await fetchJson(url, {
+        method: "PATCH",
+        headers: { authorization: `Bearer ${props.accessToken}` },
+      });
+
+      if (res.status) {
+        setTasksList(function () {
+          return tasksList.filter((task) => task._id !== id);
+        });
+      }
+
+      if (!res.status) {
+        throw new Error(res.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+    closeModals()
+  }
+
+  const titleDescriptionRef = React.useRef();
+  const locationRef = React.useRef();
+  const paymentRef = React.useRef();
+  const minPriceRef = React.useRef();
+  const maxPriceRef = React.useRef();
+  const startDateRef = React.useRef();
+  const endDateRef = React.useRef();
+  const [sort, setSort] = useState("Old");
+
+  async function handleopenSecondModal() {
+    let url = `${API_URI}/tasks?`;
+    const price1 = padPrice(minPriceRef.current.value);
+    const price2 = padPrice(maxPriceRef.current.value);
+    const startDate = startDateRef.current.value;
+    const endDate = endDateRef.current.value;
+
+    let tags = "";
+    selectedBtns.forEach((btn) => {
+      tags += `${btn.innerText},`;
+    });
+
+    const titleDescription = titleDescriptionRef.current.value;
+    const location = locationRef.current.value;
+    const price = paymentRef.current.value;
+
+    url = `${url}tagFilter=${tags}&title=${titleDescription}&location=${location}&price=${price}&sort=${sort}`;
+
+    if (price1 && price2) {
+      url = `${url}&priceFilter[gte]=${price1}&priceFilter[lte]=${price2}`;
+    } else if (price1) {
+      url = `${url}&priceFilter[gte]=${price1}`;
+    } else if (price2) {
+      url = `${url}&priceFilter[lte]=${price2}`;
+    }
+
+    if (startDate && endDate) {
+      url = `${url}&date[start]=${startDate}&date[end]=${endDate}`;
+    } else if (startDate) {
+      url = `${url}&date[start]=${startDate}`;
+    } else if (endDate) {
+      url = `${url}&date[end]=${endDate}`;
+    }
+
+    filterTask(url, setTasksList, props);
+    closeModals();
+  }
+
+  const sortHandler = (e) => {
+    setSort(e.value);
+    searchOneHandler();
+  };
+
+  async function searchOneHandler() {
+    let url = `${API_URI}/tasks?`;
+
+    const titleDescription = titleDescriptionRef.current.value;
+    const location = locationRef.current.value;
+    const price = paymentRef.current.value;
+
+    url = `${url}title=${titleDescription}&location=${location}&price=${price}&sort=${sort}`;
+    filterTask(url, setTasksList, props, toast);
+  }
+
   return (
     <>
       <div className="tasks_page">
         <Head>
-          <title>Task | Stay busy</title>
+          <title>Tasks | Staybusy.io</title>
         </Head>
+        <ToastContainer />
         <div className="container">
           <div className="top_btns">
             <div className="top_btns_wrapper">
               <Grid container spacing={1}>
-                <Grid item style={{ paddingLeft: "3px " }} xs={12} sm={12} md={12} lg={4.7}>
+                <Grid item style={{ paddingLeft: "3px " }} xs={12} sm={12} md={12} lg={4}>
                   <div className="input_wrap_top">
                     <img src="../search.svg" style={{ padding: "1rem", paddingRight: "0px" }} />
                     <input
                       type="text"
                       placeholder="Task type, description and keywords"
                       style={{ width: "100%", padding: "1rem", paddingLeft: "0" }}
+                      ref={titleDescriptionRef}
                     />
                   </div>
                 </Grid>
@@ -159,6 +296,7 @@ export default function Task() {
                       type="text"
                       placeholder="Location"
                       style={{ width: "100%", padding: "1rem", paddingLeft: "0" }}
+                      ref={locationRef}
                     />
                   </div>
                 </Grid>
@@ -169,25 +307,26 @@ export default function Task() {
                       type="text"
                       placeholder="Payment"
                       style={{ width: "100%", padding: "1rem", paddingLeft: "0" }}
+                      ref={paymentRef}
                     />
                   </div>
                 </Grid>
                 <Grid item style={{ paddingLeft: "0px " }} xs={12} sm={12} md={1} lg={1}>
-                  <button>Search</button>
+                  <button onClick={searchOneHandler}>Search</button>
                 </Grid>
               </Grid>
             </div>
 
             <div className="sort">
               <p>
-                <span>90</span> tasks found
+                <span>{tasksList.length}</span> tasks found
               </p>
 
               <div className="buttons">
                 <Select
-                  defaultValue={options[1]}
                   styles={customStyles}
                   options={options}
+                  onChange={sortHandler}
                   theme={(theme) => ({
                     ...theme,
 
@@ -251,33 +390,15 @@ export default function Task() {
                       </div>
                       <div className="modal_sections_hold_btn">
                         <div className="buttons">
-                          <button onClick={() => chooseTask(0)} className="choose_btn 0">
-                            Tag 1
-                          </button>
-                          <button onClick={() => chooseTask(1)} className="choose_btn 1">
-                            Tag 2
-                          </button>
-                          <button onClick={() => chooseTask(2)} className="choose_btn 2">
-                            Tag 3
-                          </button>
-                          <button onClick={() => chooseTask(3)} className="choose_btn 3">
-                            Tag 4
-                          </button>
-                          <button onClick={() => chooseTask(4)} className="choose_btn 4">
-                            Tag 5
-                          </button>
-                          <button onClick={() => chooseTask(5)} className="choose_btn 5">
-                            Tag 6
-                          </button>
-                          <button onClick={() => chooseTask(6)} className="choose_btn 6">
-                            Tag 7
-                          </button>
-                          <button onClick={() => chooseTask(7)} className="choose_btn 7">
-                            Tag 8
-                          </button>
-                          {/* <button onClick={() => chooseTask(8)} className="choose_btn 8">
-                            Tag 9
-                          </button> */}
+                          {user.tags.map((tag, index) => (
+                            <button
+                              key={index}
+                              onClick={() => chooseTask(index)}
+                              className="choose_btn 0"
+                            >
+                              {tag}
+                            </button>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -291,12 +412,12 @@ export default function Task() {
 
                       <div className="filter_inputs">
                         <div className="input">
-                          <input type="text" placeholder="2022-01-01" />
+                          <input type="date" placeholder="2022-01-01" ref={startDateRef} />
                           <DateRangeIcon style={{ color: "#DCDCDC" }} />
                         </div>
                         <div className="span"></div>
                         <div className="input">
-                          <input type="text" placeholder="Today" />
+                          <input type="date" placeholder="Today" ref={endDateRef} />
                           <DateRangeIcon style={{ color: "#DCDCDC" }} />
                         </div>
                       </div>
@@ -310,12 +431,12 @@ export default function Task() {
 
                       <div className="filter_inputs">
                         <div className="input">
-                          <input type="text" placeholder="Min price" />
+                          <input type="text" placeholder="Min price" ref={minPriceRef} />
                           <AttachMoneyIcon style={{ color: "#DCDCDC" }} />
                         </div>
                         <div className="span"></div>
                         <div className="input">
-                          <input type="text" placeholder="Max Price" />
+                          <input type="text" placeholder="Max Price" ref={maxPriceRef} />
                           <AttachMoneyIcon style={{ color: "#DCDCDC" }} />
                         </div>
                       </div>
@@ -354,37 +475,18 @@ export default function Task() {
                       <span className="square"></span>
                     </div>
 
-                    <p className="header_text">Auditing information architechture</p>
-                    <p className="desc">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Porta at tortor
-                      facilisis et viverra facilisi eget lacus. Volutpat risus, sed sagittis, duis
-                      eleifend tortor mattis orci. Nibh sapien commodo sit in lobortis elementum
-                      vel, nibh. Porttitor eu integer tellus pellentesque suspendisse ut ornare at
-                      vitae. Velit, ut velit, semper rhoncus. Phasellus enim, velit duis donec.
-                      Sociis hac blandit id tincidunt. Tempor vitae tempus, bibendum ultrices duis
-                      est malesuada faucibus egestas. Ac bibendum ornare velit pretium. Metus amet,
-                      non pellentesque enim iaculis quis vivamus. Sed vel at volutpat sit id
-                      phasellus. Et nunc, pellentesque orci vitae sapien augue ultrices diam.
-                      Sagittis mi orci, nisl, condimentum ac in elementum massa, risus. Eu neque
-                      faucibus auctor sit augue eleifend pharetra, maecenas. Mattis orci augue
-                      turpis cursus morbi lorem et. Maecenas mus leo convallis penatibus etiam sit.
-                      Massa amet congue dignissim elementum. Nunc lorem odio ultricies imperdiet
-                      enim. Sit habitant dictumst pellentesque proin dignissim eget diam tortor in.
-                      Elit, vel convallis tellus non. enim. Sit habitant dictumst pellentesque proin
-                      dignissim eget diam tortor in. Elit, vel convallis tellus non. enim. Sit
-                      habitant dictumst pellentesque proin dignissim eget diam tortor in. Elit, vel
-                      convallis tellus non. enim. Sit habitant dictumst pellentesque proin dignissim
-                      eget diam tortor in. Elit, vel convallis tellus non. enim. Sit habitant
-                      dictumst pellentesque proin dignissim eget diam tortor in. Elit, vel convallis
-                      tellus non. enim. Sit habitant dictumst pellentesque proin dignissim eget diam
-                      tortor in. Elit, vel convallis tellus non.
-                    </p>
+                    <p className="header_text">{taskDetail?.title}</p>
+                    <p className="desc">{taskDetail?.description}</p>
 
                     <div className="filter_btns second_filter_btns">
-                      <p>399£</p>
+                      <p>{taskDetail?.price}</p>
                       <div className="dbl_btns">
-                        <button className="cancel">Decline</button>
-                        <button className="apply">Accept</button>
+                        <button className="cancel" onClick={() => declineHandler(taskDetail?._id)}>
+                          Decline
+                        </button>
+                        <button className="apply" onClick={() => acceptHandler(taskDetail?._id)}>
+                          Accept
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -398,30 +500,36 @@ export default function Task() {
               viewMode === "displayGrid" ? "grids_sec container displayGrid" : "grids_sec container"
             }
           >
-            {tasksList.map((task, index) => (
-              <div className="tasks" key={task}>
-                <div className="end">
-                  <span className="design">{task.status}</span>
-                  <span className="price">{task.price}£</span>
-                </div>
-                <p className="font-face-gm">Auditing information architechture</p>
+            {tasksList.map((task, index) => {
+              return (
+                <div className="tasks" key={task._id}>
+                  <div className="end">
+                    <span className="design">{task.tag}</span>
+                    <span className="price">{task.price}£</span>
+                  </div>
+                  <p className="font-face-gm">{task.title}</p>
 
-                <div className="details">
-                  <small className="font-face-text-big">
-                    Listing out all of the findings from current or existing Informature
-                    architechture (IA).
-                  </small>
-                </div>
-                <div className="grid_sec_btns">
-                  <button className="read_more">Read More</button>
-
-                  <div className="grid_sec_two_btns">
-                    <button className="decline">Decline</button>
-                    <button className="accept">Accept</button>
+                  <div className="details">
+                    <small className="font-face-text-big">
+                      {task.description.slice(0, 200) + "..."}
+                    </small>
+                  </div>
+                  <div className="grid_sec_btns">
+                    <button className="read_more" onClick={() => readMoreHandler(task._id)}>
+                      Read More
+                    </button>
+                    <div className="grid_sec_two_btns">
+                      <button className="decline" onClick={() => declineHandler(task?._id)}>
+                        Decline
+                      </button>
+                      <button className="accept" onClick={() => acceptHandler(task?._id)}>
+                        Accept
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
@@ -430,3 +538,22 @@ export default function Task() {
 }
 
 Task.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+
+export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      ...session,
+    },
+  };
+}

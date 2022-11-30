@@ -27,7 +27,7 @@ export const TasksProgress = (props) => (
             color="textPrimary"
             variant="h4"
           >
-           169
+           {props.totalDeclinedTasks}
           </Typography>
         </Grid>
         

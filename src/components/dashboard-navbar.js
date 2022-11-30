@@ -6,6 +6,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import { API_URI } from 'lib/contant';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -13,6 +16,14 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 export const DashboardNavbar = (props) => {
+  const [user, setUser] = useState(null)
+  const {data,status} = useSession()
+
+  useEffect(() => {
+    setUser(data?.user)
+  },[data])
+
+
   const { onSidebarOpen, ...other } = props;
   const mobile = useMediaQuery('(max-width:450px)');
   return (
@@ -77,17 +88,19 @@ export const DashboardNavbar = (props) => {
             <UserCircleIcon fontSize="small" />
           </Avatar>:
           <IconButton  display={'flex'} alignItems={'center'} style={{marginLeft:"20px", marginRight:"20px",height:"50px" ,padding:"4px 10px",borderRadius:"8px",border: '2px solid rgba(47, 46, 64, 0.08)'}}>
-           <Typography style={{color:"black",fontSize:"13px"}}>
-            Tony Signh
+           <Typography style={{color:"black",fontSize:"13px", textTransform: "capitalize"}}>
+            {status === "authenticated" && `${user?.firstname} ${user?.lastname}`}
             </Typography>
-          <Avatar
+            <Avatar
             sx={{
               height: 40,
               width: 40,
               ml: 1
             }}
 
-            src="/static/images/avatars/avatar_1.png"
+            // src="/static/images/avatars/avatar_1.png"
+
+            src={`${API_URI}/${user?.image}`}
           >
             <UserCircleIcon fontSize="small" />
           </Avatar>
@@ -102,3 +115,5 @@ export const DashboardNavbar = (props) => {
 DashboardNavbar.propTypes = {
   onSidebarOpen: PropTypes.func
 };
+
+

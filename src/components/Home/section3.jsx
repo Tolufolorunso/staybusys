@@ -5,11 +5,13 @@ import React from "react";
 function Section3() {
   return (
     <div className='root2'>
-    <Grid container spacing={2} display={"flex"} alignItems={"center"}>
-      <Grid item xs={12} sm={12} md={7}>
-        <Box><img src="../../man1.png" width="100%" alt="" className="imageSections"/></Box>
+    <Grid container spacing={2} display={"flex"} className="secs3" alignItems={"center"}>
+      <Grid item xs={12} sm={12} lg={7}>
+        <Box className="rollBox">
+        <img src="../../roll2.png" className='roll2' alt="" />
+          <img src="../../section3.png" width="100%" alt="" className="imageSections"/></Box>
       </Grid>
-      <Grid item xs={12} sm={12} md={5} className='section3_det'>
+      <Grid item xs={12} sm={12} lg={5} className='section3_det'>
 
       <Typography className="staybusyBuilt">Staybusy is built for you.</Typography>
         <Typography  className='section2_det_2'>No more doing petty irrelevant jobs</Typography>

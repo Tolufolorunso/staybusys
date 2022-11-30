@@ -12,7 +12,14 @@ import * as Yup from "yup";
 import { Box, Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Layout from "src/components/Layout";
-import { fetchJson } from "../../lib/api.js";
+import "react-toastify/dist/ReactToastify.css";
+import { LoadingButton } from "@mui/lab";
+import { ToastContainer, toast } from "react-toastify";
+import { fetchJson } from "../../lib/api";
+import { set } from "nprogress";
+import { API_URI } from "lib/contant";
+import { useEffect } from "react";
+import { getSession } from "next-auth/react";
 
 const style = {
   position: "absolute",
@@ -26,6 +33,7 @@ const style = {
   borderRadius: "7px",
   p: 4,
 };
+
 const smallerStyle = {
   position: "absolute",
   top: "50%",
@@ -38,38 +46,55 @@ const smallerStyle = {
   p: 4,
 };
 
-const Register = ({ value = "" }) => {
-  const [passwordShown, setPasswordShown] = useState(true);
+const Register = ({ value }) => {
+  const [passwordShown, setPasswordShown] = useState(false);
+
   const [password, setPassword] = useState("12345678");
-  const [email, setEmail] = useState("tolu@yahoo.com");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const getEmail = localStorage.getItem("email");
+    console.log(getEmail)
+    setEmail(getEmail || "tolu@yahoo.com");
+    // if (email.includes("@")) {
+    //   localStorage.removeItem("email");
+    // }
+  },[]);
+
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };
-  const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   async function register(e) {
     e.preventDefault();
+    setLoading(true);
     try {
-      const response = await fetch("http://localhost:3005/api/v1/auth/register", {
+      const user = await fetchJson(`${API_URI}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      const {status,message} = await response.json();
-      router.push("/login");
-      if(status) {
-        router.push("/");
-      } else {
-        throw new Error(message)
-      }
-      
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
+      if (user.status) {
+        setOpen(true);
+        setLoading(false);
+        toast.success("User has Successful Signed Up");
+        setTimeout(() => {
+          setOpen(false);
+          localStorage.removeItem("email")
+          router.push("/login");
+        }, 3000);
+      } else {
+        throw new Error(user.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+    setLoading(false);
+  }
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -87,31 +112,29 @@ const Register = ({ value = "" }) => {
       policy: Yup.boolean().oneOf([true], "This field must be checked"),
     }),
     onSubmit: () => {
-      router.push("/");
+      // router.push("/");
     },
   });
 
   return (
     <>
       <Head>
-        <title>Register | Material Kit</title>
+        <title>Register | Staybusy.io</title>
       </Head>
       <Layout>
+        <ToastContainer />
         <div className="container ">
           <div className="login_wrapper">
             <div className="login">
               <h4>Create a new account</h4>
-
               <div className="login_inputs">
                 <form onSubmit={register}>
                   <div className="login_input">
                     <label htmlFor="student_email">Your student Email:</label> <br />
                     <div className="input_wrap">
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
+                      <input type="text"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)} />
                     </div>
                   </div>
                   <div className="login_input">
@@ -125,10 +148,17 @@ const Register = ({ value = "" }) => {
                       <span onClick={togglePassword}>{passwordShown ? "Hide" : "Show"}</span>
                     </div>
                   </div>
-
-                  <div className="login_btn">
-                    <button>Sign Up</button>
-                  </div>
+                  <LoadingButton
+                    loading={loading}
+                    type="submit"
+                    size="large"
+                    variant="contained"
+                    loadingPosition="end"
+                    className="default__button"
+                    fullWidth
+                  >
+                    Sign Up
+                  </LoadingButton>
 
                   <Modal
                     open={open}
@@ -136,7 +166,8 @@ const Register = ({ value = "" }) => {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                   >
-                    <Box sx={style} className="modalss">
+                    <Box sx={style}
+                    className="modalss">
                       <div className="registration_modal">
                         <div className="registration_modal_desc">
                           <div
@@ -166,7 +197,7 @@ const Register = ({ value = "" }) => {
                           </div>
                           <p className="verification">Verification Link</p>
                           <small>A verification link has been sent to:</small>
-                          <small className="red">Seyi@yahoo.com</small>
+                          <small className="red">{email}</small>
                           <small>Please check your email </small>
                         </div>
                       </div>
@@ -177,7 +208,8 @@ const Register = ({ value = "" }) => {
               <div className="already">
                 <p>
                   Already have an account?{" "}
-                  <Button className="logins" href="/login">
+                  <Button className="logins"
+                   href="/login">
                     {" "}
                     Login
                   </Button>
@@ -192,3 +224,21 @@ const Register = ({ value = "" }) => {
 };
 
 export default Register;
+
+export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx);
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      ...session,
+    },
+  };
+}

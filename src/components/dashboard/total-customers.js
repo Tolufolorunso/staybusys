@@ -25,7 +25,7 @@ export const TotalCustomers = (props) => (
             color="textPrimary"
             variant="h4"
           >
-            238
+            {props.totalCompleted}
           </Typography>
         </Grid>
         

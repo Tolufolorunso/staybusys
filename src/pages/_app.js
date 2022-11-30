@@ -11,7 +11,6 @@ import "./Home.css";
 import "./font.css";
 
 const clientSideEmotionCache = createEmotionCache();
-
 import { SessionProvider } from "next-auth/react";
 
 const App = (props) => {

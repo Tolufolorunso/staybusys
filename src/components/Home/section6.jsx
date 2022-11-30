@@ -8,7 +8,7 @@ export default function section6() {
     <div className="root2 bps">
       <div className="sectionParent">
         <Grid container spacing={5}>
-    
+    <img src="../../roll3.png" alt="" className="roll3"/>
             <Grid item xs={12} sm={12} md={6}>
               <Typography className="staybusyBuilt">Staybusy is built for you.</Typography>
               <Typography className="section2_det_3 jack">
