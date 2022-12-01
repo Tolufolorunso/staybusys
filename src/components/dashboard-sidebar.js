@@ -14,8 +14,7 @@ import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomi
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import HistoryToggleOffIcon from "@mui/icons-material/HistoryToggleOff";
 import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
-
+import { signOut,useSession } from "next-auth/react";
 const items = [
   {
     href: "/dashboard",
@@ -48,15 +47,15 @@ const items = [
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
   const router = useRouter();
-  const session = useSession();
+  const session= useSession()
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
     defaultMatches: true,
     noSsr: false,
   });
 
   function logoutHandler() {
-    signOut();
-    router.push('/login')
+    console.log("hello");
+    signOut()
   }
 
   useEffect(
