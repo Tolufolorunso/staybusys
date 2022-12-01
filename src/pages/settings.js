@@ -257,8 +257,8 @@ export default function Task(props) {
         toast.success(updatedUser.message);
         console.log(updatedUser);
       }
-      if(!updatedUser.status) {
-        throw new Error(updatedUser.message)
+      if (!updatedUser.status) {
+        throw new Error(updatedUser.message);
       }
     } catch (error) {
       setLoading(false);
