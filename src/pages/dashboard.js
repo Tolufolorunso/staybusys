@@ -16,10 +16,7 @@ const Dashboard = (props) => {
   const router = useRouter();
   if (typeof window === "undefined") return null;
 
-  if (!user?.completed && !user.firstname) {
-    router.replace("/personaldetails");
-  }
-
+  
   useEffect(() => {
     fetch("/api/auth/session?update");
   }, []);
@@ -92,6 +89,15 @@ export default Dashboard;
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
+console.log(session.user)
+ if(!session.user.completed) {
+  return {
+    redirect: {
+      destination: "/personaldetails",
+      permanent: false,
+    },
+  };
+ }
 
   if (!session) {
     return {
