@@ -50,7 +50,7 @@ export const DashboardSidebar = (props) => {
   const session= useSession()
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
     defaultMatches: true,
-    noSsr: false,,
+    noSsr: false,
   });
 
   function logoutHandler() {
@@ -119,8 +119,8 @@ export const DashboardSidebar = (props) => {
             backgroundColor: "#fff",
             color: "#FFFFFF",
             width: 280,
-            marginTop:  "83px",,
-          },,
+            marginTop:  "83px",
+          },
         }}
         variant="permanent"
       >
@@ -151,5 +151,5 @@ export const DashboardSidebar = (props) => {
 
 DashboardSidebar.propTypes = {
   onClose: PropTypes.func,
-  open: PropTypes.bool,,
+  open: PropTypes.bool,
 };

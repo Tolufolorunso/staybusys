@@ -543,29 +543,6 @@ Task.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
-
-  const tasks = await fetchTasks(session?.user?.accessToken, `${API_URI}/tasks`);
-console.log(tasks)
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {
-      ...session,
-      tasks: tasks.tasks,
-    },
-  };
-}
-
-export async function getServerSideProps(ctx) {
-  const session = await getSession(ctx);
-
   const tasks = await fetchTasks(session?.user?.accessToken, `${API_URI}/tasks`);
 
   if (!session) {
@@ -584,3 +561,5 @@ export async function getServerSideProps(ctx) {
     },
   };
 }
+
+
