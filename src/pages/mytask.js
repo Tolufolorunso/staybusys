@@ -9,7 +9,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Select from "react-select";
 import { DashboardLayout } from "../components/dashboard-layout";
 import Modal from "@mui/material/Modal";
-import { fetchJson } from "lib/api";
+import { fetchJson, fetchTasks } from "lib/api";
 import { getSession, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
@@ -40,7 +40,8 @@ const style = {
 };
 
 export default function Task(props) {
-  const { user } = props;
+  const { user, tasks: taskArr } = props;
+
   const [viewMode, setviewMode] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -58,16 +59,17 @@ export default function Task(props) {
   const { data } = useSession();
 
   useEffect(() => {
-    async function fetchTasks() {
-      const res = await fetchJson("/api/tasks", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ token: data?.user?.token }),
-      });
-      setTasksList(res.tasks || []);
-    }
-    fetchTasks();
-  }, [data?.user]);
+    // async function fetchTasks() {
+    //   const res = await fetchJson("/api/tasks", {
+    //     method: "POST",
+    //     headers: { "Content-type": "application/json" },
+    //     body: JSON.stringify({ token: data?.user?.token }),
+    //   });
+    //   setTasksList(res.tasks || []);
+    // }
+    // fetchTasks();
+    setTasksList(taskArr);
+  }, []);
 
   const selectedBtns = [];
 
@@ -177,7 +179,7 @@ export default function Task(props) {
     } catch (error) {
       toast.error(error.message);
     }
-    closeModals()
+    closeModals();
   }
 
   async function declineHandler(id) {
@@ -201,7 +203,7 @@ export default function Task(props) {
     } catch (error) {
       toast.error(error.message);
     }
-    closeModals()
+    closeModals();
   }
 
   const titleDescriptionRef = React.useRef();
@@ -542,6 +544,8 @@ Task.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
 
+  const tasks = await fetchTasks(session?.user?.accessToken, `${API_URI}/tasks`);
+
   if (!session) {
     return {
       redirect: {
@@ -554,6 +558,7 @@ export async function getServerSideProps(ctx) {
   return {
     props: {
       ...session,
+      tasks: tasks.tasks,
     },
   };
 }
