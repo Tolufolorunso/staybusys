@@ -135,7 +135,7 @@ select {
   box-shadow: 0px 7px 20px rgba(145, 156, 212, 0.15) !important;
   border-radius: 10px !important;
   padding: 2rem !important;
-  padding-bottom: 57px !important;
+  padding-bottom: 22px !important;
   margin: 0.75rem 0 !important;
 }
 .completed {
@@ -339,7 +339,7 @@ select {
   color: #585757;
 }
 
-.submission .btnn {
+ .btnn {
   display: flex !important;
   justify-content: flex-end !important;
 }
@@ -417,10 +417,15 @@ select {
   letter-spacing: 0.03em !important;
   color: #2f2e40 !important;
 }
+.imageUploads{
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
 
 input[type="file"] {
   /* height: 200px !important; */
-  height: 119.05px !important;
+  height: 119.05px ;
 
   width: 100% !important;
   position: absolute !important;
@@ -797,9 +802,9 @@ hr.divide {
 .acct_names {
   width: 600px !important;
 }
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .acct_names {
-    width: 85% !important;
+    width: 100% !important;
   }
 }
 .add_acc_modal button {
@@ -2075,7 +2080,6 @@ hr.modal_secions_hr {
   width: 100%;
   height: 100%;
   /* background: red; */
-  background: transparent;
   /* width: 200px; */
   z-index: 2;
   position: absolute;
@@ -2087,7 +2091,7 @@ hr.modal_secions_hr {
   /* height: 119.05px !important; */
   height: 100% !important;
   width: 100% !important;
-  position: absolute !important;
+  position: absolute ;
   top: 0% !important;
   right: 0 !important;
   /* transform: translate(-50%, -50%); */
@@ -2095,7 +2099,18 @@ hr.modal_secions_hr {
   opacity: 0 !important;
   cursor: pointer !important;
 }
-
+.uploaded{
+  position: relative !important;
+  opacity: 1 !important;
+  padding: 14px 21px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: #ff6685 !important;
+  margin-top: 15px;
+}
 .upload-file {
   width: 100%;
   position: absolute;
@@ -2403,7 +2418,7 @@ hr.modal_secions_hr {
   }
 
   .modal_box {
-    width: 80% !important;
+    width: 100% !important;
   }
 }
 @media (max-width: 800px) {
@@ -2419,7 +2434,7 @@ hr.modal_secions_hr {
     right: 5%;
   }
   .actn_btn {
-    padding: 10px 45px;
+    padding: 10px 45px !important;
     background: #ff6685;
     border-radius: 10px;
     border: none;
@@ -2502,8 +2517,8 @@ hr.modal_secions_hr {
     width: 90%;
   }
   .modal_box {
-    width: 90% !important;
-    padding: 22px !important;
+    width: 100% !important;
+    /* padding: 22px !important; */
   }
 }
 @media (max-width: 500px) {
@@ -2561,6 +2576,26 @@ hr.modal_secions_hr {
   font-weight: 400;
   font-size: 14px;
   line-height: 140%;
+  /* or 25px */
+  font-family: "Euclid Circular A";
+  text-align: center;
+  letter-spacing: 0.03em;
+
+  color: #2f2e40;
+}
+.button_enroll8 {
+  /* border: 1px solid #2f2e40;
+  border-radius: 5px; */
+
+  padding: 0.35rem 3.75rem;
+  background: transparent;
+  border: 1px solid #2f2e40;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  margin-right: 15px;
   /* or 25px */
   font-family: "Euclid Circular A";
   text-align: center;
@@ -2861,6 +2896,7 @@ button.read_more {
   margin-top: 9px !important;
   margin-right: 70px !important;
   z-index: 8 !important;
+  border: none;
   width: 170px !important;
   background-color: #ff6685 !important;
   height: 55px !important;
@@ -2908,13 +2944,14 @@ button.read_more {
 .button_enroll0:hover {
   background-color: #ff6685 !important;
 }
+
 .button_enroll1 {
   width: 170px !important;
   font-size: 16px !important;
   background-color: #ff6685 !important;
   height: 52px !important;
   color: #fff !important;
-
+  border: none;
   border-radius: 8px !important;
   text-transform: none !important;
   font-family: "Inter" !important;

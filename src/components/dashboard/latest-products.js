@@ -5,6 +5,10 @@ import { styled } from "@mui/material/styles";
 import React, {useState} from "react";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import Select from "react-select";
+import Dialog, { DialogProps } from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
 
 const style = {
   position: "absolute",
@@ -33,10 +37,33 @@ export const LatestProducts = (props) => {
   const [showAccDetails, setShowAccDetails] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [scroll, setScroll] = React.useState('paper');
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
   const [openSecondModal, setopenSecondModal] = React.useState(false);
   const handleopenSecondModal = () => setopenSecondModal(true);
   const handlecloseSecondModal = () => setopenSecondModal(false);
+
+  const descriptionElementRef1 = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
   function closeModals() {
     setopenSecondModal(false);
     setOpen(false);
@@ -126,13 +153,20 @@ export const LatestProducts = (props) => {
           <Typography variant="overline2">Withdraw your earnings</Typography>
         </Box>
       </Button>
-      <Modal
+      <Dialog
         open={open}
         onClose={handleClose}
+        scroll={scroll}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} className="acct_names">
+         <DialogContent dividers={scroll === "paper"}>
+                      <DialogContentText
+                        id="scroll-dialog-description"
+                        ref={descriptionElementRef}
+                        tabIndex={-1}
+                      >
+        <Box className="acct_names">
           <div className="add_acc_modal">
             <div style={{padding:"20px"}} className="add">
               <Typography variant="h5" className="" >Withdraw Earnings</Typography>
@@ -141,7 +175,7 @@ export const LatestProducts = (props) => {
 
             <hr className="hr_with" />
 
-            <div className="add_inputs" style={{padding:"2.2rem"}}>
+            <div className="add_inputs" >
               <div className="add_input " >
                 <label htmlFor="withdraw">Withdraw to</label> <br />
                 <Select
@@ -176,14 +210,23 @@ export const LatestProducts = (props) => {
             </div>
           </div>
         </Box>
-      </Modal>
-      <Modal
+        </DialogContentText>
+                    </DialogContent>
+                  </Dialog>
+      <Dialog
         open={openSecondModal}
         onClose={handlecloseSecondModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        scroll={scroll}
+        aria-labelledby="scroll-dialog-title"
+        aria-describedby="scroll-dialog-description"
       >
-        <Box sx={smallerStyle} className="acct_names">
+        <DialogContent dividers={scroll === "paper"}>
+                      <DialogContentText
+                        id="scroll-dialog-description"
+                        ref={descriptionElementRef1}
+                        tabIndex={-1}
+                      >
+        <Box  className="">
           <div className="response">
             <div className="modal_resp">
               <div className="top">
@@ -200,7 +243,9 @@ export const LatestProducts = (props) => {
             </div>
           </div>
         </Box>
-      </Modal>
+        </DialogContentText>
+                    </DialogContent>
+      </Dialog>
     </>
   );
 };

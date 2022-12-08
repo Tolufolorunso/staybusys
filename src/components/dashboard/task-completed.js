@@ -1,16 +1,17 @@
-import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 
-export const TotalProfit = (props) => (
+export const TaskCompleted = (props) => (
   <Card {...props}>
-    <CardContent >
+    <CardContent>
       <Grid
         container
         spacing={3}
-        
+
       >
-         <Grid item>
-         <img src='../../task3.svg' />
+        <Grid item>
+          <img src="../../task1.svg" />
         </Grid>
         <Grid item>
           <Typography
@@ -18,17 +19,18 @@ export const TotalProfit = (props) => (
             gutterBottom
             variant="overline"
           >
-            Amount Earned
+            Tasks Completed
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            {props.totalEarned}
+            {props.totalCompleted}
           </Typography>
         </Grid>
-       
+
       </Grid>
+
     </CardContent>
   </Card>
 );

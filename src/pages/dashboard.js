@@ -3,20 +3,21 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import { LatestOrders } from "../components/dashboard/dasboard-table";
 import { LatestProducts } from "../components/dashboard/latest-products";
 import { TasksProgress } from "../components/dashboard/tasks-progress";
-import { TotalCustomers } from "../components/dashboard/total-customers";
+import { TaskCompleted } from "../components/dashboard/task-completed";
 import { TotalProfit } from "../components/dashboard/total-profit";
 
 import { DashboardLayout } from "../components/dashboard-layout";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { getSubmission } from "lib/api";
+import { API_URI } from "lib/contant";
 
 const Dashboard = (props) => {
-  const { user } = props;
+  const { user, submissions } = props;
   const router = useRouter();
   if (typeof window === "undefined") return null;
 
-  
   useEffect(() => {
     fetch("/api/auth/session?update");
   }, []);
@@ -39,7 +40,7 @@ const Dashboard = (props) => {
           </Typography>
           <Grid container spacing={3}>
             <Grid item xl={4} lg={4} sm={6} xs={12}>
-              <TotalCustomers
+              <TaskCompleted
                 style={{
                   border: "1px solid rgba(255, 204, 0, 0.2)",
                   boxShadow: " 0px 7px 20px rgba(145, 156, 212, 0.15)",
@@ -62,6 +63,7 @@ const Dashboard = (props) => {
                   border: "1px solid rgba(255, 204, 0, 0.2)",
                   boxShadow: " 0px 7px 20px rgba(145, 156, 212, 0.15)",
                 }}
+                totalEarned={user?.wallet}
               />
             </Grid>
             <Grid item lg={12} md={12} xl={9} xs={12}>
@@ -74,7 +76,7 @@ const Dashboard = (props) => {
             </Grid>
 
             <Grid item lg={12} md={12} xl={9} xs={12}>
-              <LatestOrders />
+              <LatestOrders submissions={submissions} />
             </Grid>
           </Grid>
         </Container>
@@ -89,15 +91,15 @@ export default Dashboard;
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
-console.log(session.user)
- if(!session.user.completed) {
-  return {
-    redirect: {
-      destination: "/personaldetails",
-      permanent: false,
-    },
-  };
- }
+console.log(session?.user?.completed)
+  if (!session?.user?.completed) {
+    return {
+      redirect: {
+        destination: "/personaldetails",
+        permanent: false,
+      },
+    };
+  }
 
   if (!session) {
     return {
@@ -108,9 +110,12 @@ console.log(session.user)
     };
   }
 
+  const { submissions } = await getSubmission(session?.user?.accessToken, `${API_URI}/submissions`);
+
   return {
     props: {
       ...session,
+      submissions,
     },
   };
 }

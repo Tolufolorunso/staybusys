@@ -163,7 +163,7 @@ const Personaldetails = (props) => {
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
-                      <Box className="form__container" >
+                      <Box className="form__container"  sx={{ ml: 2 }} >
                         <InputLabel shrink htmlFor="lastName">
                           Last Name:
                         </InputLabel>
@@ -345,7 +345,9 @@ export default Personaldetails;
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
-  if (session.user.completed) {
+console.log(session?.user?.completed)
+
+  if (session?.user?.completed) {
     return {
       redirect: {
         destination: "/dashboard",

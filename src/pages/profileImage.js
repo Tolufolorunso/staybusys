@@ -14,7 +14,11 @@ import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import RotateRightIcon from "@mui/icons-material/RotateRight";
 import { toast,ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-
+import Dialog, { DialogProps } from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import { getSession, signOut, useSession } from "next-auth/react";
 
 import completeProfile from "../../lib/complet-profile";
@@ -50,8 +54,7 @@ export default function ProfileImage(props) {
   // }
   const { data } = useSession();
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
   const [highlight, setHighlight] = React.useState(false);
   const [mouseEnter, setMouseEnter] = React.useState(false);
   const [preview, setPreview] = React.useState("");
@@ -65,6 +68,26 @@ export default function ProfileImage(props) {
   const [croppedImage, setCroppedImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [userImage, setUserImage] = useState(null);
+  const [scroll, setScroll] = React.useState('paper');
+
+  const handleOpen = () => {
+    setOpen(true);
+
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
@@ -142,7 +165,7 @@ export default function ProfileImage(props) {
       reader.onload = (e) => {
         // this is the base64 data
         const fileRes = btoa(reader.result);
-        // setFile(`data:image/jpg;base64,${fileRes}`);
+        setFile(`data:image/jpg;base64,${fileRes}`);
         // console.log(`data:image/jpg;base64,${fileRes}`);
         setPreview(`data:image/jpg;base64,${fileRes}`);
       };
@@ -167,6 +190,7 @@ export default function ProfileImage(props) {
     const result = await completeProfile(userImage, data.accessToken);
     if (result) {
       await fetch("/api/auth/session?update");
+
       router.push("/dashboard");
       localStorage.removeItem("personaldetails")
     } else {
@@ -253,101 +277,91 @@ export default function ProfileImage(props) {
                       Complete Profile
                     </LoadingButton>
 
-                    <Modal
-                      open={open}
-                      onClose={handleClose}
-                      image={preview}
-                      getCroppedFile={(preview) => {
-                        setPreview(preview);
-                        handleClose();
-                      }}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={style} className="modalss2">
-                        {/* { <ImageCropper />  */}
-                        {/* <ImageCropper imageFile={imageFile} /> */}
-                        <div>
-                          <div className="crop">
-                            <p>Crop image and upload</p>
-                            <span>
-                              <CloseIcon
-                                onClick={stopUload}
-                                style={{ fontSize: "40px", cursor: "pointer" }}
-                              />
-                            </span>
-                          </div>
-                          <div className="cropContainer1">
-                            <Cropper
-                              image={imageFile}
-                              crop={crop}
-                              rotation={rotation}
-                              zoom={zoom}
-                              cropShape="round"
-                              aspect={4 / 3}
-                              onCropChange={setCrop}
-                              onRotationChange={setRotation}
-                              onCropComplete={onCropComplete}
-                              onZoomChange={setZoom}
+                    <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    image={preview}
+                    getCroppedFile={(preview) => {
+                      setPreview(preview);
+                      handleClose();
+                    }}
+                    scroll={scroll}
+                    aria-labelledby="scroll-dialog-title"
+                    aria-describedby="scroll-dialog-description"
+                  >
+
+                    <DialogContent dividers={scroll === "paper"}>
+                      <DialogContentText
+                        id="scroll-dialog-description"
+                        ref={descriptionElementRef}
+                        tabIndex={-1}
+                      >
+                        <div className="crop">
+                          <p>Crop image and upload</p>
+                          <span>
+                            <CloseIcon
+                              onClick={stopUload}
+                              style={{ fontSize: "40px", cursor: "pointer" }}
+                            />
+                          </span>
+                        </div>
+                        <div className="cropContainer1">
+                          <Cropper
+                            image={imageFile}
+                            crop={crop}
+                            rotation={rotation}
+                            zoom={zoom}
+
+                            cropShape="round"
+
+                            aspect={4 / 3}
+                            onCropChange={setCrop}
+                            onRotationChange={setRotation}
+                            onCropComplete={onCropComplete}
+                            onZoomChange={setZoom}
+                          />
+                        </div>
+                        <div className="controls">
+                          <div className="sliderContainer">
+
+                            <Slider
+                              value={zoom}
+                              min={1}
+                              max={3}
+                              step={0.1}
+                              aria-labelledby="Zoom"
+                              className="slider"
+                              onChange={(e, zoom) => setZoom(zoom)}
                             />
                           </div>
-                          <div className="controls">
-                            <div className="sliderContainer">
-                              {/* <Typography variant="overline" className="sliderLabel">
-                          Zoom
-                        </Typography> */}
-                              <Slider
-                                value={zoom}
-                                min={1}
-                                max={3}
-                                step={0.1}
-                                aria-labelledby="Zoom"
-                                className="slider"
-                                onChange={(e, zoom) => setZoom(zoom)}
-                              />
-                            </div>
-                            <div className="sliderContainer">
-                              {/* <Typography variant="overline" className="sliderLabel">
-                          Rotation
-                        </Typography>
-                        {rotation}
-                        <Slider
-                          value={rotation}
-                          min={0}
-                          max={360}
-                          step={1}
-                          aria-labelledby="Rotation"
-                          className="slider"
-                          onChange={(e, rotation) => setRotation(rotation)}
-                        /> */}
+                          <div className="sliderContainer">
 
-                              <div className="rotateBtns">
-                                <button onClick={rotateimageRight} className="cropButton">
-                                  <span>
-                                    <RotateRightIcon className="rotate_icon" />
-                                  </span>
-                                  <span className="roate_text">Rotate Right</span>
-                                </button>
-                                <button onClick={rotateimageLeft} className="cropButton">
-                                  <span>
-                                    <RotateLeftIcon className="rotate_icon" />
-                                  </span>
-                                  <span className="roate_text">Rotate Left</span>
-                                </button>
-                              </div>
+                            <div className="rotateBtns">
+                              <button onClick={rotateimageRight} className="cropButton">
+                                <span>
+                                  <RotateRightIcon className="rotate_icon" />
+                                </span>
+                                <span className="roate_text">Rotate Right</span>
+                              </button>
+                              <button onClick={rotateimageLeft} className="cropButton">
+                                <span>
+                                  <RotateLeftIcon className="rotate_icon" />
+                                </span>
+                                <span className="roate_text">Rotate Left</span>
+                              </button>
                             </div>
-                            <buttom
-                              style={{ cursor: "pointer" }}
-                              onClick={showCroppedImage}
-                              className="cropButtonEnter"
-                            >
-                              Upload Profile Photo
-                            </buttom>
                           </div>
-                          {/* <ImgDialog img={croppedImage} onClose={onClose} /> */}
+                          <buttom
+                            style={{ cursor: "pointer" }}
+                            onClick={showCroppedImage}
+                            className="cropButtonEnter"
+                          >
+                            Upload Profile Photo
+                          </buttom>
                         </div>
-                      </Box>
-                    </Modal>
+                      </DialogContentText>
+                    </DialogContent>
+                  </Dialog>
                   </div>
                 </div>
               </div>

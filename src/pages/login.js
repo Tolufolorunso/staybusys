@@ -22,9 +22,9 @@ const Login = () => {
   const { status, data } = useSession();
   const router = useRouter();
 
-  if (status === "authenticated" && data) {
-    router.replace("/dashboard");
-  }
+  // if (status === "authenticated" && data) {
+  //   router.replace("/dashboard");
+  // }
 
   useEffect(() => {
     if (status !== "unauthenticated") {

@@ -47,7 +47,7 @@ const Choosetasks = (props) => {
     } else {
       if (selectedTasks.length > 3) return;
       selectedTasks.push(task);
-      // toast.error("You can select only 4 tasks");
+      // toast.error("You can select only 4 tasks")
       event.currentTarget.classList.add("is__selected");
     }
   };

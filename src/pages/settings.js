@@ -14,11 +14,17 @@ import Select from "react-select";
 import { fetchJson } from "lib/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Dialog, { DialogProps } from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { useState } from "react";
 import { API_URI } from "lib/contant";
 import { getSession } from "next-auth/react";
 import { LoadingButton } from "@mui/lab";
 import { getTags } from "lib/get-tags";
+import { CloudUpload, Cancel } from "@mui/icons-material";
 
 const style = {
   position: "absolute",
@@ -78,8 +84,70 @@ function a11yProps(index) {
 
 export default function Task(props) {
   const [value, setValue] = React.useState(0);
+  const fileTypes = ["JPG", "PNG", "GIF", "JPEG"];
   const { user, tags } = props;
   const [selectedTasks, setSelectedTasks] = React.useState(user.tags);
+  const [imagePreview, setImagePreview] = useState("/static/images/avatars/avatar_1.png");
+  const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
+  const [userImage, setUserImage] = useState(null);
+  const [fileName, setFilename] = useState(null);
+  const [userAccountDetail, setUserAccountDetail] = useState(user?.accountDetail[0]);
+
+  const handleUpload = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const [file] = e.target.files || e.dataTransfer.files;
+    setUserImage(file);
+    uploadFile(file);
+    setFile(file);
+  };
+
+  function uploadFile(file) {
+    try {
+      const reader = new FileReader();
+
+      reader.readAsBinaryString(file);
+      // console.log(file);
+      // setFile(file)
+      reader.onload = (e) => {
+        // this is the base64 data
+        const fileRes = btoa(reader.result);
+        // setFile(`data:image/jpg;base64,${fileRes}`);
+        // console.log(`data:image/jpg;base64,${fileRes}`);
+        setImagePreview(`data:image/jpg;base64,${fileRes}`);
+      };
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+      toast.error(err.message);
+    }
+  }
+  const handleImageSubmit = async (e) => {
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append("image", file);
+    const result = await fetchJson(`${API_URI}/users/change-profile-image`, {
+      method: "PATCH",
+      headers: { authorization: `Bearer ${user.accessToken}` },
+      body: formData,
+    });
+
+    if (result.status) {
+      await fetch("/api/auth/session?update");
+      toast.success("profile updated");
+    } else {
+      toast.error("An error occurred...");
+    }
+  };
+
+  const handleRemove = () => {
+    setFile(null);
+    setFilename(null);
+    setImagePreview("/static/images/avatars/avatar_1.png");
+  };
+
   const options = [
     { value: "Euro", label: "Euro" },
     { value: "Naira", label: "Naira" },
@@ -124,8 +192,25 @@ export default function Task(props) {
 
   const [showAccDetails, setShowAccDetails] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [scroll, setScroll] = React.useState("paper");
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
   const [openSecondModal, setopenSecondModal] = React.useState(false);
   const handleopenSecondModal = () => setopenSecondModal(true);
   const handlecloseSecondModal = () => setopenSecondModal(false);
@@ -138,7 +223,6 @@ export default function Task(props) {
     setOpen(false);
   }
 
-  const [loading, setLoading] = React.useState(false);
   const [basicValues, setBasicValues] = React.useState({
     email: user.email,
     phone_number: user.phone_number,
@@ -174,7 +258,6 @@ export default function Task(props) {
     } catch (error) {
       setLoading(false);
       toast.error(error.message);
-      // console.log(error);
     }
   }
 
@@ -267,6 +350,44 @@ export default function Task(props) {
     }
   }
 
+  const [accountDetail, setAccountDetail] = useState({
+    country: userAccountDetail.country || "",
+    bankName: userAccountDetail.bankName || "",
+    bankAccountNumber: userAccountDetail.bankAccountNumber || "",
+    bankAccountName: userAccountDetail.bankAccountName || "",
+    sortCode: userAccountDetail.sortCode || "",
+  });
+
+  function addAccountChangeHandler(e) {
+    setAccountDetail({ ...accountDetail, [e.target.name]: e.target.value });
+  }
+
+  async function addAccountHandler() {
+    console.log(accountDetail);
+    try {
+      const updatedUser = await fetchJson(`${API_URI}/users/add-account`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.accessToken}`,
+        },
+        body: JSON.stringify({ ...accountDetail }),
+      });
+
+      if (updatedUser.status) {
+        await fetch("/api/auth/session?update");
+        toast.success(updatedUser.message);
+        setUserAccountDetail(updatedUser.accountDetail.accountDetail[0]);
+        handleClose();
+      } else {
+        throw new Error(updatedUser.message);
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message);
+    }
+  }
+
   return (
     <>
       <div className="tasks_page">
@@ -306,14 +427,55 @@ export default function Task(props) {
                     <small>Update your details and other info here</small>
                   </div>
                   <div className="right">
-                    <div className="top">
-                      <img src="/static/images/avatars/settings.png" alt="" />
-                      <div className="top_details">
-                        <Typography variant="caption">Edit your profile photo</Typography>
+                    <Box className="top">
+                      {file ? (
+                        <>
+                          <Cancel
+                            onClick={handleRemove}
+                            style={{ color: "red", cursor: "pointer", margin: "0 2px" }}
+                          />
+                          <img alt={fileName} src={imagePreview} className="imageUploads" />
+                          <span>{fileName}</span>
+                          <div
+                            className="top_details"
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <Typography variant="caption">Edit your profile photo</Typography>
+                            <button className="actn_btn" onClick={handleImageSubmit}>
+                              Update
+                            </button>{" "}
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <img
+                            onClick={handleUpload}
+                            name="file"
+                            type={fileTypes}
+                            className="imageUploads"
+                            alt={user.firstname}
+                            src={`${API_URI}/${user.image}`}
+                          />{" "}
+                          <div
+                            className="top_details"
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <Typography variant="caption">Edit your profile photo</Typography>
 
-                        <button className="actn_btn">Change</button>
-                      </div>
-                    </div>
+                            <div className="uploaded">
+                              <input
+                                type="file"
+                                style={{ height: "57.5px" }}
+                                accept="image/*"
+                                onChange={(e) => handleUpload(e)}
+                              />
+                              Change
+                            </div>
+                          </div>
+                        </>
+                      )}
+                      <div className="top_details"></div>
+                    </Box>
 
                     <div className="input_wrap" style={{ marginTop: "65px" }}>
                       <Grid container spacing={5}>
@@ -379,11 +541,10 @@ export default function Task(props) {
                       <LoadingButton
                         loading={loading}
                         type="button"
-                        size="large"
                         variant="contained"
                         loadingPosition="end"
                         className="actn_btn"
-                        fullWidth
+                        style={{ marginTop: "20px" }}
                         onClick={profileBasicHandler}
                       >
                         Update
@@ -548,7 +709,7 @@ export default function Task(props) {
                                     <p>Bank Name:</p>
                                   </Grid>
                                   <Grid item xs={6}>
-                                    <span>United Bank For Afrfica</span>
+                                    <span>{userAccountDetail?.bankName}</span>
                                   </Grid>
                                 </Grid>
                               </div>
@@ -559,7 +720,7 @@ export default function Task(props) {
                                     <p>Account Name:</p>
                                   </Grid>
                                   <Grid item xs={6}>
-                                    <span>Melanie Walters</span>
+                                    <span>{userAccountDetail?.bankAccountName}</span>
                                   </Grid>
                                 </Grid>
                               </div>
@@ -569,7 +730,7 @@ export default function Task(props) {
                                     <p>Account Number:</p>
                                   </Grid>
                                   <Grid item xs={6}>
-                                    <span>2086078162</span>
+                                    <span>{userAccountDetail?.bankAccountNumber}</span>
                                   </Grid>
                                 </Grid>
                               </div>
@@ -579,14 +740,14 @@ export default function Task(props) {
                                     <p>Country:</p>
                                   </Grid>
                                   <Grid item xs={6}>
-                                    <span>Nigeria</span>
+                                    <span>{userAccountDetail?.country}</span>
                                   </Grid>
                                 </Grid>
                               </div>
                             </div>
 
                             <div className="right">
-                              <button>
+                              <button onClick={handleOpen}>
                                 {" "}
                                 <img src="./PENCIL.svg" style={{ marginRight: "8px" }} /> Edit
                               </button>
@@ -596,60 +757,100 @@ export default function Task(props) {
                         </div>
                         <div>
                           <button onClick={handleOpen} className="actn_btn">
-                            Add an account
+                            {!userAccountDetail ? "Add an account" : "Edit account"}
                           </button>
                         </div>
                         <div>
-                          <Modal
+                          <Dialog
                             open={open}
                             onClose={handleClose}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
+                            scroll={scroll}
+                            aria-labelledby="scroll-dialog-title"
+                            aria-describedby="scroll-dialog-description"
                           >
-                            <Box sx={style} className="acct_names">
-                              <div className="add_acc_modal">
-                                <div style={{ padding: "20px" }} className="add">
-                                  <Typography variant="h5" className="">
-                                    Add a new bank account
-                                  </Typography>
-                                  <img
-                                    src="./cancel.svg"
-                                    alt="cancel"
-                                    style={{ cursor: "pointer" }}
-                                    width="38px"
-                                    onClick={handleClose}
-                                  />
-                                </div>
+                            <DialogContent dividers={scroll === "paper"}>
+                              <DialogContentText
+                                id="scroll-dialog-description"
+                                ref={descriptionElementRef}
+                                tabIndex={-1}
+                              >
+                                <Box className="acct_names">
+                                  <div className="add_acc_modal">
+                                    <div style={{ padding: "20px" }} className="add">
+                                      <Typography variant="h5" className="">
+                                        {!userAccountDetail
+                                          ? "Add a new bank account"
+                                          : "Update account"}
+                                      </Typography>
+                                      <img
+                                        src="./cancel.svg"
+                                        alt="cancel"
+                                        style={{ cursor: "pointer" }}
+                                        width="38px"
+                                        onClick={handleClose}
+                                      />
+                                    </div>
 
-                                <hr className="hr_with" />
+                                    <hr className="hr_with" />
 
-                                <div className="add_inputs">
-                                  <div className="add_input ">
-                                    <label htmlFor="Country">Country</label> <br />
-                                    <input type="text" />
-                                  </div>
-                                  <div className="add_input ">
-                                    <label htmlFor="Bank">Bank Name</label> <br />
-                                    <input type="text" />
-                                  </div>
-                                  <div className="add_input ">
-                                    <label htmlFor="AccountNumber">Account Number</label> <br />
-                                    <input type="number" />
-                                  </div>
-                                  <div className="add_input ">
-                                    <label htmlFor="withdraw">Sort Code</label> <br />
-                                    <input type="number" />
-                                  </div>
-                                  <div className="add_input ">
-                                    <label htmlFor="withdraw">Account Name</label> <br />
-                                    <input type="text" />
-                                  </div>
+                                    <div className="add_inputs">
+                                      <div className="add_input ">
+                                        <label htmlFor="Country">Country</label> <br />
+                                        <input
+                                          type="text"
+                                          name="country"
+                                          onChange={addAccountChangeHandler}
+                                          value={accountDetail.country}
+                                        />
+                                      </div>
+                                      <div className="add_input ">
+                                        <label htmlFor="Bank">Bank Name</label> <br />
+                                        <input
+                                          type="text"
+                                          name="bankName"
+                                          onChange={addAccountChangeHandler}
+                                          value={accountDetail.bankName}
+                                        />
+                                      </div>
+                                      <div className="add_input ">
+                                        <label htmlFor="AccountNumber">Account Number</label> <br />
+                                        <input
+                                          type="number"
+                                          name="bankAccountNumber"
+                                          onChange={addAccountChangeHandler}
+                                          value={accountDetail.bankAccountNumber}
+                                        />
+                                      </div>
+                                      <div className="add_input ">
+                                        <label htmlFor="withdraw">Sort Code</label> <br />
+                                        <input
+                                          type="number"
+                                          name="sortCode"
+                                          onChange={addAccountChangeHandler}
+                                          value={accountDetail.sortCode}
+                                        />
+                                      </div>
+                                      <div className="add_input ">
+                                        <label htmlFor="withdraw">Account Name</label> <br />
+                                        <input
+                                          type="text"
+                                          name="bankAccountName"
+                                          onChange={addAccountChangeHandler}
+                                          value={accountDetail.bankAccountName}
+                                        />
+                                      </div>
 
-                                  <button onClick={closeModals1}>Withdraw Funds</button>
-                                </div>
-                              </div>
-                            </Box>
-                          </Modal>
+                                      <button onClick={addAccountHandler}>
+                                        {!userAccountDetail
+                                          ? "Add Account Detail"
+                                          : "Update account"}
+                                      </button>
+                                    </div>
+                                  </div>
+                                </Box>
+                              </DialogContentText>
+                            </DialogContent>
+                          </Dialog>
                         </div>
                         <div>
                           <Modal

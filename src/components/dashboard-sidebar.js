@@ -14,7 +14,8 @@ import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomi
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import HistoryToggleOffIcon from "@mui/icons-material/HistoryToggleOff";
 import Link from "next/link";
-import { signOut,useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+
 const items = [
   {
     href: "/dashboard",
@@ -47,16 +48,11 @@ const items = [
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
   const router = useRouter();
-  const session= useSession()
+  const session = useSession();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
     defaultMatches: true,
     noSsr: false,
   });
-
-  function logoutHandler() {
-    console.log("hello");
-    signOut()
-  }
 
   function logoutHandler() {
     signOut();
@@ -94,7 +90,7 @@ export const DashboardSidebar = (props) => {
         </Box>
         <a onClick={logoutHandler}>
           <Box
-            style={{ display: "flex", paddingLeft: "35px", marginTop: "150px", cursor: "pointer " }}
+            style={{ display: "flex", paddingLeft: "35px",position:"relative", bottom:"-70px",cursor: "pointer " }}
           >
             <img src="../../logout.svg" style={{ color: "#2F2E40", marginRight: "15px" }} />
             <Typography
@@ -119,7 +115,7 @@ export const DashboardSidebar = (props) => {
             backgroundColor: "#fff",
             color: "#FFFFFF",
             width: 280,
-            marginTop:  "83px",
+            marginTop: "83px",
           },
         }}
         variant="permanent"

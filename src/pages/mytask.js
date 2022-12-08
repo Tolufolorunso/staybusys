@@ -13,7 +13,12 @@ import { fetchJson, fetchTasks } from "lib/api";
 import { getSession, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
-
+import Dialog, { DialogProps } from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { LoadingButton } from "@mui/lab";
 import { ToastContainer, toast } from "react-toastify";
 import { API_URI } from "../../lib/contant";
 import { filterTask, padPrice } from "../../lib/filter";
@@ -42,9 +47,15 @@ const style = {
 export default function Task(props) {
   const { user, tasks: taskArr } = props;
 
+  const [loading, setLoading] = useState(false);
+  const [loading1, setLoading1] = useState(false);
   const [viewMode, setviewMode] = React.useState("");
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const [scroll, setScroll] = React.useState("paper");
+
   const handleClose = () => setOpen(false);
   const [openSecondModal, setopenSecondModal] = React.useState(false);
   const handlecloseSecondModal = () => setopenSecondModal(false);
@@ -57,7 +68,24 @@ export default function Task(props) {
   const [taskDetail, settaskDetail] = useState(null);
 
   const { data } = useSession();
-
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (openSecondModal) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [openSecondModal]);
+  const descriptionElementRef2 = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
   useEffect(() => {
     // async function fetchTasks() {
     //   const res = await fetchJson("/api/tasks", {
@@ -160,7 +188,7 @@ export default function Task(props) {
 
   async function acceptHandler(id) {
     const url = `${API_URI}/tasks/${id}/accept`;
-
+    setLoading1(true);
     try {
       const res = await fetchJson(url, {
         method: "PATCH",
@@ -168,7 +196,9 @@ export default function Task(props) {
       });
 
       if (res.status) {
+        await fetch("/api/auth/session?update");
         setTasksList(function () {
+          toast.success("Task succesfully accepted");
           return tasksList.filter((task) => task._id !== id);
         });
       }
@@ -179,12 +209,13 @@ export default function Task(props) {
     } catch (error) {
       toast.error(error.message);
     }
+    setLoading1(false);
     closeModals();
   }
 
   async function declineHandler(id) {
     const url = `${API_URI}/tasks/${id}/decline`;
-
+    setLoading(true);
     try {
       const res = await fetchJson(url, {
         method: "PATCH",
@@ -192,6 +223,8 @@ export default function Task(props) {
       });
 
       if (res.status) {
+        toast.success("Task succesfully Declined");
+        await fetch("/api/auth/session?update");
         setTasksList(function () {
           return tasksList.filter((task) => task._id !== id);
         });
@@ -203,6 +236,7 @@ export default function Task(props) {
     } catch (error) {
       toast.error(error.message);
     }
+    setLoading(false);
     closeModals();
   }
 
@@ -215,7 +249,8 @@ export default function Task(props) {
   const endDateRef = React.useRef();
   const [sort, setSort] = useState("Old");
 
-  async function handleopenSecondModal() {
+  async function handleopenSecondModal(e) {
+    e.preventDefault();
     let url = `${API_URI}/tasks?`;
     const price1 = padPrice(minPriceRef.current.value);
     const price2 = padPrice(maxPriceRef.current.value);
@@ -376,126 +411,157 @@ export default function Task(props) {
             </div>
           </div>
 
-          <Modal
+          <Dialog
             open={open}
             onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+            scroll={scroll}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description"
           >
-            <Box className="modal_box" sx={style}>
-              <div className="filter_modal">
-                <div className="filter_modal_desc">
-                  <div className="modal_secions">
-                    <div className="section_one">
-                      <div className="modal_sections_hold">
-                        <span>Tags</span>
-                      </div>
-                      <div className="modal_sections_hold_btn">
-                        <div className="buttons">
-                          {user.tags.map((tag, index) => (
-                            <button
-                              key={index}
-                              onClick={() => chooseTask(index)}
-                              className="choose_btn 0"
-                            >
-                              {tag}
+            <DialogContent dividers={scroll === "paper"}>
+              <DialogContentText
+                id="scroll-dialog-description"
+                ref={descriptionElementRef2}
+                tabIndex={-1}
+              >
+                <Box className="modal_box" component="form">
+                  <div className="filter_modal">
+                    <div className="filter_modal_desc">
+                      <div className="modal_secions">
+                        <div className="section_one">
+                          <div className="modal_sections_hold">
+                            <span>Tags</span>
+                          </div>
+                          <div className="modal_sections_hold_btn">
+                            <div className="buttons">
+                              {user.tags.map((tag, index) => (
+                                <button
+                                  type="button"
+                                  key={index}
+                                  onClick={() => chooseTask(index)}
+                                  className="choose_btn 0"
+                                >
+                                  {tag}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        <hr className="modal_secions_hr" />
+
+                        <div className="section_two">
+                          <div className="modal_sections_hold">
+                            <span>Date</span>
+                          </div>
+
+                          <div className="filter_inputs">
+                            <div className="input">
+                              <input type="date" placeholder="2022-01-01"   width="100%" ref={startDateRef} />
+
+                            </div>
+                            <div className="span"></div>
+                            <div className="input">
+                              <input type="date" placeholder="Today" ref={endDateRef} width="100%"  />
+
+                            </div>
+                          </div>
+                        </div>
+                        <hr className="modal_secions_hr" />
+
+                        <div className="section_two">
+                          <div className="modal_sections_hold">
+                            <span>Price</span>
+                          </div>
+
+                          <div className="filter_inputs">
+                            <div className="input">
+                              <input type="text" placeholder="Min price" ref={minPriceRef} />
+                              <AttachMoneyIcon style={{ color: "#DCDCDC" }} />
+                            </div>
+                            <div className="span"></div>
+                            <div className="input">
+                              <input type="text" placeholder="Max Price" ref={maxPriceRef} />
+                              <AttachMoneyIcon style={{ color: "#DCDCDC" }} />
+                            </div>
+                          </div>
+                        </div>
+
+                        <hr className="modal_secions_hr" />
+
+                        <div className="filter_btns">
+                          <button className="clear" type="reset" >
+                            Clear all filters
+                          </button>
+                          <div className="dbl_btns">
+                            <button onClick={handleClose} className="cancel" type="button">
+                              Cancel
                             </button>
-                          ))}
+                            <button onClick={handleopenSecondModal} className="apply">
+                              Apply Filter
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-
-                    <hr className="modal_secions_hr" />
-
-                    <div className="section_two">
-                      <div className="modal_sections_hold">
-                        <span>Date</span>
-                      </div>
-
-                      <div className="filter_inputs">
-                        <div className="input">
-                          <input type="date" placeholder="2022-01-01" ref={startDateRef} />
-                          <DateRangeIcon style={{ color: "#DCDCDC" }} />
-                        </div>
-                        <div className="span"></div>
-                        <div className="input">
-                          <input type="date" placeholder="Today" ref={endDateRef} />
-                          <DateRangeIcon style={{ color: "#DCDCDC" }} />
-                        </div>
-                      </div>
-                    </div>
-                    <hr className="modal_secions_hr" />
-
-                    <div className="section_two">
-                      <div className="modal_sections_hold">
-                        <span>Price</span>
-                      </div>
-
-                      <div className="filter_inputs">
-                        <div className="input">
-                          <input type="text" placeholder="Min price" ref={minPriceRef} />
-                          <AttachMoneyIcon style={{ color: "#DCDCDC" }} />
-                        </div>
-                        <div className="span"></div>
-                        <div className="input">
-                          <input type="text" placeholder="Max Price" ref={maxPriceRef} />
-                          <AttachMoneyIcon style={{ color: "#DCDCDC" }} />
-                        </div>
-                      </div>
-                    </div>
-
-                    <hr className="modal_secions_hr" />
-
-                    <div className="filter_btns">
-                      <button className="clear">Clear all filters</button>
-                      <div className="dbl_btns">
-                        <button onClick={handleClose} className="cancel">
-                          Cancel
-                        </button>
-                        <button onClick={handleopenSecondModal} className="apply">
-                          Apply Filter
-                        </button>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </Box>
-          </Modal>
-          <Modal
+                </Box>
+              </DialogContentText>
+            </DialogContent>
+          </Dialog>
+          <Dialog
             open={openSecondModal}
             onClose={handlecloseSecondModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+            scroll={scroll}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description"
           >
-            <Box sx={style}>
-              <div className="filter_modal">
-                <div className="filter_modal_desc">
-                  <div className="modal_secions">
-                    <div className="research">
-                      <span className="open_text">Research</span>
-                      <span className="square"></span>
-                    </div>
+            <DialogContent>
+              <DialogContentText
+                id="scroll-dialog-description"
+                ref={descriptionElementRef}
+                tabIndex={-1}
+              >
+                <div className="filter_modal">
+                  <div className="filter_modal_desc">
+                    <div className="modal_secions">
+                      <div className="research">
+                        <span className="open_text">{taskDetail?.tag}</span>
+                        <span className="square"></span>
+                      </div>
 
-                    <p className="header_text">{taskDetail?.title}</p>
-                    <p className="desc">{taskDetail?.description}</p>
+                      <p className="header_text">{taskDetail?.title}</p>
+                      <p className="desc">{taskDetail?.description}</p>
 
-                    <div className="filter_btns second_filter_btns">
-                      <p>{taskDetail?.price}</p>
-                      <div className="dbl_btns">
-                        <button className="cancel" onClick={() => declineHandler(taskDetail?._id)}>
-                          Decline
-                        </button>
-                        <button className="apply" onClick={() => acceptHandler(taskDetail?._id)}>
-                          Accept
-                        </button>
+                      <div className="filter_btns ">
+                        <p>{taskDetail?.price}</p>
+                        <div className="dbl_btns">
+                          <LoadingButton
+                            loading={loading}
+                            loadingPosition="end"
+                            className="cancel"
+                            variant="outline"
+                            onClick={() => declineHandler(taskDetail?._id)}
+                          >
+                            Decline
+                          </LoadingButton>
+                          <LoadingButton
+                            loading={loading1}
+                            variant="contained"
+                            className="apply"
+                            loadingPosition="end"
+                            onClick={() => acceptHandler(taskDetail?._id)}
+                          >
+                            Accept
+                          </LoadingButton>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Box>
-          </Modal>
+              </DialogContentText>
+            </DialogContent>
+          </Dialog>
           {/* {viewMode} */}
           <div
             className={
@@ -521,12 +587,23 @@ export default function Task(props) {
                       Read More
                     </button>
                     <div className="grid_sec_two_btns">
-                      <button className="decline" onClick={() => declineHandler(task?._id)}>
+                      <LoadingButton
+                        loading={loading}
+                        loadingPosition="end"
+                        className="decline"
+                        onClick={() => declineHandler(task?._id)}
+                      >
                         Decline
-                      </button>
-                      <button className="accept" onClick={() => acceptHandler(task?._id)}>
+                      </LoadingButton>
+                      <LoadingButton
+                        loading={loading1}
+                        variant="contained"
+                        loadingPosition="end"
+                        className="accept"
+                        onClick={() => acceptHandler(task?._id)}
+                      >
                         Accept
-                      </button>
+                      </LoadingButton>
                     </div>
                   </div>
                 </div>
@@ -561,5 +638,3 @@ export async function getServerSideProps(ctx) {
     },
   };
 }
-
-

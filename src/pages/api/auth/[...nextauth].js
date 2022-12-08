@@ -30,8 +30,15 @@ const createOptions = (req) => ({
           method: "GET",
           headers: { authorization: `Bearer ${token.accessToken}` },
         });
+        // console.log("server",token.accessToken, response)
+
+        if (response.status === 401) {
+          await signOut();
+          return {};
+        }
+        
         const updatedProfile = await response.json();
-        return { ...token, ...updatedProfile.user, hello: "hello there" };
+        return { ...token, ...updatedProfile.user };
       }
       if (account && user) {
         token.accessToken = user.token;
