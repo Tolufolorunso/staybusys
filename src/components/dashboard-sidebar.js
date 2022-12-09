@@ -84,9 +84,6 @@ export const DashboardSidebar = (props) => {
         }}
       >
         <Box sx={{ flexGrow: 1 }}>
-          <Link href="/settings"><a>Settings</a></Link>
-        </Box>
-        <Box sx={{ flexGrow: 1 }}>
           {items.map((item) => (
             <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} />
           ))}
