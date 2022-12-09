@@ -45,7 +45,7 @@ const style = {
 };
 
 export default function Task(props) {
-  const { user, tasks: taskArr } = props;
+  const { user, error, tasks: taskArr } = props;
 
   const [loading, setLoading] = useState(false);
   const [loading1, setLoading1] = useState(false);
@@ -356,7 +356,7 @@ export default function Task(props) {
 
             <div className="sort">
               <p>
-                <span>{tasksList.length}</span> tasks found
+                {!error && <span>{tasksList.length}</span> } {!error && " tasks found"}
               </p>
 
               <div className="buttons">
@@ -457,13 +457,21 @@ export default function Task(props) {
 
                           <div className="filter_inputs">
                             <div className="input">
-                              <input type="date" placeholder="2022-01-01"   width="100%" ref={startDateRef} />
-
+                              <input
+                                type="date"
+                                placeholder="2022-01-01"
+                                width="100%"
+                                ref={startDateRef}
+                              />
                             </div>
                             <div className="span"></div>
                             <div className="input">
-                              <input type="date" placeholder="Today" ref={endDateRef} width="100%"  />
-
+                              <input
+                                type="date"
+                                placeholder="Today"
+                                ref={endDateRef}
+                                width="100%"
+                              />
                             </div>
                           </div>
                         </div>
@@ -490,7 +498,7 @@ export default function Task(props) {
                         <hr className="modal_secions_hr" />
 
                         <div className="filter_btns">
-                          <button className="clear" type="reset" >
+                          <button className="clear" type="reset">
                             Clear all filters
                           </button>
                           <div className="dbl_btns">
@@ -568,47 +576,51 @@ export default function Task(props) {
               viewMode === "displayGrid" ? "grids_sec container displayGrid" : "grids_sec container"
             }
           >
-            {tasksList.map((task, index) => {
-              return (
-                <div className="tasks" key={task._id}>
-                  <div className="end">
-                    <span className="design">{task.tag}</span>
-                    <span className="price">{task.price}£</span>
-                  </div>
-                  <p className="font-face-gm">{task.title}</p>
+            {error ? (
+              <h2>{error}</h2>
+            ) : (
+              tasksList.map((task, index) => {
+                return (
+                  <div className="tasks" key={task._id}>
+                    <div className="end">
+                      <span className="design">{task.tag}</span>
+                      <span className="price">{task.price}£</span>
+                    </div>
+                    <p className="font-face-gm">{task.title}</p>
 
-                  <div className="details">
-                    <small className="font-face-text-big">
-                      {task.description.slice(0, 200) + "..."}
-                    </small>
-                  </div>
-                  <div className="grid_sec_btns">
-                    <button className="read_more" onClick={() => readMoreHandler(task._id)}>
-                      Read More
-                    </button>
-                    <div className="grid_sec_two_btns">
-                      <LoadingButton
-                        loading={loading}
-                        loadingPosition="end"
-                        className="decline"
-                        onClick={() => declineHandler(task?._id)}
-                      >
-                        Decline
-                      </LoadingButton>
-                      <LoadingButton
-                        loading={loading1}
-                        variant="contained"
-                        loadingPosition="end"
-                        className="accept"
-                        onClick={() => acceptHandler(task?._id)}
-                      >
-                        Accept
-                      </LoadingButton>
+                    <div className="details">
+                      <small className="font-face-text-big">
+                        {task.description.slice(0, 200) + "..."}
+                      </small>
+                    </div>
+                    <div className="grid_sec_btns">
+                      <button className="read_more" onClick={() => readMoreHandler(task._id)}>
+                        Read More
+                      </button>
+                      <div className="grid_sec_two_btns">
+                        <LoadingButton
+                          loading={loading}
+                          loadingPosition="end"
+                          className="decline"
+                          onClick={() => declineHandler(task?._id)}
+                        >
+                          Decline
+                        </LoadingButton>
+                        <LoadingButton
+                          loading={loading1}
+                          variant="contained"
+                          loadingPosition="end"
+                          className="accept"
+                          onClick={() => acceptHandler(task?._id)}
+                        >
+                          Accept
+                        </LoadingButton>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
         </div>
       </div>
@@ -620,7 +632,6 @@ Task.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
-  const tasks = await fetchTasks(session?.user?.accessToken, `${API_URI}/tasks`);
 
   if (!session) {
     return {
@@ -631,10 +642,22 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  return {
-    props: {
-      ...session,
-      tasks: tasks.tasks,
-    },
-  };
+  try {
+    const tasks = await fetchTasks(session?.user?.accessToken, `${API_URI}/tasks`);
+
+    return {
+      props: {
+        ...session,
+        tasks: tasks.tasks,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        ...session,
+        tasks: [],
+        error: error.message,
+      },
+    };
+  }
 }

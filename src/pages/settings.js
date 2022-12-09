@@ -939,8 +939,6 @@ Task.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
-  const tags = await getTags();
-
   if (!session) {
     return {
       redirect: {
@@ -950,10 +948,21 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  return {
-    props: {
-      ...session,
-      tags,
-    },
-  };
+  try {
+    const tags = await getTags();
+    return {
+      props: {
+        ...session,
+        tags,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        ...session,
+        tags: [],
+        error: error.message,
+      },
+    };
+  }
 }

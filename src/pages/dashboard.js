@@ -91,7 +91,7 @@ export default Dashboard;
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
-  console.log(session?.user?.completed);
+
   if (!session?.user?.completed) {
     return {
       redirect: {
@@ -110,12 +110,24 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  const { submissions } = await getSubmission(session?.user?.accessToken, `${API_URI}/submissions`);
-
-  return {
+  try {
+    const { submissions } = await getSubmission(session?.user?.accessToken, `${API_URI}/submissions`);
+    return {
     props: {
       ...session,
       submissions,
     },
   };
+  } catch (error) {
+    return {
+      props: {
+        ...session,
+        submissions: [],
+        error: error.message
+      },
+    };
+  }
+
+
+  
 }

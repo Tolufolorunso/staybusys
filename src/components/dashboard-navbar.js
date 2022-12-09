@@ -21,7 +21,7 @@ export const DashboardNavbar = (props) => {
 
   useEffect(() => {
     setUser(data?.user)
-  },[data])
+  },[status,data])
 
 
   const { onSidebarOpen, ...other } = props;
@@ -89,7 +89,7 @@ export const DashboardNavbar = (props) => {
           </Avatar>:
           <IconButton  display={'flex'} alignItems={'center'} style={{marginLeft:"20px", marginRight:"20px",height:"50px" ,padding:"4px 10px",borderRadius:"8px",border: '2px solid rgba(47, 46, 64, 0.08)'}}>
            <Typography style={{color:"black",fontSize:"13px", textTransform: "capitalize"}}>
-            {status === "authenticated" && `${user?.firstname} ${user?.lastname}`}
+            {status === "authenticated" ? `${user?.firstname} ${user?.lastname}` : ''}
             </Typography>
             <Avatar
             sx={{
@@ -100,7 +100,7 @@ export const DashboardNavbar = (props) => {
 
             // src="/static/images/avatars/avatar_1.png"
 
-            src={`${API_URI}/${user?.image}`}
+            src={status === "authenticated" ? `${API_URI}/${user?.image}` : ""}
           >
             <UserCircleIcon fontSize="small" />
           </Avatar>
