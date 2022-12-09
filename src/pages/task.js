@@ -20,7 +20,7 @@ import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import { completedTasks } from "src/__mocks__/completedTasks";
 import { getSession } from "next-auth/react";
 import SubmitTask from "src/components/submit-task";
-import { saveSubmission } from "lib/api";
+import { fetchJson, getUserTasks, saveSubmission } from "lib/api";
 import { API_URI } from "lib/contant";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -74,22 +74,25 @@ function a11yProps(index) {
 }
 
 export default function Task(props) {
-  const { user } = props;
+  const { user, onGoingTask, completedTasks, error } = props;
   const [value, setValue] = React.useState(0);
   const [selectValue, setSelectValue] = useState("Upload a file");
   const [isShown, setIsShown] = useState("");
   const [urls, setUrls] = useState("");
   const [files, setFiles] = useState(null);
-  const [taskTakens, setTaskTakens] = useState([]);
-  const [onGoingTasks, setOngoingTask] = useState(0);
+  const [taskTakens, setTaskTakens] = useState(onGoingTask);
+  const [onGoingTasks, setOngoingTask] = useState(onGoingTask.length || "0");
 
-  useEffect(() => {
-    setTaskTakens(user?.taskTaken)
-    setOngoingTask(user?.taskTaken?.length)
-  },[])
+  const [completedtaskArr, setCompletedTaskArr] = useState(completedTasks);
+  const [completedTasksLength, setCompletedTasksLength] = useState(completedTasks.length || "0");
 
-  const handleClick = (id,newValue) => {
+  // useEffect(() => {
+  //   // setTaskTakens(user?.taskTaken)
+  //   // setOngoingTask(user?.taskTaken?.length)
+  //   fetchJson("")
+  // },[])
 
+  const handleClick = (id, newValue) => {
     // 👇️ toggle shown state
 
     // setIsShown((current) => !current);
@@ -131,9 +134,15 @@ export default function Task(props) {
         toast.success("Task Completed, Good job");
         await fetch("/api/auth/session?update");
         setTaskTakens(function () {
-          return taskTakens.filter((task) => task._id !== taskId);
+          return taskTakens.filter((task) => {
+            if (task._id === taskId) {
+              setCompletedTaskArr([task, ...completedTasks]);
+            }
+            return task._id !== taskId;
+          });
         });
-        setOngoingTask(onGoingTasks - 1)
+        setOngoingTask(onGoingTasks - 1);
+        setCompletedTasksLength(+completedTasksLength + 1);
       } else {
         throw new Error(result.message);
       }
@@ -172,10 +181,7 @@ export default function Task(props) {
                   <Tab
                     icon={
                       <IconButton aria-label="cart">
-                        <StyledBadge
-                          badgeContent={onGoingTasks}
-                          color="secondary"
-                        ></StyledBadge>
+                        <StyledBadge badgeContent={onGoingTasks} color="secondary"></StyledBadge>
                       </IconButton>
                     }
                     iconPosition="end"
@@ -187,7 +193,7 @@ export default function Task(props) {
                     icon={
                       <IconButton aria-label="cart">
                         <StyledBadge
-                          badgeContent={user?.completedTasks?.length}
+                          badgeContent={completedTasksLength}
                           color="secondary"
                         ></StyledBadge>
                       </IconButton>
@@ -200,38 +206,42 @@ export default function Task(props) {
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
-                {taskTakens.map((task) => {
-                  return (
-                    <div className="ongoing" key={task._id}>
-                      <div className="end">
-                        <span>Ongoing</span>
-                      </div>
-                      <p>{task.title}</p>
-                      <small>{task.description}</small>
-                      <div className="btnn">
-                        {isShown === task._id && (
-                          <button className="button_enroll8 " onClick={() => setIsShown("")}>
+                {error ? (
+                  <h2>{error}</h2>
+                ) : (
+                  taskTakens.map((task) => {
+                    return (
+                      <div className="ongoing" key={task._id}>
+                        <div className="end">
+                          <span>Ongoing</span>
+                        </div>
+                        <p>{task.title}</p>
+                        <small>{task.description}</small>
+                        <div className="btnn">
+                          {isShown === task._id && (
+                            <button className="button_enroll8 " onClick={() => setIsShown("")}>
+                              {" "}
+                              Close
+                            </button>
+                          )}
+                          <button className="button_enroll1 " onClick={() => handleClick(task._id)}>
                             {" "}
-                            Close
+                            Submit task
                           </button>
+                        </div>
+                        {isShown === task._id && (
+                          <SubmitTask
+                            handleSelectChange={handleSelectChange}
+                            selectValue={selectValue}
+                            taskId={task._id}
+                            saveSubmissionHandler={saveSubmissionHandler}
+                            onChangleHandler={onChangleHandler}
+                          />
                         )}
-                        <button className="button_enroll1 " onClick={() => handleClick(task._id)}>
-                          {" "}
-                          Submit task
-                        </button>
                       </div>
-                      {isShown === task._id && (
-                        <SubmitTask
-                          handleSelectChange={handleSelectChange}
-                          selectValue={selectValue}
-                          taskId={task._id}
-                          saveSubmissionHandler={saveSubmissionHandler}
-                          onChangleHandler={onChangleHandler}
-                        />
-                      )}
-                    </div>
-                  );
-                })}
+                    );
+                  })
+                )}
 
                 {/* <div className="add_btnn">
                   <button className="add_btn">
@@ -241,7 +251,7 @@ export default function Task(props) {
                 </div> */}
               </TabPanel>
               <TabPanel value={value} index={1}>
-                {user?.completedTasks.map((completed) => (
+                {completedtaskArr.map((completed) => (
                   <div className="completed" key={completed._id}>
                     <div className="end">
                       <span>{"completed"}</span>
@@ -303,9 +313,23 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  return {
-    props: {
-      ...session,
-    },
-  };
+  try {
+    const userTasks = await getUserTasks(session?.user?.accessToken, `${API_URI}/tasks/user-tasks`);
+    return {
+      props: {
+        ...session,
+        onGoingTask: userTasks.onGoingTasks,
+        completedTasks: userTasks.completedTasks,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        ...session,
+        onGoingTask: [],
+        completedTasks: [],
+        error: error.message,
+      },
+    };
+  }
 }
