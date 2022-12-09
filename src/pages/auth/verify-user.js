@@ -14,38 +14,34 @@ import { toast, ToastContainer } from "react-toastify";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { LoadingButton } from "@mui/lab";
 import "react-toastify/dist/ReactToastify.css";
+import { getSession } from "next-auth/react";
 
-function VerifyUserPage() {
-  const { query } = useRouter();
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+function VerifyUserPage(props) {
+  // async function verifyUser() {
+  //   const url = `${API_URI}/auth/verify-user/${query.token}/${query.email}`;
+  //   console.log(url);
+  //   const isVerified = await fetchJson(url, {
+  //     method: "POST",
+  //     headers: { "content-type": "application/json" },
+  //     body: JSON.stringify({
+  //       verificationToken: query.token,
+  //       email: query.email,
+  //     }),
+  //   });
 
-  async function verifyUser() {
-    const url = `${API_URI}/auth/verify-user/${query.token}/${query.email}`;
-console.log(url)
-    const isVerified = await fetchJson(url, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        verificationToken: query.token,
-        email: query.email,
-      }),
-    });
+  //   if (isVerified.status) {
+  //     setMessage(isVerified.message);
+  //     setLoading(false);
+  //   } else {
+  //     setLoading(false);
+  //   }
+  // }
 
+  // useEffect(() => {
+  //   verifyUser();
+  //   setLoading(true);
+  // }, []);
 
-
-    if (isVerified.status) {
-      setMessage(isVerified.message);
-      setLoading(false);
-    } else {
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    verifyUser();
-    setLoading(true);
-  });
   return (
     <>
       <Head>
@@ -59,7 +55,7 @@ console.log(url)
           <Box className="form__container_form">
             <Box sx={{ textAlign: "center" }}>
               <LockOutlinedIcon />
-              {message !== "" && <h3>{message}</h3>}
+              <h3>{props.message}</h3>
               <br /> <br />
               <LoadingButton
                 href="/login"
@@ -80,3 +76,45 @@ console.log(url)
 }
 
 export default VerifyUserPage;
+
+export async function getServerSideProps(ctx) {
+  const { query } = ctx;
+  const session = await getSession(ctx);
+
+  const url = `${API_URI}/auth/verify-user/${query.token}/${query.email}`;
+  let message;
+  try {
+    const isVerified = await fetchJson(url, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        verificationToken: query.token,
+        email: query.email,
+      }),
+    });
+    if (isVerified.status) {
+      message = "Email verified";
+    } else {
+      if (isVerified.message === "verification token not matched") {
+        return {
+          redirect: {
+            destination: "/login",
+            permanent: false,
+          },
+        };
+      }
+      message = isVerified.message;
+    }
+  } catch (error) {
+    message = "Something went wrong";
+  }
+  console.log(87, query);
+  console.log(88, session);
+
+  return {
+    props: {
+      ...session,
+      message,
+    },
+  };
+}

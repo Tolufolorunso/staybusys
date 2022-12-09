@@ -351,11 +351,11 @@ export default function Task(props) {
   }
 
   const [accountDetail, setAccountDetail] = useState({
-    country: userAccountDetail.country || "",
-    bankName: userAccountDetail.bankName || "",
-    bankAccountNumber: userAccountDetail.bankAccountNumber || "",
-    bankAccountName: userAccountDetail.bankAccountName || "",
-    sortCode: userAccountDetail.sortCode || "",
+    country: userAccountDetail?.country || "",
+    bankName: userAccountDetail?.bankName || "",
+    bankAccountNumber: userAccountDetail?.bankAccountNumber || "",
+    bankAccountName: userAccountDetail?.bankAccountName || "",
+    sortCode: userAccountDetail?.sortCode || "",
   });
 
   function addAccountChangeHandler(e) {
@@ -369,7 +369,7 @@ export default function Task(props) {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${user.accessToken}`,
+          authorization: `Bearer ${user?.accessToken}`,
         },
         body: JSON.stringify({ ...accountDetail }),
       });
@@ -377,7 +377,7 @@ export default function Task(props) {
       if (updatedUser.status) {
         await fetch("/api/auth/session?update");
         toast.success(updatedUser.message);
-        setUserAccountDetail(updatedUser.accountDetail.accountDetail[0]);
+        setUserAccountDetail(updatedUser?.accountDetail?.accountDetail[0]);
         handleClose();
       } else {
         throw new Error(updatedUser.message);

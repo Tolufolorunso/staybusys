@@ -63,7 +63,7 @@ const Dashboard = (props) => {
                   border: "1px solid rgba(255, 204, 0, 0.2)",
                   boxShadow: " 0px 7px 20px rgba(145, 156, 212, 0.15)",
                 }}
-                totalEarned={user?.wallet}
+                totalEarned={user?.wallet || 0}
               />
             </Grid>
             <Grid item lg={12} md={12} xl={9} xs={12}>
@@ -91,7 +91,7 @@ export default Dashboard;
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
-console.log(session?.user?.completed)
+  console.log(session?.user?.completed);
   if (!session?.user?.completed) {
     return {
       redirect: {
