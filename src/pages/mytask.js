@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/jsx-max-props-per-line */
 import Head from "next/head";
 import * as React from "react";
 import { Box, Container, Grid, Pagination } from "@mui/material";
@@ -356,7 +358,7 @@ export default function Task(props) {
 
             <div className="sort">
               <p>
-                {!error && <span>{tasksList.length}</span> } {!error && " tasks found"}
+                {!error && <span>{tasksList.length}</span>} {!error && " tasks found"}
               </p>
 
               <div className="buttons">

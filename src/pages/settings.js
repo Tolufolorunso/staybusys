@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import * as React from "react";
 
 import Head from "next/head";
@@ -11,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import Modal from "@mui/material/Modal";
 import Select from "react-select";
-import { fetchJson } from "lib/api";
+import { fetchJson, getSetting } from "lib/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dialog, { DialogProps } from "@mui/material/Dialog";
@@ -949,10 +950,13 @@ export async function getServerSideProps(ctx) {
   }
 
   try {
+    const { user } = await getSetting(session?.user?.accessToken, `${API_URI}/users/me`);
+    user.accessToken = session.accessToken;
     const tags = await getTags();
     return {
       props: {
-        ...session,
+        // ...session,
+        user,
         tags,
       },
     };
@@ -961,6 +965,7 @@ export async function getServerSideProps(ctx) {
       props: {
         ...session,
         tags: [],
+        settings: null,
         error: error.message,
       },
     };
