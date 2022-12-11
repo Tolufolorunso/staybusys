@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import Head from "next/head";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { LatestOrders } from "../components/dashboard/dasboard-table";
@@ -8,19 +9,17 @@ import { TotalProfit } from "../components/dashboard/total-profit";
 
 import { DashboardLayout } from "../components/dashboard-layout";
 import { getSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { getSubmission } from "lib/api";
+import { getSetting, getSubmission } from "lib/api";
 import { API_URI } from "lib/contant";
+import { useEffect } from "react";
 
 const Dashboard = (props) => {
   const { user, submissions } = props;
-  const router = useRouter();
-  if (typeof window === "undefined") return null;
+  // if(typeof window === "undefined") return null
 
   useEffect(() => {
     fetch("/api/auth/session?update");
-  }, []);
+  },[])
 
   return (
     <>
@@ -91,15 +90,7 @@ export default Dashboard;
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
-
-  if (!session?.user?.completed) {
-    return {
-      redirect: {
-        destination: "/personaldetails",
-        permanent: false,
-      },
-    };
-  }
+  console.log(session)
 
   if (!session) {
     return {
@@ -111,23 +102,35 @@ export async function getServerSideProps(ctx) {
   }
 
   try {
-    const { submissions } = await getSubmission(session?.user?.accessToken, `${API_URI}/submissions`);
+    const { submissions } = await getSubmission(
+      session?.user?.accessToken,
+      `${API_URI}/submissions`
+    );
+    const { user } = await getSetting(session?.user?.accessToken, `${API_URI}/users/me`);
+    user.accessToken = session.user.accessToken;
+    console.log(user)
+    if (!user?.completed) {
+      return {
+        redirect: {
+          destination: "/personaldetails",
+          permanent: false,
+        },
+      };
+    }
     return {
-    props: {
-      ...session,
-      submissions,
-    },
-  };
+      props: {
+        // ...session,
+        user,
+        submissions,
+      },
+    };
   } catch (error) {
     return {
       props: {
         ...session,
         submissions: [],
-        error: error.message
+        error: error.message,
       },
     };
   }
-
-
-  
 }

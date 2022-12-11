@@ -306,6 +306,10 @@ export default function Task(props) {
     filterTask(url, setTasksList, props, toast);
   }
 
+  useEffect(() => {
+    fetch("/api/auth/session?update");
+  },[])
+
   return (
     <>
       <div className="tasks_page">

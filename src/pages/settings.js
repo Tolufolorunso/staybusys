@@ -26,6 +26,7 @@ import { getSession } from "next-auth/react";
 import { LoadingButton } from "@mui/lab";
 import { getTags } from "lib/get-tags";
 import { CloudUpload, Cancel } from "@mui/icons-material";
+import { useEffect } from "react";
 
 const style = {
   position: "absolute",
@@ -388,6 +389,10 @@ export default function Task(props) {
       toast.error(error.message);
     }
   }
+
+  useEffect(() => {
+    fetch("/api/auth/session?update");
+  },[])
 
   return (
     <>

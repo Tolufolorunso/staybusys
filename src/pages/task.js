@@ -151,6 +151,10 @@ export default function Task(props) {
     }
   }
 
+  useEffect(() => {
+    fetch("/api/auth/session?update");
+  },[])
+
   return (
     <>
       <div className="tasks_page">

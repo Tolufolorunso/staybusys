@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip, Typography } from '@mui/material';

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import { Children } from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
