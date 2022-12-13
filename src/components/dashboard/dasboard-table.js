@@ -279,7 +279,18 @@ export const LatestOrders = (props) => {
           </Box>
         </Box>
         <PerfectScrollbar style={{ marginTop: "20px" }}>
-          {mobile ? (
+        {submissions.length === 0 ? (<div className="empty-state">
+  <div className="empty-state__content">
+    <div className="empty-state__icon">
+      <img src="./beefaq.svg" alt="" />
+    </div>
+    <div className="empty-state__message">No records has been added yet.</div>
+    <div className="empty-state__help">
+      Add a new record by simpley clicking the button on top right side.
+    </div>
+  </div>
+</div>):(
+          mobile ? (
             <Table>
               <TableBody>
                 <>
@@ -369,7 +380,7 @@ export const LatestOrders = (props) => {
                 </TableBody>
               </Table>
             </Box>
-          )}
+          ) )}
         </PerfectScrollbar>
       </Card>
       <Box

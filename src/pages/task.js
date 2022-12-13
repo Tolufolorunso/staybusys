@@ -11,7 +11,11 @@ import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
-
+import Dialog, { DialogProps } from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -80,7 +84,41 @@ export default function Task(props) {
   const [isShown, setIsShown] = useState("");
   const [urls, setUrls] = useState("");
   const [files, setFiles] = useState(null);
-  const [taskTakens, setTaskTakens] = useState(onGoingTask);
+
+
+const [taskDetail, settaskDetail] = useState(null);
+  const [scroll, setScroll] = React.useState("paper");
+
+  const handleClose = () => setOpen(false);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const [openSecondModal, setopenSecondModal] = React.useState(false);
+  // useEffect(() => {
+  //   setTaskTakens(user?.taskTaken)
+  //   setOngoingTask(user?.taskTaken?.length)
+  // },[])
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (openSecondModal) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [openSecondModal]);
+  const descriptionElementRef2 = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
+
+ const [taskTakens, setTaskTakens] = useState(onGoingTask);
   const [onGoingTasks, setOngoingTask] = useState(onGoingTask.length || "0");
 
   const [completedtaskArr, setCompletedTaskArr] = useState(completedTasks);
@@ -100,6 +138,16 @@ export default function Task(props) {
     setIsShown(id);
     // setIsShown(true);
   };
+  const handlecloseSecondModal = () => setopenSecondModal(false);
+  function closeModals() {
+    setopenSecondModal(false);
+    setOpen(false);
+  }
+  function readMoreHandler(id) {
+    const task = taskTakens.find((task) => task._id === id);
+    settaskDetail(task);
+    setopenSecondModal(true);
+  }
 
   function handleSelectChange(e) {
     let { value } = e.target;
@@ -210,7 +258,7 @@ export default function Task(props) {
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
-                {error ? (
+                  {error ? (
                   <h2>{error}</h2>
                 ) : (
                   taskTakens.map((task) => {
@@ -220,7 +268,11 @@ export default function Task(props) {
                           <span>Ongoing</span>
                         </div>
                         <p>{task.title}</p>
-                        <small>{task.description}</small>
+                        <small>{task.description.slice(0, 200) + "..."}</small>
+                        <div className="grid_sec_btns">
+                      <button className="read_more" onClick={() => readMoreHandler(task._id)}>
+                      Read More
+                    </button>
                         <div className="btnn">
                           {isShown === task._id && (
                             <button className="button_enroll8 " onClick={() => setIsShown("")}>
@@ -229,9 +281,11 @@ export default function Task(props) {
                             </button>
                           )}
                           <button className="button_enroll1 " onClick={() => handleClick(task._id)}>
+
                             {" "}
                             Submit task
                           </button>
+                          </div>
                         </div>
                         {isShown === task._id && (
                           <SubmitTask
@@ -297,6 +351,40 @@ export default function Task(props) {
               </TabPanel>
             </Box>
           </Container>
+          <Dialog
+            open={openSecondModal}
+            onClose={handlecloseSecondModal}
+            scroll={scroll}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description"
+          >
+            <DialogContent>
+              <DialogContentText
+                id="scroll-dialog-description"
+                ref={descriptionElementRef}
+                tabIndex={-1}
+              >
+                <div className="filter_modal">
+                  <div className="filter_modal_desc">
+                    <div className="modal_secions">
+                      <div className="research">
+                        <span className="open_text">{taskDetail?.tag}</span>
+                        <span className="square"></span>
+                      </div>
+
+                      <p className="header_text">{taskDetail?.title}</p>
+                      <p className="desc">{taskDetail?.description}</p>
+
+                      <div className="filter_btns ">
+                        <p>£{taskDetail?.price}</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </DialogContentText>
+            </DialogContent>
+            </Dialog>
         </Box>
       </div>
     </>
@@ -319,7 +407,7 @@ export async function getServerSideProps(ctx) {
 
   try {
     const userTasks = await getUserTasks(session?.user?.accessToken, `${API_URI}/tasks/user-tasks`);
-    
+
     return {
       props: {
         ...session,

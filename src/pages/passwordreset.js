@@ -1,9 +1,9 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import Head from "next/head";
 import { useState } from "react";
 import * as React from "react";
 import Modal from "@mui/material/Modal";
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 import NextLink from "next/link";
 import { useRouter } from "next/router";
@@ -20,17 +20,21 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { fetchJson } from "lib/api";
+import { API_URI } from "lib/contant";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: '80%',
+  width: "80%",
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
-  boxShadow: '0px 7px 20px rgba(145, 156, 212, 0.15)',
-  borderRadius: '7px',
+  boxShadow: "0px 7px 20px rgba(145, 156, 212, 0.15)",
+  borderRadius: "7px",
   p: 4,
 };
 const Passwordreset = () => {
@@ -41,11 +45,38 @@ const Passwordreset = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  function passwordreset(e){
-    e.preventDefault()
-    console.log('first')
-  }
+
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+
   const router = useRouter();
+
+  async function passwordreset(e) {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      toast.error("Password not matched");
+      return;
+    }
+    try {
+      const response = await fetchJson(`${API_URI}/auth/reset-password`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ password, token: router.query.token, email: router.query.email }),
+      });
+      if (response.status) {
+        toast.success(response.message);
+        handleOpen();
+        setTimeout(() => {
+          router.push("/login");
+        }, 3000);
+      } else {
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -73,6 +104,7 @@ const Passwordreset = () => {
       </Head>
 
       <div className="container ">
+        <ToastContainer />
         <div className="login_wrapper">
           <div className="login">
             <h4>Password Reset</h4>
@@ -82,22 +114,28 @@ const Passwordreset = () => {
                 <div className="login_input">
                   <label htmlFor="student_email">Password</label> <br />
                   <div className="input_wrap">
-                    <input type={passwordShown ? "text" : "password"} />
+                    <input
+                      type={passwordShown ? "text" : "password"}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
                     <span onClick={togglePassword}>Show</span>
                   </div>
                 </div>
                 <div className="login_input">
                   <label htmlFor="student_email">Confirm Password</label> <br />
                   <div className="input_wrap">
-                    <input type={passwordShown ? "text" : "password"} />
+                    <input
+                      type={passwordShown ? "text" : "password"}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
                     <span onClick={togglePassword}>Show</span>
                   </div>
                 </div>
 
                 <div className="login_btn">
-                  <button onClick={handleOpen} type="submit">Reset Password</button>
+                  <button type="submit">Reset Password</button>
                 </div>
-<Modal
+                <Modal
                   open={open}
                   onClose={handleClose}
                   aria-labelledby="modal-modal-title"
@@ -106,25 +144,41 @@ const Passwordreset = () => {
                   <Box sx={style}>
                     <div className="registration_modal">
                       <div className="registration_modal_desc">
-                        <div style={{ border: "2px solid groove" , background:'#FFCC00', width:'80px', height:'80px', borderRadius:'50%', display:'flex', justifyContent:'center', alignItems:'center'}} className="top">
-                         <MailOutlineIcon style={{  background:'#FFCC00', width:'40px', height:'40px', borderRadius:'50%', display:'flex', justifyContent:'center', alignItems:'center'}}/>
+                        <div
+                          style={{
+                            border: "2px solid groove",
+                            background: "#FFCC00",
+                            width: "80px",
+                            height: "80px",
+                            borderRadius: "50%",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                          className="top"
+                        >
+                          <MailOutlineIcon
+                            style={{
+                              background: "#FFCC00",
+                              width: "40px",
+                              height: "40px",
+                              borderRadius: "50%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          />
                         </div>
-                        <p className="verification">
-                          Reset Link Sent
-                        </p>
+                        <p className="verification">Reset Link Sent</p>
                         <small>A reset link has been sent to:</small>
                         <small className="red">Seyi@yahoo.com</small>
                         <small>Please check your email for the next steps </small>
-
-                      
-
                       </div>
                     </div>
                   </Box>
                 </Modal>
               </form>
             </div>
-            
           </div>
         </div>
       </div>

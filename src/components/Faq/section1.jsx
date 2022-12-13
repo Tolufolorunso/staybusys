@@ -7,7 +7,7 @@ function Section1() {
   return (
     <div className='root'>
         <Box className='faqTitle'>
-            <Typography className='section2Det'>
+            <Typography className='section2Det faqs' >
             Frequently Asked Questions
             </Typography>
             <img src="../../faqbee.svg" width='50px' className='faqBee' alt="" />

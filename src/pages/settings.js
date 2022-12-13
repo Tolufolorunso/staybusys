@@ -3,7 +3,7 @@ import * as React from "react";
 
 import Head from "next/head";
 import { Box, Container, Grid } from "@mui/material";
-
+import { useRouter } from "next/router";
 import { DashboardLayout } from "../components/dashboard-layout";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -95,7 +95,7 @@ export default function Task(props) {
   const [userImage, setUserImage] = useState(null);
   const [fileName, setFilename] = useState(null);
   const [userAccountDetail, setUserAccountDetail] = useState(user?.accountDetail[0]);
-
+  const router = useRouter();
   const handleUpload = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -139,6 +139,7 @@ export default function Task(props) {
     if (result.status) {
       await fetch("/api/auth/session?update");
       toast.success("profile updated");
+      router.push("/settings");
     } else {
       toast.error("An error occurred...");
     }
@@ -152,8 +153,7 @@ export default function Task(props) {
 
   const options = [
     { value: "Euro", label: "Euro" },
-    { value: "Naira", label: "Naira" },
-    { value: "Dollar", label: "Dollar" },
+
   ];
   const customStyles = {
     indicatorSeparator: () => ({
@@ -659,53 +659,14 @@ export default function Task(props) {
                     <p>Account Information</p>
                     <small>Update your details and other info here</small>
                   </div>
+
                   <div className="right">
                     <div className="tops payment">
                       <div className="top_details">
-                        {showAccDetails ? (
-                          <div className="acoout_info">
-                            <div className="wrapper">
-                              <div className="left">
-                                <div className="act_info">
-                                  <Grid container spacing={8}>
-                                    <Grid item xs={6}>
-                                      <p>Bank Name:</p>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                      <span>United Bank For Afrfica</span>
-                                    </Grid>
-                                  </Grid>
-                                </div>
-
-                                <div className="act_info">
-                                  <Grid container spacing={8}>
-                                    <Grid item xs={6}>
-                                      <p>Account Name:</p>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                      <span>Melanie Walters</span>
-                                    </Grid>
-                                  </Grid>
-                                </div>
-                                <div className="act_info">
-                                  <p>Account Number:</p>
-                                  <span>2086078162</span>
-                                </div>
-                                <div className="act_info">
-                                  <p>Country:</p>
-                                  <span>Nigeria</span>
-                                </div>
-                              </div>
-
-                              <div className="right">
-                                <button>Edit</button>
-                                <small>Added, oct 7,2021</small>
-                              </div>
-                            </div>
-                          </div>
-                        ) : (
+                      {!userAccountDetail? (
                           <p>You’ve not added a withdrawal account</p>
-                        )}
+                      ):("")}
+                      {!userAccountDetail? "":
                         <div className="acoout_info">
                           <div className="wrapper">
                             <div className="left">
@@ -760,11 +721,12 @@ export default function Task(props) {
                               <small>Added, oct 7,2021</small>
                             </div>
                           </div>
-                        </div>
+                        </div>}
                         <div>
+                        {!userAccountDetail ?
                           <button onClick={handleOpen} className="actn_btn">
-                            {!userAccountDetail ? "Add an account" : "Edit account"}
-                          </button>
+                           Add an account
+                          </button>:""}
                         </div>
                         <div>
                           <Dialog
@@ -925,9 +887,9 @@ export default function Task(props) {
                           />
                         </div>
 
-                        <button className="actn_btn" style={{ width: "200px" }}>
+                        {/* <button className="actn_btn" style={{ width: "200px" }}>
                           Update
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>

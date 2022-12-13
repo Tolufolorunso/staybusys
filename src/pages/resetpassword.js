@@ -1,8 +1,9 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import Head from "next/head";
 import NextLink from "next/link";
 import * as React from "react";
 import Modal from "@mui/material/Modal";
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -18,28 +19,49 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Layout from "src/components/Layout";
+import { fetchJson } from "lib/api";
+import { API_URI } from "lib/contant";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: '80%',
+  width: "80%",
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
-  boxShadow: '0px 7px 20px rgba(145, 156, 212, 0.15)',
-  borderRadius: '7px',
+  boxShadow: "0px 7px 20px rgba(145, 156, 212, 0.15)",
+  borderRadius: "7px",
   p: 4,
 };
 
 const Resetpassword = () => {
-
   const [open, setOpen] = React.useState(false);
+  const [email, setEmail] = React.useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  function resetpassword(e){
-    e.preventDefault()
-    console.log('first')
+
+  async function resetpassword(e) {
+    e.preventDefault();
+    console.log(email);
+    try {
+      const response = await fetchJson(`${API_URI}/auth/forgot-password`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (response.status) {
+        handleOpen();
+        toast.success(response.message);
+      } else {
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   }
 
   const router = useRouter();
@@ -68,85 +90,128 @@ const Resetpassword = () => {
       <Head>
         <title>Reset Password | Material Kit</title>
       </Head>
-<Layout>
-      <div className="container ">
-        <div className="login_wrapper">
-          <div className="login">
-            <h4>Reset Password</h4>
+      <Layout>
+        <ToastContainer />
+        <div className="container ">
+          <div className="login_wrapper">
+            <div className="login">
+              <h4>Reset Password</h4>
 
-            <div className="login_inputs">
-              <form onSubmit={resetpassword}>
-                <div className="login_input">
-                  <label htmlFor="student_email">Email:</label> <br />
-                  <div className="input_wrap">
-                  <input type="text" />
-
+              <div className="login_inputs">
+                <form onSubmit={resetpassword}>
+                  <div className="login_input">
+                    <label htmlFor="student_email">Email:</label> <br />
+                    <div className="input_wrap">
+                      <input type="text" onChange={(e) => setEmail(e.target.value)} />
+                    </div>
                   </div>
-                </div>
 
+                  <div className="login_btn">
+                    <button type="submit">Reset Password</button>
+                  </div>
 
-                <div className="login_btn">
-                  <button onClick={handleOpen} type="submit">Reset Password</button>
-                </div>
-
-
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box sx={style}>
-                    <div className="registration_modal">
-                      <div className="registration_modal_desc">
-                        <div style={{ border: "2px solid groove" , background:'#FFCC00', width:'80px', height:'80px', borderRadius:'50%', display:'flex', justifyContent:'center', alignItems:'center'}} className="top">
-                         <MailOutlineIcon style={{  background:'#FFCC00', width:'40px', height:'40px', borderRadius:'50%', display:'flex', justifyContent:'center', alignItems:'center'}}/>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style}>
+                      <div className="registration_modal">
+                        <div className="registration_modal_desc">
+                          <div
+                            style={{
+                              border: "2px solid groove",
+                              background: "#FFCC00",
+                              width: "80px",
+                              height: "80px",
+                              borderRadius: "50%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            className="top"
+                          >
+                            <MailOutlineIcon
+                              style={{
+                                background: "#FFCC00",
+                                width: "40px",
+                                height: "40px",
+                                borderRadius: "50%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                            />
+                          </div>
+                          <p className="verification">Reset Successful</p>
+                          <small>
+                            Your password has been reset successfully. <br /> Login to your account
+                            with your new password
+                          </small>
+                          <button className="modal_btn">Go to Login</button>
                         </div>
-                        <p className="verification">
-                          Reset Successful
-                        </p>
-                        <small>Your password has been reset successfully. <br /> Login to your account with your new password</small>
-                        <button className="modal_btn">Go to Login</button>
-
-
-
                       </div>
-                    </div>
-                  </Box>
-                </Modal><Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box sx={style}>
-                    <div className="registration_modal">
-                      <div className="registration_modal_desc">
-                        <div style={{ border: "2px solid groove" , background:'#FFCC00', width:'80px', height:'80px', borderRadius:'50%', display:'flex', justifyContent:'center', alignItems:'center'}} className="top">
-                         <MailOutlineIcon style={{  background:'#FFCC00', width:'40px', height:'40px', borderRadius:'50%', display:'flex', justifyContent:'center', alignItems:'center'}}/>
+                    </Box>
+                  </Modal>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style}>
+                      <div className="registration_modal">
+                        <div className="registration_modal_desc">
+                          <div
+                            style={{
+                              border: "2px solid groove",
+                              background: "#FFCC00",
+                              width: "80px",
+                              height: "80px",
+                              borderRadius: "50%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            className="top"
+                          >
+                            <MailOutlineIcon
+                              style={{
+                                background: "#FFCC00",
+                                width: "40px",
+                                height: "40px",
+                                borderRadius: "50%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                            />
+                          </div>
+                          <p className="verification">Reset Successful</p>
+                          <small>
+                            Your password has been reset successfully. <br /> Login to your account
+                            with your new password
+                          </small>
+                          <button className="modal_btn">Go to Login</button>
                         </div>
-                        <p className="verification">
-                          Reset Successful
-                        </p>
-                        <small>Your password has been reset successfully. <br /> Login to your account with your new password</small>
-                        <button className="modal_btn">Go to Login</button>
-
-
-
                       </div>
-                    </div>
-                  </Box>
-                </Modal>
-              </form>
-            </div>
-            <div className="already">
-              <p>
-                Remember your password? <Button className="logins" href="/login"> Login</Button>
-              </p>
+                    </Box>
+                  </Modal>
+                </form>
+              </div>
+              <div className="already">
+                <p>
+                  Remember your password?{" "}
+                  <Button className="logins" href="/login">
+                    {" "}
+                    Login
+                  </Button>
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </Layout>
       {/* <Box
         component="main"

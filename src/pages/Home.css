@@ -227,14 +227,14 @@ border-radius: 10px;
 .roll{
   position: absolute;
   left: 37%;
-  top: 217%;
-  width: 60%;
+  top: 105%;
+  width: 56%;
 }
 @media (max-width: 1440px) {
   .roll{
     position: absolute;
     left: 37%;
-    top: 261%;
+    top: 160%;
     width: 60%;
   }
   }
@@ -242,7 +242,7 @@ border-radius: 10px;
     .roll{
       position: absolute;
       left: 37%;
-      top: 301%;
+      top: 210%;
       width: 60%;
     }
     }
@@ -250,7 +250,7 @@ border-radius: 10px;
       .roll{
         position: absolute;
     left: -18px;
-    top: 381%;
+    top: 300%;
     width: 72%;
       }
       }

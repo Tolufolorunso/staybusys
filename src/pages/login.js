@@ -9,6 +9,8 @@ import { LoadingButton } from "@mui/lab";
 import Layout from "src/components/Layout";
 import "react-toastify/dist/ReactToastify.css";
 
+import PropagateLoader from "react-spinners/PropagateLoader";
+
 import { getSession, signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 
@@ -18,7 +20,8 @@ const Login = () => {
 
   const [email, setEmail] = useState("tolu@yahoo.com");
   const [password, setPassword] = useState("12345678");
-
+  let [spinner, setSpinner] = useState(false);
+  let [color, setColor] = useState("#ffffff");
   const { status, data } = useSession();
   const router = useRouter();
 
@@ -27,6 +30,11 @@ const Login = () => {
   // }
 
   useEffect(() => {
+    setSpinner(true)
+    setTimeout(() => {
+      setSpinner(false);
+    }, 5000);
+
     if (status !== "unauthenticated") {
       setLoading(false);
     }
@@ -70,6 +78,18 @@ const Login = () => {
 
       <Layout>
         {" "}
+        {
+        spinner?  <div className="container1">  <PropagateLoader
+        color={'#FFCC00'}
+        spinner={spinner}
+
+        size={20}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+
+</div>
+       :<>
         <ToastContainer />
         <div className="container ">
           <div className="login_wrapper">
@@ -124,7 +144,10 @@ const Login = () => {
             </div>
           </div>
         </div>
+        </>
+}
       </Layout>
+
     </>
   );
 };

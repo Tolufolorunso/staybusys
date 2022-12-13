@@ -466,7 +466,7 @@ export default function Task(props) {
                               <input
                                 type="date"
                                 placeholder="2022-01-01"
-                                width="100%"
+                               style={{width:"100%"}}
                                 ref={startDateRef}
                               />
                             </div>
@@ -476,7 +476,7 @@ export default function Task(props) {
                                 type="date"
                                 placeholder="Today"
                                 ref={endDateRef}
-                                width="100%"
+                               style={{width:"100%"}}
                               />
                             </div>
                           </div>

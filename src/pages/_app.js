@@ -22,7 +22,7 @@ const App = (props) => {
     <SessionProvider session={pageProps.session}>
       <CacheProvider value={emotionCache}>
         <Head>
-          <title>Material Kit Pro</title>
+          <title>Staybusy.io</title>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
         <LocalizationProvider dateAdapter={AdapterDateFns}>

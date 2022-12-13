@@ -1,7 +1,7 @@
 import Head from "next/head";
 // import React, { useRef, useState } from "react";
 import Layout from "src/components/Layout";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback,useEffect } from "react";
 import Cropper from "react-easy-crop";
 import Slider from "@material-ui/core/Slider";
 import CloseIcon from "@mui/icons-material/Close";
@@ -22,6 +22,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { getSession, signOut, useSession } from "next-auth/react";
 
 import completeProfile from "../../lib/complet-profile";
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 import BackupOutlinedIcon from "@mui/icons-material/BackupOutlined";
 import { fetchJson } from "lib/api";
@@ -69,7 +70,8 @@ export default function ProfileImage(props) {
   const [loading, setLoading] = useState(false);
   const [userImage, setUserImage] = useState(null);
   const [scroll, setScroll] = React.useState('paper');
-
+  let [spinner, setSpinner] = useState(false);
+  let [color, setColor] = useState("#ffffff");
   const handleOpen = () => {
     setOpen(true);
 
@@ -99,6 +101,12 @@ export default function ProfileImage(props) {
     setRotation(rotation - 5);
   }
 
+  useEffect(() => {
+    setSpinner(true);
+    setTimeout(() => {
+      setSpinner(false);
+    }, 1000);
+  }, []);
   const showCroppedImage = useCallback(async () => {
     try {
       const croppedImage = await getCroppedImg(imageFile, croppedAreaPixels, rotation);
@@ -203,7 +211,19 @@ export default function ProfileImage(props) {
         <title>Upload Picture | Staybusy.io</title>
       </Head>
 
-        <ToastContainer />
+      {spinner ? (
+        <div className="container1">
+          {" "}
+          <PropagateLoader
+            color={"#FFCC00"}
+            spinner={spinner}
+            size={20}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      ) : (
+        <><ToastContainer />
         <Grid container sx={containerStyle} className="form__container">
           <Grid item sm={12}>
             <Grid item sm={12}>
@@ -368,7 +388,8 @@ export default function ProfileImage(props) {
             </Grid>
           </Grid>
         </Grid>
-
+        </>
+      )}
     </div>
   );
 }
