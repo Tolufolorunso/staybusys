@@ -17,7 +17,7 @@ const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
-  height:'78%',
+  height: "78%",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
@@ -69,7 +69,6 @@ export default function ProfileImage() {
   }, []);
 
   function stopUload() {
-    console.log("first");
     setOpen(false);
     setPreview("");
     setFile("");
@@ -77,13 +76,10 @@ export default function ProfileImage() {
     setDrop(false);
   }
 
-
-
   const handleEnter = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("enter!");
-    setMouseEnter(true)
+    setMouseEnter(true);
 
     preview === "" && setHighlight(true);
   };
@@ -91,7 +87,6 @@ export default function ProfileImage() {
   const handleOver = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("over!");
 
     preview === "" && setHighlight(true);
   };
@@ -99,7 +94,6 @@ export default function ProfileImage() {
   const handleLeave = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("leave!");
     setHighlight(false);
   };
 
@@ -117,12 +111,10 @@ export default function ProfileImage() {
   };
 
   function uploadFile(file) {
-    console.log(file);
     try {
       const reader = new FileReader();
 
       reader.readAsBinaryString(file);
-      console.log(file);
       // setFile(file)
       reader.onload = (e) => {
         // this is the base64 data
@@ -162,15 +154,14 @@ export default function ProfileImage() {
                   className={`upload${highlight ? " is-highlight" : drop ? " is-drop" : ""}`}
                   style={{ backgroundImage: `url(${preview})` }}
                 >
-                  <form onSubmit={(e) => e.preventDefault()}
-className="upload_form">
+                  <form onSubmit={(e) => e.preventDefault()} className="upload_form">
                     <BackupOutlinedIcon style={{ fontSize: "75px", color: "lightgray" }} />
 
                     <p>Drag and Drop image here</p>
                     <div className="upload-button">
                       <input
                         type="file"
-                        className={`upload-file ${mouseEnter ? 'displayNone' : ''}`}
+                        className={`upload-file ${mouseEnter ? "displayNone" : ""}`}
                         accept="image/*"
                         onChange={(e) => handleUpload(e)}
                       />
@@ -198,11 +189,7 @@ className="upload_form">
                 )}
               </div>
 
-              <button
-
-                style={{ justifyContent: "center" }}
-                className="upload_btn actn_btn"
-              >
+              <button style={{ justifyContent: "center" }} className="upload_btn actn_btn">
                 Proceed
               </button>
 
@@ -217,8 +204,7 @@ className="upload_form">
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
-                <Box sx={style}
-className="modalss2">
+                <Box sx={style} className="modalss2">
                   {/* { <ImageCropper />  */}
                   {/* <ImageCropper imageFile={imageFile} /> */}
                   <div>
@@ -227,8 +213,7 @@ className="modalss2">
                       <span>
                         <CloseIcon
                           onClick={stopUload}
-
-                          style={{ fontSize:"40px",cursor: "pointer" }}
+                          style={{ fontSize: "40px", cursor: "pointer" }}
                         />
                       </span>
                     </div>
@@ -277,15 +262,13 @@ className="modalss2">
                         /> */}
 
                         <div className="rotateBtns">
-                          <button onClick={rotateimageRight}
-className="cropButton">
+                          <button onClick={rotateimageRight} className="cropButton">
                             <span>
-                              <RotateRightIcon   className="rotate_icon" />
+                              <RotateRightIcon className="rotate_icon" />
                             </span>
                             <span className="roate_text">Rotate Right</span>
                           </button>
-                          <button onClick={rotateimageLeft}
-className="cropButton">
+                          <button onClick={rotateimageLeft} className="cropButton">
                             <span>
                               <RotateLeftIcon className="rotate_icon" />
                             </span>
@@ -293,9 +276,11 @@ className="cropButton">
                           </button>
                         </div>
                       </div>
-                      <buttom style={{ cursor: "pointer" }}
-onClick={showCroppedImage}
-className="cropButtonEnter">
+                      <buttom
+                        style={{ cursor: "pointer" }}
+                        onClick={showCroppedImage}
+                        className="cropButtonEnter"
+                      >
                         Upload Profile Photo
                       </buttom>
                     </div>

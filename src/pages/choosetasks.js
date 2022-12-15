@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import Head from "next/head";
 import * as React from "react";
 import { useState, useEffect } from "react";
@@ -33,9 +34,7 @@ const Choosetasks = (props) => {
   const [loading, setLoading] = useState(false);
   let [spinner, setSpinner] = useState(false);
   let [color, setColor] = useState("#ffffff");
-  // function proceed() {
-  //   console.log("Proceed");
-  // }
+
   const removeSelectedTasks = (arr, value) => {
     return arr.filter(function (ele) {
       return ele != value;
@@ -167,7 +166,6 @@ export default Choosetasks;
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
   const tags = await getTags();
-  console.log(tags);
   if (session.user.completed) {
     return {
       redirect: {

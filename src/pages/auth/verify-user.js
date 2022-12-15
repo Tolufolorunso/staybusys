@@ -19,7 +19,6 @@ import { getSession } from "next-auth/react";
 function VerifyUserPage(props) {
   // async function verifyUser() {
   //   const url = `${API_URI}/auth/verify-user/${query.token}/${query.email}`;
-  //   console.log(url);
   //   const isVerified = await fetchJson(url, {
   //     method: "POST",
   //     headers: { "content-type": "application/json" },
@@ -108,8 +107,6 @@ export async function getServerSideProps(ctx) {
   } catch (error) {
     message = "Something went wrong";
   }
-  console.log(87, query);
-  console.log(88, session);
 
   return {
     props: {

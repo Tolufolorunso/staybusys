@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import Head from "next/head";
 import { useState } from "react";
 import * as React from "react";
@@ -55,17 +56,16 @@ const Register = ({ value }) => {
   const [email, setEmail] = useState("");
 
   useEffect(() => {
-    setSpinner(true)
+    setSpinner(true);
     setTimeout(() => {
       setSpinner(false);
     }, 5000);
     const getEmail = localStorage.getItem("email");
-    console.log(getEmail)
     setEmail(getEmail || "tolu@yahoo.com");
     // if (email.includes("@")) {
     //   localStorage.removeItem("email");
     // }
-  },[]);
+  }, []);
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -90,14 +90,13 @@ const Register = ({ value }) => {
         toast.success("User has Successful Signed Up");
         setTimeout(() => {
           setOpen(false);
-          localStorage.removeItem("email")
+          localStorage.removeItem("email");
           router.push("/login");
         }, 3000);
       } else {
         throw new Error(user.message);
       }
     } catch (error) {
-      console.log(error)
       toast.error(error.message);
     }
     setLoading(false);

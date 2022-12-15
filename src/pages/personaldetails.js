@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import Head from "next/head";
 // import Head from "next/head";
 import * as React from "react";
@@ -367,7 +368,6 @@ export default Personaldetails;
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
-  console.log(session?.user?.completed);
 
   if (session?.user?.completed) {
     return {

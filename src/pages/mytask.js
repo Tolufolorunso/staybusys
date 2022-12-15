@@ -101,32 +101,31 @@ export default function Task(props) {
     setTasksList(taskArr);
   }, []);
 
-  const selectedBtns = [];
+  // const selectedBtns = [];
 
-  function chooseTask(btnNumber) {
-    const allTasks = document.querySelectorAll(".choose_btn");
-    allTasks.forEach((btn, index) => {
-      if (btnNumber === index) {
-        // btn.classList.remove("active");
-
-        btn.classList.toggle("active");
-        if (btn.classList.contains("active")) {
-          // selectedBtns.push(btn);
-          if (selectedBtns.length <= 3) {
-            selectedBtns.push(btn);
-          } else {
-            toast.error("You can no longer add new tasks");
-            btn.classList.remove("active");
-            return;
-          }
-        }
-        selectedBtns.forEach((arrBtn) => {
-          if (!arrBtn.classList.contains("active")) {
-            selectedBtns.pop(arrBtn);
-          }
-        });
-      }
-    });
+  function chooseTas(e) {
+    // const allTasks = document.querySelectorAll(".choose_btn");
+    // allTasks.forEach((btn, index) => {
+    //   if (btnNumber === index) {
+    //     // btn.classList.remove("active");
+    //     btn.classList.toggle("active");
+    //     if (btn.classList.contains("active")) {
+    //       // selectedBtns.push(btn);
+    //       if (selectedBtns.length <= 3) {
+    //         selectedBtns.push(btn);
+    //       } else {
+    //         toast.error("You can no longer add new tasks");
+    //         btn.classList.remove("active");
+    //         return;
+    //       }
+    //     }
+    //     selectedBtns.forEach((arrBtn) => {
+    //       if (!arrBtn.classList.contains("active")) {
+    //         selectedBtns.pop(arrBtn);
+    //       }
+    //     });
+    //   }
+    // });
   }
   const options = [
     { value: "Newest", label: "Sort by: Newest" },
@@ -242,33 +241,44 @@ export default function Task(props) {
     closeModals();
   }
 
-  const titleDescriptionRef = React.useRef();
-  const locationRef = React.useRef();
-  const paymentRef = React.useRef();
-  const minPriceRef = React.useRef();
-  const maxPriceRef = React.useRef();
-  const startDateRef = React.useRef();
-  const endDateRef = React.useRef();
   const [sort, setSort] = useState("Old");
+  const [selectedBtns, setSelectedBtns] = useState([]);
 
-  async function handleopenSecondModal(e) {
-    e.preventDefault();
+  const initialFilterTerm = {
+    tags: "",
+    titleDescription: "",
+    location: "",
+    price: "",
+    startDate: "",
+    endDate: "",
+    price1: "",
+    price2: "",
+  };
+
+  const [filterTerm, setFilterTerm] = useState(initialFilterTerm);
+
+  function chooseTask(e) {
+    const tag = e.target.textContent;
+    if (!selectedBtns.includes(tag)) {
+      setSelectedBtns([...selectedBtns, tag]);
+    } else {
+      setSelectedBtns(() => selectedBtns.filter((t) => t !== tag));
+    }
+  }
+
+  function handleFilterChange(e) {
+    setFilterTerm({ ...filterTerm, [e.target.name]: e.target.value });
+  }
+
+  function filterFunction() {
     let url = `${API_URI}/tasks?`;
-    const price1 = padPrice(minPriceRef.current.value);
-    const price2 = padPrice(maxPriceRef.current.value);
-    const startDate = startDateRef.current.value;
-    const endDate = endDateRef.current.value;
+    url = `${url}title=${filterTerm.titleDescription}&location=${filterTerm.location}&price=${filterTerm.price}&sort=${sort}`;
 
-    let tags = "";
-    selectedBtns.forEach((btn) => {
-      tags += `${btn.innerText},`;
-    });
+    let tags = selectedBtns.join(",");
+    url = `${url}&tagFilter=${tags}`;
 
-    const titleDescription = titleDescriptionRef.current.value;
-    const location = locationRef.current.value;
-    const price = paymentRef.current.value;
-
-    url = `${url}tagFilter=${tags}&title=${titleDescription}&location=${location}&price=${price}&sort=${sort}`;
+    const price1 = padPrice(filterTerm.price1);
+    const price2 = padPrice(filterTerm.price2);
 
     if (price1 && price2) {
       url = `${url}&priceFilter[gte]=${price1}&priceFilter[lte]=${price2}`;
@@ -278,37 +288,82 @@ export default function Task(props) {
       url = `${url}&priceFilter[lte]=${price2}`;
     }
 
-    if (startDate && endDate) {
-      url = `${url}&date[start]=${startDate}&date[end]=${endDate}`;
-    } else if (startDate) {
-      url = `${url}&date[start]=${startDate}`;
-    } else if (endDate) {
-      url = `${url}&date[end]=${endDate}`;
+    if (filterTerm.startDate && filterTerm.endDate) {
+      url = `${url}&date[start]=${filterTerm.startDate}&date[end]=${filterTerm.endDate}`;
+    } else if (filterTerm.startDate) {
+      url = `${url}&date[start]=${filterTerm.startDate}`;
+    } else if (filterTerm.endDate) {
+      url = `${url}&date[end]=${filterTerm.endDate}`;
     }
 
-    filterTask(url, setTasksList, props);
-    closeModals();
-  }
-
-  const sortHandler = (e) => {
-    setSort(e.value);
-    searchOneHandler();
-  };
-
-  async function searchOneHandler() {
-    let url = `${API_URI}/tasks?`;
-
-    const titleDescription = titleDescriptionRef.current.value;
-    const location = locationRef.current.value;
-    const price = paymentRef.current.value;
-
-    url = `${url}title=${titleDescription}&location=${location}&price=${price}&sort=${sort}`;
     filterTask(url, setTasksList, props, toast);
   }
 
+  function filterTasks(e) {
+    e.preventDefault();
+    filterFunction();
+    closeModals();
+  }
+
+  function handleClearFilters() {
+    setSelectedBtns([]);
+    setFilterTerm({ ...filterTerm, startDate: "", endDate: "", price1: "", price2: "" });
+
+    selectedBtns.length = 0;
+
+    if (selectedBtns.length === 0) {
+      filterFunction();
+    }
+    // closeModals();
+  }
+
+  // async function handleopenSecondModal(e) {
+  //   e.preventDefault();
+  //   let url = `${API_URI}/tasks?`;
+  //   const price1 = padPrice(minPriceRef.current.value);
+  //   const price2 = padPrice(maxPriceRef.current.value);
+  //   const startDate = startDateRef.current.value;
+  //   const endDate = endDateRef.current.value;
+
+  //   let tags = "";
+  //   selectedBtns.forEach((btn) => {
+  //     tags += `${btn.innerText},`;
+  //   });
+
+  //   const titleDescription = titleDescriptionRef.current.value;
+  //   const location = locationRef.current.value;
+  //   const price = paymentRef.current.value;
+
+  //   url = `${url}tagFilter=${tags}&title=${titleDescription}&location=${location}&price=${price}&sort=${sort}`;
+
+  //   if (price1 && price2) {
+  //     url = `${url}&priceFilter[gte]=${price1}&priceFilter[lte]=${price2}`;
+  //   } else if (price1) {
+  //     url = `${url}&priceFilter[gte]=${price1}`;
+  //   } else if (price2) {
+  //     url = `${url}&priceFilter[lte]=${price2}`;
+  //   }
+
+  //   if (startDate && endDate) {
+  //     url = `${url}&date[start]=${startDate}&date[end]=${endDate}`;
+  //   } else if (startDate) {
+  //     url = `${url}&date[start]=${startDate}`;
+  //   } else if (endDate) {
+  //     url = `${url}&date[end]=${endDate}`;
+  //   }
+
+  //   filterTask(url, setTasksList, props);
+  //   closeModals();
+  // }
+
+  const sortHandler = (e) => {
+    setSort(e.value);
+    filterFunction();
+  };
+
   useEffect(() => {
     fetch("/api/auth/session?update");
-  },[])
+  }, []);
 
   return (
     <>
@@ -328,7 +383,9 @@ export default function Task(props) {
                       type="text"
                       placeholder="Task type, description and keywords"
                       style={{ width: "100%", padding: "1rem", paddingLeft: "0" }}
-                      ref={titleDescriptionRef}
+                      name="titleDescription"
+                      onChange={handleFilterChange}
+                      value={filterTerm.titleDescription}
                     />
                   </div>
                 </Grid>
@@ -339,7 +396,9 @@ export default function Task(props) {
                       type="text"
                       placeholder="Location"
                       style={{ width: "100%", padding: "1rem", paddingLeft: "0" }}
-                      ref={locationRef}
+                      name="location"
+                      onChange={handleFilterChange}
+                      value={filterTerm.location}
                     />
                   </div>
                 </Grid>
@@ -350,12 +409,14 @@ export default function Task(props) {
                       type="text"
                       placeholder="Payment"
                       style={{ width: "100%", padding: "1rem", paddingLeft: "0" }}
-                      ref={paymentRef}
+                      name="price"
+                      onChange={handleFilterChange}
+                      value={filterTerm.price}
                     />
                   </div>
                 </Grid>
                 <Grid item style={{ paddingLeft: "0px " }} xs={12} sm={12} md={1} lg={1}>
-                  <button onClick={searchOneHandler}>Search</button>
+                  <button onClick={filterTasks}>Search</button>
                 </Grid>
               </Grid>
             </div>
@@ -370,6 +431,7 @@ export default function Task(props) {
                   styles={customStyles}
                   options={options}
                   onChange={sortHandler}
+                  defaultValue={options[0].label}
                   theme={(theme) => ({
                     ...theme,
 
@@ -444,8 +506,11 @@ export default function Task(props) {
                                 <button
                                   type="button"
                                   key={index}
-                                  onClick={() => chooseTask(index)}
-                                  className="choose_btn 0"
+                                  // onClick={(e) => chooseTask(index)}
+                                  onClick={(e) => chooseTask(e)}
+                                  className={`choose_btn 0 ${
+                                    selectedBtns.includes(tag) ? "active" : ""
+                                  }`}
                                 >
                                   {tag}
                                 </button>
@@ -466,8 +531,10 @@ export default function Task(props) {
                               <input
                                 type="date"
                                 placeholder="2022-01-01"
-                               style={{width:"100%"}}
-                                ref={startDateRef}
+                                style={{ width: "100%" }}
+                                name="startDate"
+                                onChange={handleFilterChange}
+                                value={filterTerm.startDate}
                               />
                             </div>
                             <div className="span"></div>
@@ -475,8 +542,10 @@ export default function Task(props) {
                               <input
                                 type="date"
                                 placeholder="Today"
-                                ref={endDateRef}
-                               style={{width:"100%"}}
+                                name="endDate"
+                                onChange={handleFilterChange}
+                                value={filterTerm.endDate}
+                                style={{ width: "100%" }}
                               />
                             </div>
                           </div>
@@ -490,12 +559,24 @@ export default function Task(props) {
 
                           <div className="filter_inputs">
                             <div className="input">
-                              <input type="text" placeholder="Min price" ref={minPriceRef} />
+                              <input
+                                type="text"
+                                placeholder="Min price"
+                                name="price1"
+                                onChange={handleFilterChange}
+                                value={filterTerm.price1}
+                              />
                               <AttachMoneyIcon style={{ color: "#DCDCDC" }} />
                             </div>
                             <div className="span"></div>
                             <div className="input">
-                              <input type="text" placeholder="Max Price" ref={maxPriceRef} />
+                              <input
+                                type="text"
+                                placeholder="Max Price"
+                                name="price2"
+                                onChange={handleFilterChange}
+                                value={filterTerm.price2}
+                              />
                               <AttachMoneyIcon style={{ color: "#DCDCDC" }} />
                             </div>
                           </div>
@@ -504,14 +585,14 @@ export default function Task(props) {
                         <hr className="modal_secions_hr" />
 
                         <div className="filter_btns">
-                          <button className="clear" type="reset">
+                          <button className="clear" type="reset" onClick={handleClearFilters}>
                             Clear all filters
                           </button>
                           <div className="dbl_btns">
                             <button onClick={handleClose} className="cancel" type="button">
                               Cancel
                             </button>
-                            <button onClick={handleopenSecondModal} className="apply">
+                            <button onClick={filterTasks} className="apply">
                               Apply Filter
                             </button>
                           </div>

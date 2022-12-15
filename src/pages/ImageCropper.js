@@ -8,12 +8,10 @@ import { withStyles } from "@material-ui/core/styles";
 import ReactDOM from "react-dom";
 import getCroppedImg from "../components/cropimage";
 
-
 const dogImg =
   "https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000";
 
 export default function Demo({ imageFile }) {
-  console.log(imageFile);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
   const [zoom, setZoom] = useState(1);
@@ -24,11 +22,11 @@ export default function Demo({ imageFile }) {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
-  function rotateimageRight (){
-    setRotation(rotation + 5)
+  function rotateimageRight() {
+    setRotation(rotation + 5);
   }
-  function rotateimageLeft (){
-    setRotation(rotation - 5)
+  function rotateimageLeft() {
+    setRotation(rotation - 5);
   }
 
   const showCroppedImage = useCallback(async () => {
@@ -63,7 +61,6 @@ export default function Demo({ imageFile }) {
       </div>
       <div className="controls">
         <div className="sliderContainer">
-
           <Slider
             value={zoom}
             min={1}
@@ -75,8 +72,7 @@ export default function Demo({ imageFile }) {
           />
         </div>
         <div className="sliderContainer">
-          <Typography variant="overline"
-className="sliderLabel">
+          <Typography variant="overline" className="sliderLabel">
             Rotation
           </Typography>
           {rotation}
@@ -89,16 +85,20 @@ className="sliderLabel">
             className="slider"
             onChange={(e, rotation) => setRotation(rotation)}
           />
-          <Button onClick={rotateimageRight}
-variant="contained"
-color="primary"
-className="cropButton">
+          <Button
+            onClick={rotateimageRight}
+            variant="contained"
+            color="primary"
+            className="cropButton"
+          >
             rotate right
           </Button>
-          <Button onClick={rotateimageLeft}
-variant="contained"
-color="primary"
-className="cropButton">
+          <Button
+            onClick={rotateimageLeft}
+            variant="contained"
+            color="primary"
+            className="cropButton"
+          >
             rotate left
           </Button>
         </div>
@@ -115,7 +115,5 @@ className="cropButton">
     </div>
   );
 }
-
-
 
 // export default Demo

@@ -31,7 +31,6 @@ const createOptions = (req) => ({
           method: "GET",
           headers: { authorization: `Bearer ${token.accessToken}` },
         });
-        // console.log("server",token.accessToken, response)
 
         if (response.status === 401) {
           await signOut();

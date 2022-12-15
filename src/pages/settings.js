@@ -27,6 +27,8 @@ import { LoadingButton } from "@mui/lab";
 import { getTags } from "lib/get-tags";
 import { CloudUpload, Cancel } from "@mui/icons-material";
 import { useEffect } from "react";
+import { useAppContext } from "src/context/appContext";
+import { format } from "date-fns";
 
 const style = {
   position: "absolute",
@@ -96,11 +98,14 @@ export default function Task(props) {
   const [fileName, setFilename] = useState(null);
   const [userAccountDetail, setUserAccountDetail] = useState(user?.accountDetail[0]);
   const router = useRouter();
+
+  const { updateUser, user: currUser } = useAppContext();
+
   const handleUpload = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const [file] = e.target.files || e.dataTransfer.files;
+    const [file] = e.target.files || e.dataTransfer?.files;
     setUserImage(file);
     uploadFile(file);
     setFile(file);
@@ -110,18 +115,15 @@ export default function Task(props) {
     try {
       const reader = new FileReader();
 
-      reader.readAsBinaryString(file);
-      // console.log(file);
+      reader.reader.readAsBinaryString(file);
       // setFile(file)
       reader.onload = (e) => {
         // this is the base64 data
         const fileRes = btoa(reader.result);
         // setFile(`data:image/jpg;base64,${fileRes}`);
-        // console.log(`data:image/jpg;base64,${fileRes}`);
         setImagePreview(`data:image/jpg;base64,${fileRes}`);
       };
     } catch (err) {
-      console.log(err);
       setLoading(false);
       toast.error(err.message);
     }
@@ -138,8 +140,10 @@ export default function Task(props) {
 
     if (result.status) {
       await fetch("/api/auth/session?update");
-      toast.success("profile updated");
-      router.push("/settings");
+      updateUser(result.user);
+      toast.success("Image updated");
+      // router.push("/settings");
+      handleRemove();
     } else {
       toast.error("An error occurred...");
     }
@@ -148,13 +152,10 @@ export default function Task(props) {
   const handleRemove = () => {
     setFile(null);
     setFilename(null);
-    setImagePreview("/static/images/avatars/avatar_1.png");
+    // setImagePreview("/static/images/avatars/avatar_1.png");
   };
 
-  const options = [
-    { value: "Euro", label: "Euro" },
-
-  ];
+  const options = [{ value: "Euro", label: "Euro" }];
   const customStyles = {
     indicatorSeparator: () => ({
       // none of react-select's styles are passed to <Control />
@@ -253,9 +254,9 @@ export default function Task(props) {
 
       if (updatedUser.status) {
         await fetch("/api/auth/session?update");
+        updateUser(updatedUser.user);
         setLoading(false);
         toast.success("profile updated");
-        console.log(updatedUser);
       }
     } catch (error) {
       setLoading(false);
@@ -297,18 +298,14 @@ export default function Task(props) {
         body: JSON.stringify({ tags: selectedTasks.join(",") }),
       });
 
-      console.log(updatedUser);
-
       if (updatedUser.status) {
         await fetch("/api/auth/session?update");
         setLoading(false);
         toast.success("profile updated");
-        console.log(updatedUser);
       }
     } catch (error) {
       setLoading(false);
       toast.error(error.message);
-      // console.log(error);
     }
   }
 
@@ -340,7 +337,6 @@ export default function Task(props) {
         await fetch("/api/auth/session?update");
         setLoading(false);
         toast.success(updatedUser.message);
-        console.log(updatedUser);
       }
       if (!updatedUser.status) {
         throw new Error(updatedUser.message);
@@ -348,7 +344,6 @@ export default function Task(props) {
     } catch (error) {
       setLoading(false);
       toast.error(error.message);
-      // console.log(error);
     }
   }
 
@@ -365,7 +360,6 @@ export default function Task(props) {
   }
 
   async function addAccountHandler() {
-    console.log(accountDetail);
     try {
       const updatedUser = await fetchJson(`${API_URI}/users/add-account`, {
         method: "PATCH",
@@ -392,7 +386,7 @@ export default function Task(props) {
 
   useEffect(() => {
     fetch("/api/auth/session?update");
-  },[])
+  }, []);
 
   return (
     <>
@@ -459,8 +453,8 @@ export default function Task(props) {
                             name="file"
                             type={fileTypes}
                             className="imageUploads"
-                            alt={user.firstname}
-                            src={`${API_URI}/${user.image}`}
+                            alt={currUser?.firstname}
+                            src={`${API_URI}/${currUser?.image}`}
                           />{" "}
                           <div
                             className="top_details"
@@ -663,70 +657,77 @@ export default function Task(props) {
                   <div className="right">
                     <div className="tops payment">
                       <div className="top_details">
-                      {!userAccountDetail? (
-                          <p>You’ve not added a withdrawal account</p>
-                      ):("")}
-                      {!userAccountDetail? "":
-                        <div className="acoout_info">
-                          <div className="wrapper">
-                            <div className="left">
-                              <div className="act_info">
-                                <Grid container spacing={4}>
-                                  <Grid item xs={6}>
-                                    <p>Bank Name:</p>
+                        {!userAccountDetail ? <p>You’ve not added a withdrawal account</p> : ""}
+                        {!userAccountDetail ? (
+                          ""
+                        ) : (
+                          <div className="acoout_info">
+                            <div className="wrapper">
+                              <div className="left">
+                                <div className="act_info">
+                                  <Grid container spacing={4}>
+                                    <Grid item xs={6}>
+                                      <p>Bank Name:</p>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                      <span>{userAccountDetail?.bankName}</span>
+                                    </Grid>
                                   </Grid>
-                                  <Grid item xs={6}>
-                                    <span>{userAccountDetail?.bankName}</span>
+                                </div>
+
+                                <div className="act_info">
+                                  <Grid container spacing={4}>
+                                    <Grid item xs={6}>
+                                      <p>Account Name:</p>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                      <span>{userAccountDetail?.bankAccountName}</span>
+                                    </Grid>
                                   </Grid>
-                                </Grid>
+                                </div>
+                                <div className="act_info">
+                                  <Grid container spacing={4}>
+                                    <Grid item xs={6}>
+                                      <p>Account Number:</p>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                      <span>{userAccountDetail?.bankAccountNumber}</span>
+                                    </Grid>
+                                  </Grid>
+                                </div>
+                                <div className="act_info">
+                                  <Grid container spacing={4}>
+                                    <Grid item xs={6}>
+                                      <p>Country:</p>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                      <span>{userAccountDetail?.country}</span>
+                                    </Grid>
+                                  </Grid>
+                                </div>
                               </div>
 
-                              <div className="act_info">
-                                <Grid container spacing={4}>
-                                  <Grid item xs={6}>
-                                    <p>Account Name:</p>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <span>{userAccountDetail?.bankAccountName}</span>
-                                  </Grid>
-                                </Grid>
+                              <div className="right">
+                                <button onClick={handleOpen}>
+                                  {" "}
+                                  <img src="./PENCIL.svg" style={{ marginRight: "8px" }} /> Edit
+                                </button>
+                                <small>
+                                  Added:{" "}
+                                  {format(new Date(userAccountDetail?.date), "MMM, dd, yyyy")}
+                                </small>
                               </div>
-                              <div className="act_info">
-                                <Grid container spacing={4}>
-                                  <Grid item xs={6}>
-                                    <p>Account Number:</p>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <span>{userAccountDetail?.bankAccountNumber}</span>
-                                  </Grid>
-                                </Grid>
-                              </div>
-                              <div className="act_info">
-                                <Grid container spacing={4}>
-                                  <Grid item xs={6}>
-                                    <p>Country:</p>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <span>{userAccountDetail?.country}</span>
-                                  </Grid>
-                                </Grid>
-                              </div>
-                            </div>
-
-                            <div className="right">
-                              <button onClick={handleOpen}>
-                                {" "}
-                                <img src="./PENCIL.svg" style={{ marginRight: "8px" }} /> Edit
-                              </button>
-                              <small>Added, oct 7,2021</small>
                             </div>
                           </div>
-                        </div>}
+                        )}
                         <div>
-                        {!userAccountDetail ?
-                          <button onClick={handleOpen} className="actn_btn">
-                           Add an account
-                          </button>:""}
+                          {!userAccountDetail ? (
+                            <button onClick={handleOpen} className="actn_btn">
+                              Add an account
+                            </button>
+                          ) : (
+                            ""
+                          )}
                         </div>
                         <div>
                           <Dialog

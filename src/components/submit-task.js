@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import React from "react";
 import BackupOutlinedIcon from "@mui/icons-material/BackupOutlined";
 
@@ -7,6 +8,7 @@ function SubmitTask({
   saveSubmissionHandler,
   taskId,
   onChangleHandler,
+  files,
 }) {
   return (
     <div className="submission">
@@ -25,6 +27,7 @@ function SubmitTask({
             <div className="items">
               <BackupOutlinedIcon style={{ fontSize: "45px", color: "lightgray" }} />
               <p>Upload a file</p>
+              <p>{files?.name}</p>
             </div>
           </div>
         ) : (

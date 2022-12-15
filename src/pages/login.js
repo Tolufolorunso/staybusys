@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import Head from "next/head";
 import { useState } from "react";
 
@@ -30,7 +31,7 @@ const Login = () => {
   // }
 
   useEffect(() => {
-    setSpinner(true)
+    setSpinner(true);
     setTimeout(() => {
       setSpinner(false);
     }, 5000);
@@ -38,7 +39,7 @@ const Login = () => {
     if (status !== "unauthenticated") {
       setLoading(false);
     }
-  }, []);
+  }, [status]);
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -56,7 +57,6 @@ const Login = () => {
 
       if (!res.error) {
         toast.success("Login Successful");
-
         router.push("/dashboard");
       }
 
@@ -65,7 +65,6 @@ const Login = () => {
       }
     } catch (error) {
       toast.error(error.message);
-
     }
     setLoading(false);
   }
@@ -78,76 +77,80 @@ const Login = () => {
 
       <Layout>
         {" "}
-        {
-        spinner?  <div className="container1">  <PropagateLoader
-        color={'#FFCC00'}
-        spinner={spinner}
+        {spinner ? (
+          <div className="container1">
+            {" "}
+            <PropagateLoader
+              color={"#FFCC00"}
+              spinner={spinner}
+              size={20}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </div>
+        ) : (
+          <>
+            <ToastContainer />
+            <div className="container ">
+              <div className="login_wrapper">
+                <div className="login">
+                  <h4>Login</h4>
 
-        size={20}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
+                  <div className="login_inputs">
+                    <form onSubmit={login}>
+                      <div className="login_input">
+                        <label htmlFor="student_email">Your student Email:</label> <br />
+                        <div className="input_wrap">
+                          <input
+                            type="text"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="login_input">
+                        <label htmlFor="student_email">Choose a password:</label> <br />
+                        <div className="input_wrap">
+                          <input
+                            type={passwordShown ? "text" : "password"}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                          />
+                          <span onClick={togglePassword}>{passwordShown ? "Hide" : "Show"} </span>
+                        </div>
+                        <a href="resetpassword" className="forgot_pass">
+                          Forgot your password?
+                        </a>
+                      </div>
 
-</div>
-       :<>
-        <ToastContainer />
-        <div className="container ">
-          <div className="login_wrapper">
-            <div className="login">
-              <h4>Login</h4>
-
-              <div className="login_inputs">
-                <form onSubmit={login}>
-                  <div className="login_input">
-                    <label htmlFor="student_email">Your student Email:</label> <br />
-                    <div className="input_wrap">
-                      <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    </div>
+                      <LoadingButton
+                        loading={loading}
+                        type="submit"
+                        size="large"
+                        variant="contained"
+                        loadingPosition="end"
+                        className="default__button"
+                        fullWidth
+                      >
+                        Login
+                      </LoadingButton>
+                    </form>
                   </div>
-                  <div className="login_input">
-                    <label htmlFor="student_email">Choose a password:</label> <br />
-                    <div className="input_wrap">
-                      <input
-                        type={passwordShown ? "text" : "password"}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                      <span onClick={togglePassword}>{passwordShown ? "Hide" : "Show"} </span>
-                    </div>
-                    <a href="resetpassword" className="forgot_pass">
-                      Forgot your password?
-                    </a>
+                  <div className="already">
+                    <p>
+                      {" Don't "} have an account?{" "}
+                      <Button className="logins" href="/register">
+                        {" "}
+                        Sign Up
+                      </Button>
+                    </p>
                   </div>
-
-                  <LoadingButton
-                    loading={loading}
-                    type="submit"
-                    size="large"
-                    variant="contained"
-                    loadingPosition="end"
-                    className="default__button"
-                    fullWidth
-                  >
-                    Login
-                  </LoadingButton>
-                </form>
-              </div>
-              <div className="already">
-                <p>
-                  {" Don't "} have an account?{" "}
-                  <Button className="logins" href="/register">
-                    {" "}
-                    Sign Up
-                  </Button>
-                </p>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        </>
-}
+          </>
+        )}
       </Layout>
-
     </>
   );
 };

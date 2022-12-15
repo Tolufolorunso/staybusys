@@ -24,6 +24,7 @@ import { API_URI } from "lib/contant";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getSession } from "next-auth/react";
 
 const style = {
   position: "absolute",
@@ -46,7 +47,6 @@ const Resetpassword = () => {
 
   async function resetpassword(e) {
     e.preventDefault();
-    console.log(email);
     try {
       const response = await fetchJson(`${API_URI}/auth/forgot-password`, {
         method: "POST",
@@ -188,11 +188,10 @@ const Resetpassword = () => {
                               }}
                             />
                           </div>
-                          <p className="verification">Reset Successful</p>
-                          <small>
-                            Your password has been reset successfully. <br /> Login to your account
-                            with your new password
-                          </small>
+                          <p className="verification">Email sent Successfully</p>
+                          <small>A reset link has been sent to:</small>
+                          <small className="red">{email}</small>
+                          <small>Please check your email for the next steps </small>
                           <button className="modal_btn">Go to Login</button>
                         </div>
                       </div>
@@ -375,3 +374,21 @@ const Resetpassword = () => {
 };
 
 export default Resetpassword;
+
+export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx);
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      ...session,
+    },
+  };
+}

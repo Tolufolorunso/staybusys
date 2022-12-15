@@ -24,6 +24,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchJson } from "lib/api";
 import { API_URI } from "lib/contant";
+import { getSession } from "next-auth/react";
 
 const style = {
   position: "absolute",
@@ -173,6 +174,10 @@ const Passwordreset = () => {
                         <small>A reset link has been sent to:</small>
                         <small className="red">Seyi@yahoo.com</small>
                         <small>Please check your email for the next steps </small>
+                        <small>
+                          Your password has been reset successfully. <br /> Login to your account
+                          with your new password
+                        </small>
                       </div>
                     </div>
                   </Box>
@@ -344,3 +349,20 @@ const Passwordreset = () => {
 };
 
 export default Passwordreset;
+export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx);
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      ...session,
+    },
+  };
+}

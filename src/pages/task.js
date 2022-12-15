@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import * as React from "react";
 import { useState } from "react";
 import Head from "next/head";
@@ -24,7 +25,7 @@ import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import { completedTasks } from "src/__mocks__/completedTasks";
 import { getSession } from "next-auth/react";
 import SubmitTask from "src/components/submit-task";
-import { fetchJson, getUserTasks, saveSubmission } from "lib/api";
+import { deleteSubmission, fetchJson, getSubmission, getUserTasks, saveSubmission } from "lib/api";
 import { API_URI } from "lib/contant";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -85,8 +86,7 @@ export default function Task(props) {
   const [urls, setUrls] = useState("");
   const [files, setFiles] = useState(null);
 
-
-const [taskDetail, settaskDetail] = useState(null);
+  const [taskDetail, settaskDetail] = useState(null);
   const [scroll, setScroll] = React.useState("paper");
 
   const handleClose = () => setOpen(false);
@@ -118,7 +118,7 @@ const [taskDetail, settaskDetail] = useState(null);
     }
   }, [open]);
 
- const [taskTakens, setTaskTakens] = useState(onGoingTask);
+  const [taskTakens, setTaskTakens] = useState(onGoingTask);
   const [onGoingTasks, setOngoingTask] = useState(onGoingTask.length || "0");
 
   const [completedtaskArr, setCompletedTaskArr] = useState(completedTasks);
@@ -134,6 +134,7 @@ const [taskDetail, settaskDetail] = useState(null);
     // 👇️ toggle shown state
 
     // setIsShown((current) => !current);
+    if (isShown !== id) setFiles(null);
 
     setIsShown(id);
     // setIsShown(true);
@@ -171,24 +172,25 @@ const [taskDetail, settaskDetail] = useState(null);
     let formData = new FormData();
 
     if (selectValue === "Add a link") {
+      if (!urls) return toast.error("Enter the task link");
       formData.append("url", urls);
     } else {
+      if (!files) return toast.error("upload file");
       formData.append("uploadedFiles", files);
     }
 
     try {
       const result = await saveSubmission(token, url, formData);
+
       if (result.status) {
         toast.success("Task Completed, Good job");
         await fetch("/api/auth/session?update");
         setTaskTakens(function () {
           return taskTakens.filter((task) => {
-            if (task._id === taskId) {
-              setCompletedTaskArr([task, ...completedTasks]);
-            }
             return task._id !== taskId;
           });
         });
+        setCompletedTaskArr(result.submissions);
         setOngoingTask(onGoingTasks - 1);
         setCompletedTasksLength(+completedTasksLength + 1);
       } else {
@@ -199,9 +201,28 @@ const [taskDetail, settaskDetail] = useState(null);
     }
   }
 
+  async function handleDeleteSubmission(submissionId) {
+    const url = `${API_URI}/submissions/${submissionId}`;
+    const token = user.accessToken;
+    try {
+      const response = await deleteSubmission(token, url);
+      if (response.status) {
+        toast.success(response.message);
+        setCompletedTaskArr(() => {
+          setCompletedTasksLength(completedTasksLength - 1);
+          return completedtaskArr.filter((task) => task._id !== submissionId);
+        });
+      } else {
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
   useEffect(() => {
     fetch("/api/auth/session?update");
-  },[])
+  }, []);
 
   return (
     <>
@@ -258,7 +279,7 @@ const [taskDetail, settaskDetail] = useState(null);
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
-                  {error ? (
+                {error ? (
                   <h2>{error}</h2>
                 ) : (
                   taskTakens.map((task) => {
@@ -270,26 +291,29 @@ const [taskDetail, settaskDetail] = useState(null);
                         <p>{task.title}</p>
                         <small>{task.description.slice(0, 200) + "..."}</small>
                         <div className="grid_sec_btns">
-                      <button className="read_more" onClick={() => readMoreHandler(task._id)}>
-                      Read More
-                    </button>
-                        <div className="btnn">
-                          {isShown === task._id && (
-                            <button className="button_enroll8 " onClick={() => setIsShown("")}>
-                              {" "}
-                              Close
-                            </button>
-                          )}
-                          <button className="button_enroll1 " onClick={() => handleClick(task._id)}>
-
-                            {" "}
-                            Submit task
+                          <button className="read_more" onClick={() => readMoreHandler(task._id)}>
+                            Read More
                           </button>
+                          <div className="btnn">
+                            {isShown === task._id && (
+                              <button className="button_enroll8 " onClick={() => setIsShown("")}>
+                                {" "}
+                                Close
+                              </button>
+                            )}
+                            <button
+                              className="button_enroll1 "
+                              onClick={() => handleClick(task._id)}
+                            >
+                              {" "}
+                              Submit task
+                            </button>
                           </div>
                         </div>
                         {isShown === task._id && (
                           <SubmitTask
                             handleSelectChange={handleSelectChange}
+                            files={files}
                             selectValue={selectValue}
                             taskId={task._id}
                             saveSubmissionHandler={saveSubmissionHandler}
@@ -309,45 +333,62 @@ const [taskDetail, settaskDetail] = useState(null);
                 </div> */}
               </TabPanel>
               <TabPanel value={value} index={1}>
-                {completedtaskArr.map((completed) => (
-                  <div className="completed" key={completed._id}>
-                    <div className="end">
-                      <span>{"completed"}</span>
-                    </div>
-                    <p>{completed.title}</p>
+                {completedtaskArr.map((completed) => {
+                  return (
+                    <div className="completed" key={completed._id}>
+                      <div className="end">
+                        <span>{completed.status}</span>
+                      </div>
+                      <p>{completed?.taskId?.title}</p>
 
-                    <div className="details">
-                      <small>{completed.description}</small>
+                      <div className="details">
+                        <small>{completed?.taskId?.description}</small>
 
-                      <span>24-May-2022</span>
-                    </div>
+                        <span>24-May-2022</span>
+                      </div>
 
-                    <hr style={{ border: "1px solid rgba(0, 0, 0, 0.2)" }} />
+                      <hr style={{ border: "1px solid rgba(0, 0, 0, 0.2)" }} />
 
-                    <div className="below_hr">
-                      <div className="submit">Submission</div>
+                      <div className="below_hr">
+                        <div className="submit">Submission</div>
 
-                      <div className="hold_file">
-                        <div className="file_hold">
-                          <img src="./pdf.svg" width="55px" />
-                          <div className="file_details">
-                            <small>{completed.uploadedFile}</small>
-                            <span>{completed.date}</span>
+                        <div className="hold_file">
+                          <div className="file_hold">
+                            {completed.urls.length >= 1 ? (
+                              <a href={completed.urls} rel="noreferrer" target="_blank">
+                                {completed.urls}
+                              </a>
+                            ) : (
+                              <a
+                                href={`${API_URI}/${completed.files}`}
+                                download
+                                rel="noreferrer"
+                                target="_blank"
+                              >
+                                <img src="./pdf.svg" width="55px" />
+                                <div className="file_details">
+                                  <small>{completed.uploadedFile}</small>
+                                  <span>{completed.date}</span>
+                                </div>
+                              </a>
+                            )}
                           </div>
-                        </div>
 
-                        <div className="delete">
-                          <button>
-                            <img src="./delete.svg" width="40px" />
-                          </button>
-                          <button>
-                            <img src="./downloads.svg" width="40px" />
-                          </button>
+                          <div className="delete">
+                            <button onClick={() => handleDeleteSubmission(completed._id)}>
+                              <img src="./delete.svg" width="40px" />
+                            </button>
+                            {completed.urls.length >= 1 ? null : (
+                              <a href={`${API_URI}/${completed.files}`}>
+                                <img src="./downloads.svg" width="40px" />
+                              </a>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </TabPanel>
             </Box>
           </Container>
@@ -377,14 +418,13 @@ const [taskDetail, settaskDetail] = useState(null);
 
                       <div className="filter_btns ">
                         <p>£{taskDetail?.price}</p>
-
                       </div>
                     </div>
                   </div>
                 </div>
               </DialogContentText>
             </DialogContent>
-            </Dialog>
+          </Dialog>
         </Box>
       </div>
     </>
@@ -407,12 +447,19 @@ export async function getServerSideProps(ctx) {
 
   try {
     const userTasks = await getUserTasks(session?.user?.accessToken, `${API_URI}/tasks/user-tasks`);
+    const { submissions } = await getSubmission(
+      session?.user?.accessToken,
+      `${API_URI}/submissions`
+    );
+
+    // console.log(422, submissions);
 
     return {
       props: {
         ...session,
         onGoingTask: userTasks.onGoingTasks,
-        completedTasks: userTasks.completedTasks,
+        // completedTasks: userTasks.completedTasks,
+        completedTasks: submissions,
       },
     };
   } catch (error) {

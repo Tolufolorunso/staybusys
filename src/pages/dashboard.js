@@ -19,7 +19,7 @@ const Dashboard = (props) => {
 
   useEffect(() => {
     fetch("/api/auth/session?update");
-  },[])
+  }, []);
 
   return (
     <>
@@ -90,7 +90,6 @@ export default Dashboard;
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
-  console.log(session)
 
   if (!session) {
     return {
@@ -108,7 +107,6 @@ export async function getServerSideProps(ctx) {
     );
     const { user } = await getSetting(session?.user?.accessToken, `${API_URI}/users/me`);
     user.accessToken = session.user.accessToken;
-    console.log(user)
     if (!user?.completed) {
       return {
         redirect: {

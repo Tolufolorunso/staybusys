@@ -56,7 +56,8 @@ export const DashboardSidebar = (props) => {
 
   function logoutHandler() {
     signOut();
-    router.push('/login')
+    router.push("/login");
+    localStorage.clear();
   }
 
   useEffect(
@@ -90,7 +91,13 @@ export const DashboardSidebar = (props) => {
         </Box>
         <a onClick={logoutHandler}>
           <Box
-            style={{ display: "flex", paddingLeft: "35px",position:"relative", bottom:"-70px",cursor: "pointer " }}
+            style={{
+              display: "flex",
+              paddingLeft: "35px",
+              position: "relative",
+              bottom: "-70px",
+              cursor: "pointer ",
+            }}
           >
             <img src="../../logout.svg" style={{ color: "#2F2E40", marginRight: "15px" }} />
             <Typography

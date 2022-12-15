@@ -1,8 +1,9 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import { formatDistanceToNow, subHours } from "date-fns";
 import { v4 as uuid } from "uuid";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import Select from "react-select";
 import Dialog, { DialogProps } from "@mui/material/Dialog";
@@ -19,7 +20,6 @@ const style = {
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
   boxShadow: 24,
-
 };
 const smallerStyle = {
   position: "absolute",
@@ -30,14 +30,13 @@ const smallerStyle = {
   bgcolor: "background.paper",
   border: "1px solid rgba(105, 110, 255, 0.2)",
   boxShadow: 24,
-
 };
 
 export const LatestProducts = (props) => {
   const [showAccDetails, setShowAccDetails] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const [scroll, setScroll] = React.useState('paper');
+  const [scroll, setScroll] = React.useState("paper");
   const handleClose = () => {
     setOpen(false);
   };
@@ -88,7 +87,7 @@ export const LatestProducts = (props) => {
       border: "1px solid #DFE0EB",
       display: "flex",
       borderRadius: "8px",
-      marginTop:"10px",
+      marginTop: "10px",
       height: "50px",
       paddingRight: "12px",
       paddingLeft: "12px",
@@ -160,59 +159,68 @@ export const LatestProducts = (props) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-         <DialogContent dividers={scroll === "paper"}>
-                      <DialogContentText
-                        id="scroll-dialog-description"
-                        ref={descriptionElementRef}
-                        tabIndex={-1}
-                      >
-        <Box className="acct_names">
-          <div className="add_acc_modal">
-            <div style={{padding:"20px"}} className="add">
-              <Typography variant="h5" className="" >Withdraw Earnings</Typography>
-             <img src="./cancel.svg" alt="cancel" style={{cursor:"pointer"}}  width="38px" onClick={handleClose}/>
-            </div>
+        <DialogContent dividers={scroll === "paper"}>
+          <DialogContentText
+            id="scroll-dialog-description"
+            ref={descriptionElementRef}
+            tabIndex={-1}
+          >
+            <Box className="acct_names">
+              <div className="add_acc_modal">
+                <div style={{ padding: "20px" }} className="add">
+                  <Typography variant="h5" className="">
+                    Withdraw Earnings
+                  </Typography>
+                  <img
+                    src="./cancel.svg"
+                    alt="cancel"
+                    style={{ cursor: "pointer" }}
+                    width="38px"
+                    onClick={handleClose}
+                  />
+                </div>
 
-            <hr className="hr_with" />
+                <hr className="hr_with" />
 
-            <div className="add_inputs" >
-              <div className="add_input " >
-                <label htmlFor="withdraw">Withdraw to</label> <br />
-                <Select
+                <div className="add_inputs">
+                  <div className="add_input ">
+                    <label htmlFor="withdraw">Withdraw to</label> <br />
+                    <Select
+                      styles={customStyles}
+                      options={options}
+                      theme={(theme) => ({
+                        ...theme,
 
-                            styles={customStyles}
-                            options={options}
-                            theme={(theme) => ({
-                              ...theme,
-
-                              colors: {
-                                ...theme.colors,
-                                primary25: "#f2e9c4",
-                                primary: "#2f2e40",
-                                neutral5: "#DFE0EB",
-                                primary50: "#f2e9c4",
-                              },
-                            })}
-                          />
-              </div>
-              <div className="add_input ">
-              <label htmlFor="Old password">Amount</label> <br />
-              <div className="input_wrap" style={{
-                position:"relative"
-              }}>
-                    <input type="number" />
-                    <span className="max_withdraw" >Max </span>
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#f2e9c4",
+                          primary: "#2f2e40",
+                          neutral5: "#DFE0EB",
+                          primary50: "#f2e9c4",
+                        },
+                      })}
+                    />
                   </div>
+                  <div className="add_input ">
+                    <label htmlFor="Old password">Amount</label> <br />
+                    <div
+                      className="input_wrap"
+                      style={{
+                        position: "relative",
+                      }}
+                    >
+                      <input type="number" />
+                      <span className="max_withdraw">Max </span>
+                    </div>
+                  </div>
+
+                  <button onClick={closeModals1}>Withdraw Funds</button>
+                </div>
               </div>
-
-
-              <button onClick={closeModals1}>Withdraw Funds</button>
-            </div>
-          </div>
-        </Box>
-        </DialogContentText>
-                    </DialogContent>
-                  </Dialog>
+            </Box>
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
       <Dialog
         open={openSecondModal}
         onClose={handlecloseSecondModal}
@@ -221,30 +229,36 @@ export const LatestProducts = (props) => {
         aria-describedby="scroll-dialog-description"
       >
         <DialogContent dividers={scroll === "paper"}>
-                      <DialogContentText
-                        id="scroll-dialog-description"
-                        ref={descriptionElementRef1}
-                        tabIndex={-1}
-                      >
-        <Box  className="">
-          <div className="response">
-            <div className="modal_resp">
-              <div className="top">
-                <div className="icon"> <img src="./gott.svg" /></div>
+          <DialogContentText
+            id="scroll-dialog-description"
+            ref={descriptionElementRef1}
+            tabIndex={-1}
+          >
+            <Box className="">
+              <div className="response">
+                <div className="modal_resp">
+                  <div className="top">
+                    <div className="icon">
+                      {" "}
+                      <img src="./gott.svg" />
+                    </div>
 
-                <Typography variant="h5" className="" >Your withdrawal has been processed</Typography>
+                    <Typography variant="h5" className="">
+                      Your withdrawal has been processed
+                    </Typography>
+                  </div>
+
+                  <p className="desc">
+                    Your selected amount is being sent to your provided bank details and would be
+                    delivered in no time. You can exit this page.
+                  </p>
+
+                  <button onClick={closeModals}>Back to dashboard</button>
+                </div>
               </div>
-
-              <p className="desc">
-              Your selected amount is being sent to your provided bank details and would be delivered in no time. You can exit this page.
-              </p>
-
-              <button onClick={closeModals}>Back to dashboard</button>
-            </div>
-          </div>
-        </Box>
-        </DialogContentText>
-                    </DialogContent>
+            </Box>
+          </DialogContentText>
+        </DialogContent>
       </Dialog>
     </>
   );
